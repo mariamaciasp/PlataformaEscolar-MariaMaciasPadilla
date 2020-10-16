@@ -12,7 +12,9 @@ import javax.persistence.*;
 @Data @Builder
 @AllArgsConstructor @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario{ // implements UserDetails y poner la herencia bien
+public abstract class Usuario implements UserDetails{ // implements UserDetails y poner la herencia bien
+
+    private static final long serialVersionUID = 1409538586158223652L; // para que es???
 
     @Id @GeneratedValue
     private long id;
@@ -22,6 +24,34 @@ public abstract class Usuario{ // implements UserDetails y poner la herencia bie
 
     @Column(unique=true)
     private String email;
+
+    private String password;
+
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 
 }
