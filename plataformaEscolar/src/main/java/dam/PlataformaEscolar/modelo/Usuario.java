@@ -6,15 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data @Builder
 @AllArgsConstructor @NoArgsConstructor
-
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario{ // implements UserDetails y poner la herencia bien
 
     @Id @GeneratedValue

@@ -6,12 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class Curso {
+public class Alumno extends Usuario {
 
-    private String nombre;
-    // ya si eso ampliar la asociación para poner profesor con el curso
+    @ManyToOne
+    private Curso curso;
+
+
 }

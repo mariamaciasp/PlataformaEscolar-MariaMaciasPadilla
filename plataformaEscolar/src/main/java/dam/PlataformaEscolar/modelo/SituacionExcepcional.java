@@ -9,13 +9,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class SituacionExcepcional {
+public class SituacionExcepcional implements Serializable {
 
+   // private static final long serialVersionUID = 8682909319466153524L; //¿esto que es???
     @Id @GeneratedValue
     private long id;
 
