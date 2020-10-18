@@ -1,0 +1,27 @@
+html {
+    
+}
+
+header {
+    background-color:#01233F;
+    color: white;
+    opacity: 0.93;
+    
+}
+
+nav img{
+    margin-left: 4px;
+    margin-top: -9px;
+    margin-bottom: -9px;
+    width:  40%;
+}
+
+.InicioSesion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#IniciarSesion {
+    background-color:#01233F;
+}

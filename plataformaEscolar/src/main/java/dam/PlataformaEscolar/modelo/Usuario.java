@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 
 @Entity
-@Data @Builder
+@Data
 @AllArgsConstructor @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario implements UserDetails{ // implements UserDetails y poner la herencia bien
@@ -27,6 +27,13 @@ public abstract class Usuario implements UserDetails{ // implements UserDetails 
 
     private String password;
 
+
+    public Usuario(String nombre, String apellidos, String email, String password) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public String getUsername() {

@@ -5,9 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data @Builder
@@ -24,4 +28,30 @@ public class Alumno extends Usuario {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
+    // Mantenemos esta lista, pero no añadimos helpers
+    // Si queremos rellenar la lista, realizamos un JOIN FETCH
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy="alumno", fetch = FetchType.EAGER)
+    private List<SituacionExcepcional> situacionesExcepcionales = new ArrayList<>();
+
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy="alumno", fetch = FetchType.EAGER)
+    private List<SolicitudAmpliacionMatricula> solicitudAmpliacionMatriculas = new ArrayList<>();
+
+
+    public Alumno(String nombre, String apellidos, String email, String password, Curso curso) {
+        super(nombre, apellidos, email, password);
+        this.curso = curso;
+    }
+
+    public Alumno(String nombre, String apellidos, String email, String password) {
+        super(nombre, apellidos, email, password);
+    }
+
+
+
 }

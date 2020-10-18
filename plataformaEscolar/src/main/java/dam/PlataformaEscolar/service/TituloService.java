@@ -16,6 +16,8 @@ public class TituloService extends BaseService <Titulo, Long, TituloRepository> 
 
     @Override
     public List<Titulo> findAll() {
+
+        //this
         return this.repositorio.findAllJoin();
     }
 

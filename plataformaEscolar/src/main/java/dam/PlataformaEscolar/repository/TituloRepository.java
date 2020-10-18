@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TituloRepository extends JpaRepository <Titulo, Long> {
 
-    @Query("select distinct t from titulo t join fetch t.cursos")
+    @Query("select distinct t from Titulo t join fetch t.cursos")
     List<Titulo> findAllJoin();
 
 }

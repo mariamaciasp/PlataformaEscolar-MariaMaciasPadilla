@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -16,9 +14,9 @@ import java.time.LocalDate;
 @NoArgsConstructor @AllArgsConstructor
 public class SolicitudAmpliacionMatricula {
 
-    @Id
-    @GeneratedValue
-    private long id;
+    //@Id
+    //@GeneratedValue
+    //private long id;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaSolicitud;
@@ -27,4 +25,27 @@ public class SolicitudAmpliacionMatricula {
     private LocalDate fechaResolucion;
 
     private String estado;
+
+
+    @EmbeddedId
+    private SolicitudApliacionMatriculaPK id = new SolicitudApliacionMatriculaPK();
+
+
+    @ManyToOne
+    @MapsId("alumno_id")
+    @JoinColumn(name="alumno_id")
+    private Alumno alumno;
+
+
+    @ManyToOne
+    @MapsId("asignatura_id")
+    @JoinColumn(name="asignatura_id")
+    private Asignatura asignatura;
+
+
+    public SolicitudAmpliacionMatricula(LocalDate fechaSolicitud, LocalDate fechaResolucion, String estado) {
+        this.fechaSolicitud = fechaSolicitud;
+        this.fechaResolucion = fechaResolucion;
+        this.estado = estado;
+    }
 }
