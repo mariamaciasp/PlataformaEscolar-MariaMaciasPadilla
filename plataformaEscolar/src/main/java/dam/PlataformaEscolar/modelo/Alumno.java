@@ -26,7 +26,7 @@ public class Alumno extends Usuario {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ALUMNO"));
     }
 
     // Mantenemos esta lista, pero no añadimos helpers

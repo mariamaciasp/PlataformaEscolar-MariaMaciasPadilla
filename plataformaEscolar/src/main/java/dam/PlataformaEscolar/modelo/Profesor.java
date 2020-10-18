@@ -21,7 +21,7 @@ public class Profesor extends Usuario{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // ¿esto está bien?
         if (esJefeDeEstudios==true) {
-            return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            return Arrays.asList(new SimpleGrantedAuthority("ROLE_JEFEDEESTUDIOS"));
         }
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_PROFESOR"));
     }

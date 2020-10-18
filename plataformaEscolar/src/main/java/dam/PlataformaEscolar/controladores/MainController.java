@@ -7,15 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
 
+    @GetMapping({"/","/inicio"})
+    public String inicio() {
+        return "inicio";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
-    @GetMapping({"/","/index"})
-    public String inicio() {
-        return "inicio";
-    }
+
+
+
 
 
 }
