@@ -1,7 +1,3 @@
-html {
-    
-}
-
 header {
     background-color:#01233F;
     color: white;
@@ -33,6 +29,19 @@ nav img{
     font-size: 25px;
 }
 
-.espacioTabla {
-    
+.botonEnvio {
+    background-color: #40C4FF; 
+    color:white;
+
 }
+
+.botonCancelar {
+    background-color:#01233F;
+    color:white;
+
+}
+
+.posicionTabla {
+    position: inherit;
+}
+
