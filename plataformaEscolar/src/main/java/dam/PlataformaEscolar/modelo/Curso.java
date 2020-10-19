@@ -16,9 +16,16 @@ public class Curso {
 
     private String nombre;
     // ya si eso ampliar la asociación para poner profesor con el curso
+    private String abreviatura;
 
     @ManyToOne
     private Titulo titulo;
+
+    public Curso(String nombre, String abreviatura, Titulo titulo) {
+        this.nombre = nombre;
+        this.abreviatura = abreviatura;
+        this.titulo = titulo;
+    }
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -53,4 +60,8 @@ public class Curso {
         a.setCurso(null);
     }
 
+    public Curso(String nombre, String abreviatura) {
+        this.nombre = nombre;
+        this.abreviatura = abreviatura;
+    }
 }
