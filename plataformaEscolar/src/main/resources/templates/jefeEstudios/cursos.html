@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="/css/CSS.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/CSS.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/CSS.css">
     
     
 
@@ -84,46 +84,32 @@
 </header>
 
 
-<main class="InicioSesion container-fluid">
-    <div class="row mt-5 ">
-        <div class="col-sm-12"></div>
-        <form id="formularioInicioSesion" class="col-sm-12 text-center  rounded "
-                method="POST" action="#" th:action="@{/login}">
-            <fieldset class="mt-2">
-                <legend class="mb-3"><img src="img/logoColegio.png">
-                    <!--<img src="img/logoColegio.png" src="../static/img/logoColegio.png">--></legend>
-                <div class="input-group mb-3  mx-auto">
+<main class="container-fluid mt-2">
 
-                    <input id="username" name="username" type="text" placeholder="E-mail" class="form-control">
 
+        <div class="tab-pane" role="tabpanel">
+
+                <div class="bg-light p-4 rounded">
+                    <table id="tablaCursos table" class="table table-hover text-center" summary="Cursos">
+                      <caption class="mb-3 titulo">Cursos</caption>
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="pl-5" >ID</th>
+                              <th class="col-sm-11" >Nombre</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr th:each="curso : ${listaCursos}">
+                              <td th:text="${curso.id}"  class="pl-5" >1</td>
+                              <td th:text="${curso.nombre}" >Desarrollo de aplicaciones multiplataforma</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                    
                 </div>
-
-                <div class="input-group mb-3 mx-auto">
-                      <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña">
-
-                      <div class="input-group-append">
-                        <span class="icono input-group-text">
-                            <i class="far fa-eye-slash"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <!--<div class="form-check mb-2">
-                    <input id="remember_me" name="remember-me" type="checkbox" class="form-check-input">
-                      <label for="remember_me"  class="form-check-label">Recuérdame</label>
-                </div>-->
-
-                <button type="submit" id="IniciarSesion" class="btn btn-lg btn-dark mt-2">Iniciar Sesión</button>
-
-                <div class="olvidar mt-2 mb-3"><a class="text-body" href="#">¿Has olvidado tu contraseña?</a></div>
-
-
-
-            </fieldset>
-        </form>
-
-    </div>
-
+  
+          </div>
+    
 
 
 
