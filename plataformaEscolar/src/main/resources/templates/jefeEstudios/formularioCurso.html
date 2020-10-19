@@ -85,65 +85,47 @@
 </header>
 
 <main class="container-fluid">
+
     <div class="row mt-5">
         <div class="col-3"></div>
-        <form method="POST" action="#" th:action="@{/jefeEstudios/nuevoAlumno/submit}" th:object="${alumnoForm}"
-         id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla" onsubmit="return revisarFormulario();">
-            <fieldset class="mt-2 ml-1">
-                <legend class="mb-5 text-center pt-2">Registrar alumno</legend>
+        <form method="POST" action="#" th:action="@{/jefeEstudios/nuevoCurso/submit}" th:object="${cursoForm}"
+         id="formulario" class="col-6 bg-light mb-5 rounded">
+         
+             <fieldset class="mt-2 ml-1"> <!--  th:text="${categoriaForm.id != 0} ? 'Editar categoría' : 'Agregar categoría'"-->
+                <legend class="mb-3 text-center pt-2">Nuevo Curso</legend>
                 <input type="hidden" th:field="*{id}" id="id" name="id">
-                <div class="input-group mb-3 w-75 ml-5">
-                    <div class="input-group-prepend ml-2">
-                      <label for="nombre" class="input-group-text">Nombre*</label>
-                    </div>
-                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required th:field="*{nombre}" >				    
-                </div>
-                <div class="input-group mb-3 w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mt-3">
-                      <label for="apellidos" class="input-group-text">Apellidos*</label>
-                    </div>
-                    <input type="text" id="apellidos" name="apellidos" class="form-control mt-3" placeholder="Apellidos" required th:field="*{apellidos}">
-                </div>
                 
-                <div class="input-group w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mt-3">
-                      <label for="email" class="input-group-text">Correo electrónico*</label>
-                    </div>
-                    <input type="mail" id="email" name="email" class="form-control mt-3" placeholder="email@mail.com" required th:field="*{email}" >
-                </div>
-                <div class="mensajeError mb-3" id="errorEmail" ></div>
-                <div class="input-group mb-3 w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mb-3 mt-3">
-                      <label for="pwd1" class="input-group-text">Contraseña*</label>
-                    </div>
-                    <input type="password" id="pwd1" name="pwd1" class="form-control mb-3 mt-3" required th:field="*{password}">
-                </div>
-                <div class="input-group mb-3 w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mb-1">
-                      <label for="pwd2" class="input-group-text">Repetir Contraseña*</label>
-                    </div>
-                    <input type="password" id="pwd2" name="pwd2" class="form-control mb-1" required>
-                </div>
-                <div class="mensajeError mb-4" id="errorPwd" ></div>
-
-                <div class="input-group mb-5 w-50 ml-5">
+                <div class="input-group mt-3 mb-4 ">
                     <div class="input-group-prepend ml-2">
-                        <label for="curso" class="input-group-text">Curso</label>
+                      <label for="nombre" class="input-group-text">Nombre</label>
                     </div>
-
-                    <select th:field="*{curso}" class="form-control">
+                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" th:field="*{nombre}">				    
+                </div>
+                <div class="input-group mt-3 mb-4">
+                    <div class="input-group-prepend ml-2">
+                      <label for="abreviatura" class="input-group-text">Abreviatura</label>
+                    </div>
+                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="abreviatura" th:field="*{abreviatura}">				    
+                </div>
+                <div class="input-group mb-5">
+                    <div class="input-group-prepend ml-2">
+                        <label for="titulo" class="input-group-text">Curso</label>
+                    </div>
+                    <select th:field="*{titulo}" class="form-control">
                         <option value="-1">---</option>
-                        <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
+                        <option th:each="titulo : ${listaTitulos}" th:value="${titulo.id}" th:text="${titulo.nombre}">Título</option>
                     </select>
                 </div>
-
-
+                
                 <button type="reset" class="btn botonCancelar mb-4 mt-3">Limpiar</button>
                 <button type="submit" id="enviar" class="btn mb-4 float-right botonEnvio  mt-3">Enviar</button>
             </fieldset>
+        
         </form>
+        
         <div class="col-3"></div>
     </div>
+    
 </main>
 
 

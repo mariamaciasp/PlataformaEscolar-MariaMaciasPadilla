@@ -87,10 +87,10 @@
 <main class="container-fluid">
     <div class="row mt-5">
         <div class="col-3"></div>
-        <form method="POST" action="#" th:action="@{/jefeEstudios/nuevoAlumno/submit}" th:object="${alumnoForm}"
+        <form method="POST" action="#" th:action="@{/jefeEstudios/nuevoProfesor/submit}" th:object="${profesorForm}"
          id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla" onsubmit="return revisarFormulario();">
             <fieldset class="mt-2 ml-1">
-                <legend class="mb-5 text-center pt-2">Registrar alumno</legend>
+                <legend class="mb-5 text-center pt-2">Registrar profesor</legend>
                 <input type="hidden" th:field="*{id}" id="id" name="id">
                 <div class="input-group mb-3 w-75 ml-5">
                     <div class="input-group-prepend ml-2">
@@ -126,16 +126,14 @@
                 </div>
                 <div class="mensajeError mb-4" id="errorPwd" ></div>
 
-                <div class="input-group mb-5 w-50 ml-5">
-                    <div class="input-group-prepend ml-2">
-                        <label for="curso" class="input-group-text">Curso</label>
-                    </div>
-
-                    <select th:field="*{curso}" class="form-control">
-                        <option value="-1">---</option>
-                        <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
-                    </select>
+                <div class="form-group mr-3 mt-3 mb-2 ml-5">
+                    <label for="esJefeDeEstudios">
+                        <input type="checkbox" id="esJefeDeEstudios" value="true" th:field="*{esJefeDeEstudios}">
+                        Jefe de estudios
+                    </label>
                 </div>
+
+                
 
 
                 <button type="reset" class="btn botonCancelar mb-4 mt-3">Limpiar</button>
