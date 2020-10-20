@@ -108,13 +108,13 @@
                     <div class="input-group-prepend ml-2">
                       <label for="abreviatura" class="input-group-text">Abreviatura</label>
                     </div>
-                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="abreviatura" th:field="*{abreviatura}">				    
+                    <input type="text" id="abreviatura" name="nombre" class="form-control" placeholder="abreviatura" th:field="*{abreviatura}">
                 </div>
                 <div class="input-group mb-5">
                     <div class="input-group-prepend ml-2">
                         <label for="titulo" class="input-group-text">Curso</label>
                     </div>
-                    <select th:field="*{titulo}" class="form-control">
+                    <select id="titulo" th:field="*{titulo}" class="form-control">
                         <option value="-1">---</option>
                         <option th:each="titulo : ${listaTitulos}" th:value="${titulo.id}" th:text="${titulo.nombre}">Título</option>
                     </select>

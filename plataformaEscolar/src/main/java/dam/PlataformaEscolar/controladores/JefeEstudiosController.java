@@ -66,11 +66,14 @@ public class JefeEstudiosController {
 
     @PostMapping("/nuevoAlumno/submit")
     public String registroAlumno (@ModelAttribute("alumnoForm") Alumno nuevoAlumno) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        nuevoAlumno.setPassword(encoder.encode(nuevoAlumno.getPassword()));
+        String codigo = servicioUsuario.codigoAleatorio();
+        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        //nuevoAlumno.setPassword(encoder.encode(nuevoAlumno.getPassword()));
+        nuevoAlumno.setActivado(false);
+        nuevoAlumno.setCodigoActivacion(codigo);
         servicioAlumno.save(nuevoAlumno);
         envioEmail.sendEmail(nuevoAlumno, "Alta cuenta","Su código de alta en " +
-                "Triana eschool es " + servicioUsuario.codigoAleatorio());
+                "Triana eschool es " + codigo);
 
         return "redirect:/jefeEstudios/";
 
@@ -115,11 +118,15 @@ public class JefeEstudiosController {
 
     @PostMapping("/nuevoProfesor/submit")
     public String registroProfesor (@ModelAttribute("profesorForm") Profesor nuevoProfesor) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        nuevoProfesor.setPassword(encoder.encode(nuevoProfesor.getPassword()));
+        String codigo = servicioUsuario.codigoAleatorio();
+        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        //nuevoProfesor.setPassword(encoder.encode(codigo));
+        nuevoProfesor.setActivado(false); // la cuenta sin activar
+        nuevoProfesor.setCodigoActivacion(codigo);
         servicioProfesor.save(nuevoProfesor);
         envioEmail.sendEmail(nuevoProfesor, "Alta cuenta","Su código de alta en " +
-                "Triana eschool es " + servicioUsuario.codigoAleatorio());
+                "Triana eschool es " + codigo);
+
         return "redirect:/jefeEstudios/";
 
     }

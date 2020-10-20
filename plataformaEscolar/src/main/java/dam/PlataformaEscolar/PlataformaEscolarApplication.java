@@ -31,9 +31,9 @@ public class PlataformaEscolarApplication {
 
 
 			// instancia un usuario de cada
-			Profesor jefeEstudios = new Profesor ("Ángel", "Naranjo","admin",passwordEncoder.encode("1234"), true);
-			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), false);
-			Alumno alumno = new Alumno ("María", "García", "m@gmail.com", passwordEncoder.encode("1234"));
+			Profesor jefeEstudios = new Profesor ("Ángel", "Naranjo","admin",passwordEncoder.encode("1234"),null,true ,true);
+			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), null,true,false);
+			Alumno alumno = new Alumno ("María", "García", "m@gmail.com",passwordEncoder.encode("1234"),null,true);
 
 			servicioProfesor.save(jefeEstudios);
 			servicioProfesor.save(profesor);

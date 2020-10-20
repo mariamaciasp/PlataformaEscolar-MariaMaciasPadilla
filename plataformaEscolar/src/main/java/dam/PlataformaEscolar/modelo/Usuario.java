@@ -27,12 +27,17 @@ public abstract class Usuario implements UserDetails{ // implements UserDetails 
 
     private String password;
 
+    private String codigoActivacion;
+    private boolean activado;
 
-    public Usuario(String nombre, String apellidos, String email, String password) {
+    public Usuario(String nombre, String apellidos, String email, String password, String codigoActivacion,
+                   boolean activado) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
         this.password = password;
+        this.codigoActivacion = codigoActivacion;
+        this.activado = activado;
     }
 
     @Override

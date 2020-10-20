@@ -16,8 +16,8 @@
     <link rel="stylesheet" type="text/css" href="/css/CSS.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/CSS.css">
 
-    <script type="text/javascript" src="/js/formularioUsuario.js"></script>
-    <script type="text/javascript" src="../../static/js/formularioUsuario.js"></script>
+    <!--<script type="text/javascript" src="/js/formularioUsuario.js"></script>
+    <script type="text/javascript" src="../../static/js/formularioUsuario.js"></script>-->
 
    
 
@@ -114,27 +114,14 @@
                     </div>
                     <input type="mail" id="email" name="email" class="form-control mt-3" placeholder="email@mail.com" required th:field="*{email}" >
                 </div>
-                <div class="mensajeError mb-3" id="errorEmail" ></div>
-                <div class="input-group mb-3 w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mb-3 mt-3">
-                      <label for="pwd1" class="input-group-text">Contraseña*</label>
-                    </div>
-                    <input type="password" id="pwd1" name="pwd1" class="form-control mb-3 mt-3" required th:field="*{password}">
-                </div>
-                <div class="input-group mb-3 w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mb-1">
-                      <label for="pwd2" class="input-group-text">Repetir Contraseña*</label>
-                    </div>
-                    <input type="password" id="pwd2" name="pwd2" class="form-control mb-1" required>
-                </div>
-                <div class="mensajeError mb-4" id="errorPwd" ></div>
+
 
                 <div class="input-group mb-5 w-50 ml-5">
                     <div class="input-group-prepend ml-2">
                         <label for="curso" class="input-group-text">Curso</label>
                     </div>
 
-                    <select th:field="*{curso}" class="form-control">
+                    <select th:field="*{curso}" id="curso" class="form-control">
                         <option value="-1">---</option>
                         <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
                     </select>

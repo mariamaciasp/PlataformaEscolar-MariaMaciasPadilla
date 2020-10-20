@@ -43,13 +43,16 @@ public class Alumno extends Usuario {
     private List<SolicitudAmpliacionMatricula> solicitudAmpliacionMatriculas = new ArrayList<>();
 
 
-    public Alumno(String nombre, String apellidos, String email, String password, Curso curso) {
-        super(nombre, apellidos, email, password);
+    public Alumno(String nombre, String apellidos, String email, String password,
+                  String codigoActivacion, boolean activado, Curso curso) {
+        super(nombre, apellidos, email, password, codigoActivacion, activado);
         this.curso = curso;
     }
 
-    public Alumno(String nombre, String apellidos, String email, String password) {
-        super(nombre, apellidos, email, password);
+    public Alumno(String nombre, String apellidos, String email, String password,
+                  String codigoActivacion, boolean activado) {
+        super(nombre, apellidos, email, password, codigoActivacion, activado);
+
     }
 
 
