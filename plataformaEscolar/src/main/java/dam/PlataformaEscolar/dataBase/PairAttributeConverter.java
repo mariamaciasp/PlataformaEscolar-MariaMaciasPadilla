@@ -1,4 +1,4 @@
-package dam.PlataformaEscolar.service;
+package dam.PlataformaEscolar.dataBase;
 
 import org.springframework.data.util.Pair;
 

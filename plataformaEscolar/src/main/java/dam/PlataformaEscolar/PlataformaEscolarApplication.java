@@ -33,7 +33,7 @@ public class PlataformaEscolarApplication {
 			// instancia un usuario de cada
 			Profesor jefeEstudios = new Profesor ("Ángel", "Naranjo","admin",passwordEncoder.encode("1234"), true);
 			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), false);
-			Alumno alumno = new Alumno ("María", "Macías", "macias.pamar20@triana.salesianos.edu", passwordEncoder.encode("1234"));
+			Alumno alumno = new Alumno ("María", "García", "m@gmail.com", passwordEncoder.encode("1234"));
 
 			servicioProfesor.save(jefeEstudios);
 			servicioProfesor.save(profesor);
@@ -70,7 +70,8 @@ public class PlataformaEscolarApplication {
 
 
 
-			envioEmail.sendEmail(alumno, "macias.pamar20@triana.salesianos.edu", "Esto es una prueba chata");
+
+			//envioEmail.sendEmail(alumno, "Hola caracola", "Esto es una prueba chata");
 			
 
 		};

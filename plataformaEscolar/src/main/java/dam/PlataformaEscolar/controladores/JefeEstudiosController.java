@@ -1,13 +1,7 @@
 package dam.PlataformaEscolar.controladores;
 
-import dam.PlataformaEscolar.modelo.Alumno;
-import dam.PlataformaEscolar.modelo.Curso;
-import dam.PlataformaEscolar.modelo.Profesor;
-import dam.PlataformaEscolar.modelo.Titulo;
-import dam.PlataformaEscolar.service.AlumnoServicio;
-import dam.PlataformaEscolar.service.CursoServicio;
-import dam.PlataformaEscolar.service.ProfesorServicio;
-import dam.PlataformaEscolar.service.TituloService;
+import dam.PlataformaEscolar.modelo.*;
+import dam.PlataformaEscolar.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,6 +25,10 @@ public class JefeEstudiosController {
     private AlumnoServicio servicioAlumno;
     @Autowired
     private ProfesorServicio servicioProfesor;
+    @Autowired
+    private EnvioEmail envioEmail;
+    @Autowired
+    private UsuarioServicio servicioUsuario;
 
 
     @ModelAttribute("listaTitulos")
@@ -68,10 +66,11 @@ public class JefeEstudiosController {
 
     @PostMapping("/nuevoAlumno/submit")
     public String registroAlumno (@ModelAttribute("alumnoForm") Alumno nuevoAlumno) {
-
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         nuevoAlumno.setPassword(encoder.encode(nuevoAlumno.getPassword()));
         servicioAlumno.save(nuevoAlumno);
+        envioEmail.sendEmail(nuevoAlumno, "Alta cuenta","Su código de alta en " +
+                "Triana eschool es " + servicioUsuario.codigoAleatorio());
 
         return "redirect:/jefeEstudios/";
 
@@ -119,6 +118,8 @@ public class JefeEstudiosController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         nuevoProfesor.setPassword(encoder.encode(nuevoProfesor.getPassword()));
         servicioProfesor.save(nuevoProfesor);
+        envioEmail.sendEmail(nuevoProfesor, "Alta cuenta","Su código de alta en " +
+                "Triana eschool es " + servicioUsuario.codigoAleatorio());
         return "redirect:/jefeEstudios/";
 
     }

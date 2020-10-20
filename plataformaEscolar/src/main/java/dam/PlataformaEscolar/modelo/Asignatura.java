@@ -1,6 +1,5 @@
 package dam.PlataformaEscolar.modelo;
 
-import dam.PlataformaEscolar.service.PairAttributeConverter;
 import lombok.*;
 import org.springframework.data.util.Pair;
 
@@ -21,8 +20,10 @@ public class Asignatura {
     //@CollectionTable(name="asignatura_horario")
     //@MapKeyJoinColumn(name="asignatura_id")
     //@Column(name="horario")
-    //@ElementCollection // elemento de una colección, el par día hora
-    //private List<Pair<String,Integer>> horarios = new ArrayList<Pair<String,Integer>>();
+    //private List <Pair<String,Integer>> horarios = new ArrayList<Pair<String,Integer>>();
+    @ElementCollection // elemento de una colección, el par día hora
+    private List <Pair<String,String>> horarios  = new ArrayList<>();
+
 
     // sería un par día, hora y convertirlo con JPA CONVERTER
     // https://docs.spring.io/spring-data/data-commons/docs/current/api/org/springframework/data/util/Pair.html
