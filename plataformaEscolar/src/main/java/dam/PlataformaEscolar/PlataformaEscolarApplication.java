@@ -26,14 +26,14 @@ public class PlataformaEscolarApplication {
 	@Bean
 	public CommandLineRunner init(UsuarioServicio servicioUsuario, ProfesorServicio servicioProfesor,
 								  AlumnoServicio servicioAlumno, TituloService servicioTitulo, CursoServicio servicioCurso,
-								  PasswordEncoder passwordEncoder) {
+								  EnvioEmail envioEmail, PasswordEncoder passwordEncoder) {
 		return args -> {
 
 
 			// instancia un usuario de cada
 			Profesor jefeEstudios = new Profesor ("Ángel", "Naranjo","admin",passwordEncoder.encode("1234"), true);
 			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), false);
-			Alumno alumno = new Alumno ("María", "Macías", "mmacias", passwordEncoder.encode("1234"));
+			Alumno alumno = new Alumno ("María", "García", "m@gmail.com", passwordEncoder.encode("1234"));
 
 			servicioProfesor.save(jefeEstudios);
 			servicioProfesor.save(profesor);
@@ -67,6 +67,11 @@ public class PlataformaEscolarApplication {
 				listaCursos) {
 				servicioCurso.save(c);
 			}
+
+
+
+
+			//envioEmail.sendEmail(alumno, "Hola caracola", "Esto es una prueba chata");
 			
 
 		};
