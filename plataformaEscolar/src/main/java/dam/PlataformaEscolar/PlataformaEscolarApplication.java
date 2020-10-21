@@ -1,14 +1,12 @@
 package dam.PlataformaEscolar;
 
-import dam.PlataformaEscolar.modelo.Alumno;
-import dam.PlataformaEscolar.modelo.Curso;
-import dam.PlataformaEscolar.modelo.Profesor;
-import dam.PlataformaEscolar.modelo.Titulo;
+import dam.PlataformaEscolar.modelo.*;
 import dam.PlataformaEscolar.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -25,7 +23,8 @@ public class PlataformaEscolarApplication {
 
 	@Bean
 	public CommandLineRunner init(UsuarioServicio servicioUsuario, ProfesorServicio servicioProfesor,
-								  AlumnoServicio servicioAlumno, TituloService servicioTitulo, CursoServicio servicioCurso,
+								  AlumnoServicio servicioAlumno, TituloService servicioTitulo,
+								  CursoServicio servicioCurso, AsignaturaServicio servicioAsignatura,
 								  EnvioEmail envioEmail, PasswordEncoder passwordEncoder) {
 		return args -> {
 
@@ -68,11 +67,16 @@ public class PlataformaEscolarApplication {
 				servicioCurso.save(c);
 			}
 
+			// Asignaturas
 
+			Asignatura sge = new Asignatura("Sistemas de gestión empresarial",c1);
 
-
+			sge.getHorarios().add(Pair.of("Lunes","1"));
+			sge.getHorarios().add(Pair.of("Martes","2"));
+			sge.getHorarios().add(Pair.of("Jueves","1"));
 			//envioEmail.sendEmail(alumno, "Hola caracola", "Esto es una prueba chata");
-			
+			servicioAsignatura.save(sge);
+
 
 		};
 	}

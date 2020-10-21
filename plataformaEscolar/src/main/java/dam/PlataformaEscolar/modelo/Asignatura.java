@@ -42,4 +42,9 @@ public class Asignatura {
     @OneToMany(mappedBy="asignatura", fetch = FetchType.EAGER)
     private List<SolicitudAmpliacionMatricula> solicitudAmpliacionMatriculas = new ArrayList<>();
 
+
+    public Asignatura(String nombre, Curso curso) {
+        this.nombre = nombre;
+        this.curso = curso;
+    }
 }

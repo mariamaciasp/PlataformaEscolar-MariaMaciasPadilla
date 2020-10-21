@@ -29,6 +29,8 @@ public class JefeEstudiosController {
     private EnvioEmail envioEmail;
     @Autowired
     private UsuarioServicio servicioUsuario;
+    @Autowired
+    private AsignaturaServicio servicioAsignatura;
 
 
     @ModelAttribute("listaTitulos")
@@ -42,6 +44,19 @@ public class JefeEstudiosController {
         return "jefeEstudios/inicioJE";
     }
 
+
+    @GetMapping("/alumnos")
+    public String alumnos(Model model){
+        model.addAttribute("listaAlumnos",servicioAlumno.findAll());
+        return "jefeEstudios/alumnos";
+    }
+
+    @GetMapping("/profesor")
+    public String profesores(Model model){
+        model.addAttribute("listaProfesores",servicioProfesor.findAll());
+        return "jefeEstudios/profesor";
+    }
+
     @GetMapping("/titulos")
     public String titulos (Model model) {
         //listaCategorias(); // este método sería para hacerlo sin el model.addAttribute
@@ -53,6 +68,12 @@ public class JefeEstudiosController {
     public String cursos (Model model) {
         model.addAttribute("listaCursos", servicioCurso.findAll());
         return "jefeEstudios/cursos";
+    }
+
+    @GetMapping("/asignaturas")
+    public String asignaturas (Model model) {
+        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+        return "jefeEstudios/asignatura";
     }
 
 
