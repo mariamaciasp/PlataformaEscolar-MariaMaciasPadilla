@@ -73,6 +73,7 @@ public class JefeEstudiosController {
     @GetMapping("/asignaturas")
     public String asignaturas (Model model) {
         model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+       // model.addAttribute("listaHorario", servicioAsignatura.findAll());
         return "jefeEstudios/asignatura";
     }
 

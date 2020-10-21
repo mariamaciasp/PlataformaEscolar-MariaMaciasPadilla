@@ -59,6 +59,7 @@
                     <a class="nav-link text-white " href="#">Solicitudes</a>
                 </li>
 
+
             </ul>
 
 
@@ -114,7 +115,19 @@
                           <tr th:each="asignatura : ${listaAsignaturas}">
                               <td th:text="${asignatura.id}"  class="pl-5" >1</td>
                               <td th:text="${asignatura.nombre}" >Base de datos</td>
-                              <td th:text="${asignatura.horarios}" class="pr-5">L,1</td>                              </td>
+                              <!--<td><tr th:each="asignatura : ${listaAsignaturas}">
+                                  <th-block th:each="diahora : ${asignatura.horarios}">
+                                      <td><span th:text="${diahora.first}"></span></td>
+                                      <td><span th:text="${diahora.second}"></span></td>
+                                  </th-block></tr>
+                              </td>
+                              <!--<td th:text="${#lists.toList(asignatura.horarios)}" class="pr-5">L,1</td>->>
+                              <!--<div th:each="asignatura.horarios : ${listaHorario}">
+                                  <div th:each="par : ${listaPares}">
+                                      <span th:text="${horarios.first}"></span> =
+                                      <span th:text="${horarios.second}"></span>-->
+
+
                               <td th:text="${asignatura.curso.abreviatura}" class="pr-5">1 DAM</td>
                               
                               <td class="pr-5">

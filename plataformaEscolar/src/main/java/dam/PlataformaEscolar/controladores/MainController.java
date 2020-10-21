@@ -44,10 +44,12 @@ public class MainController {
         usuarioV = servicioUsuario.buscarPorEmail(usuarioValidacion.getEmail());
         Usuario usuario = servicioUsuario.findById(usuarioV.get().getId());
 
-        if (usuario.getCodigoActivacion().equals(usuarioValidacion.getCodigoActivacion())){
+        if (usuario.getCodigoActivacion().equals(usuarioValidacion.getCodigoActivacion()) &&
+                !usuario.isActivado()){
             usuario.setPassword(encoder.encode(usuarioValidacion.getPassword()));
             usuario.setActivado(true);
             usuario.setCodigoActivacion(null);
+
             servicioUsuario.edit(usuario);
             return "redirect:/login";
         }
