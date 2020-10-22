@@ -91,11 +91,13 @@
 
     <div class="row mt-5">
         <div class="col-3"></div>
-        <form method="POST" action="#" th:action="@{/jefeEstudios/nuevoCurso/submit}" th:object="${cursoForm}"
-         id="formulario" class="col-6 bg-light mb-5 rounded">
+        <form method="POST" action="#" th:action="${cursoForm.id != 0} ? @{/jefeEstudios/editCurso/submit}:
+              @{/jefeEstudios/nuevoCurso/submit}" th:object="${cursoForm}" id="formulario"
+              class="col-6 bg-light mb-5 rounded">
          
              <fieldset class="mt-2 ml-1"> <!--  th:text="${categoriaForm.id != 0} ? 'Editar categoría' : 'Agregar categoría'"-->
-                <legend class="mb-3 text-center pt-2">Nuevo Curso</legend>
+                <legend class="mb-3 text-center pt-2" th:href="${cursoForm.id != 0} ? 'Editar Curso' :
+                                                      'Nuevo Curso'">Curso</legend>
                 <input type="hidden" th:field="*{id}" id="id" name="id">
                 
                 <div class="input-group mt-3 mb-4 ">

@@ -46,7 +46,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown mr-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Altas</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Alumnos</a>
@@ -91,11 +91,13 @@
 
     <div class="row mt-5">
         <div class="col-3"></div>
-        <form method="POST" action="#" th:action="@{/jefeEstudios/nuevoTitulo/submit}" th:object="${tituloForm}"
+        <form method="POST" action="#" th:action="${tituloForm.id != 0} ? @{/jefeEstudios/editTitulo/submit} :
+        @{/jefeEstudios/nuevoTitulo/submit}" th:object="${tituloForm}"
          id="formulario" class="col-6 bg-light mb-5 rounded">
-         
-             <fieldset class="mt-2 ml-1"> <!--  th:text="${categoriaForm.id != 0} ? 'Editar categoría' : 'Agregar categoría'"-->
-                <legend class="mb-2 text-center pt-2">Nuevo Título</legend>
+
+            <fieldset class="mt-2 ml-1"> <!--  th:text="${categoriaForm.id != 0} ? 'Editar categoría' : 'Agregar categoría'"-->
+                <legend class="mb-2 text-center pt-2"
+                        th:text="${tituloForm.id != 0} ? 'Editar Título' : 'Nuevo Título'">Título</legend>
                 <input type="hidden" th:field="*{id}" id="id" name="id">
                 
                 <div class="input-group mt-3 mb-4 ">
