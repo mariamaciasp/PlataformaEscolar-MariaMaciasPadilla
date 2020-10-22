@@ -115,32 +115,39 @@
                           <tr th:each="asignatura : ${listaAsignaturas}">
                               <td th:text="${asignatura.id}"  class="pl-5" >1</td>
                               <td th:text="${asignatura.nombre}" >Base de datos</td>
-                              <!--<td><tr th:each="asignatura : ${listaAsignaturas}">
-                                  <th-block th:each="diahora : ${asignatura.horarios}">
-                                      <td><span th:text="${diahora.first}"></span></td>
-                                      <td><span th:text="${diahora.second}"></span></td>
-                                  </th-block></tr>
-                              </td>
-                              <!--<td th:text="${#lists.toList(asignatura.horarios)}" class="pr-5">L,1</td>->>
+                              <td th:text="${asignatura.curso.abreviatura}" class="pr-5">1 DAM</td>
+                              <td class="pr-5">
+                                <a class="btn">
+                                    <span class="far fa-edit fa-lg"></span>
+                                </a>
+                                <a class="btn">
+                                    <span class="fas fa-trash-alt fa-lg"></span>
+                                </a>
+                                <a class="btn" th:href="@{/jefeEstudios/calendarioAsignatura/?(idAsignatura=${asignatura.id})}">
+                                    <span class="fas fa-sign-in-alt fa-lg"></span>
+                                </a>
+                            </td>
+                              <td>
+                                    <tr th:each="asignatura : ${listaAsignaturas}">
+                                        <th-block th:each="diahora : ${asignatura.horarios}">
+                                            <td><span th:text="${diahora.first}"></span></td>
+                                            <td><span th:text="${diahora.second}"></span></td>
+                                        </th-block>
+                                    </tr>
+                                </td>
+
+                              
+
+
+                              <!--<td th:text="${#lists.toList(asignatura.horarios)}" class="pr-5">L,1</td>-->
                               <!--<div th:each="asignatura.horarios : ${listaHorario}">
                                   <div th:each="par : ${listaPares}">
                                       <span th:text="${horarios.first}"></span> =
                                       <span th:text="${horarios.second}"></span>-->
 
 
-                              <td th:text="${asignatura.curso.abreviatura}" class="pr-5">1 DAM</td>
                               
-                              <td class="pr-5">
-                                    <a class="btn">
-                                        <span class="far fa-edit fa-lg"></span>
-                                    </a>
-                                    <a class="btn">
-                                        <span class="fas fa-trash-alt fa-lg"></span>
-                                    </a>
-                                    <a class="btn">
-                                        <span class="fas fa-sign-in-alt fa-lg"></span>
-                                    </a>
-                                </td>
+                              
                           </tr>
                       </tbody>
                   </table>

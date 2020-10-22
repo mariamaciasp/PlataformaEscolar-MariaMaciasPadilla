@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -152,6 +149,28 @@ public class JefeEstudiosController {
         return "redirect:/jefeEstudios/";
 
     }
+
+    // calendario asignatura
+
+
+    @GetMapping("/calendarioAsignatura/{id}")
+    public String detallesCalendarioAsignatura (@PathVariable("id") Long id, Model model){
+        if (servicioAsignatura.findById(id)!=null){
+            model.addAttribute("asignatura",servicioAsignatura.findById(id));
+        }
+        return "/jefeEstudios/calendarioAsignatura";
+    }
+
+
+    @GetMapping("/calendarioAsignatura")
+    public String calendarioAsignatura(@RequestParam(name="idAsignatura", required = false) Long idAsignatura,
+                                       Model model){
+        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+        return "/jefeEstudios/calendarioAsignatura";
+
+    }
+
+
 
 
 
