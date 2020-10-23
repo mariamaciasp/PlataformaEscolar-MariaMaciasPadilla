@@ -21,7 +21,7 @@ public class Titulo {
     // asociación de composición con curso
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "titulo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "titulo",/* cascade = CascadeType.ALL, orphanRemoval = true*/ fetch = FetchType.EAGER)
     private List <Curso> cursos = new ArrayList<>();
 
     public void addCurso (Curso c) {

@@ -52,7 +52,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         } else if (isProfesor(roles)) {
             url = "/profesor/";
         } else if (isAlumno(roles)) {
-            url = "/alumno";
+            url = "/alumno/";
         } else {
             url = "/acceso-denegado";
         }

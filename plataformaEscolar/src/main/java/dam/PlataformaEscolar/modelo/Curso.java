@@ -18,7 +18,7 @@ public class Curso {
     // ya si eso ampliar la asociación para poner profesor con el curso
     private String abreviatura;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Titulo titulo;
 
     public Curso(String nombre, String abreviatura, Titulo titulo) {

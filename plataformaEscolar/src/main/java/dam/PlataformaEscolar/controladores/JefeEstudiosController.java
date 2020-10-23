@@ -77,7 +77,7 @@ public class JefeEstudiosController {
 
     // registro alumno
     @GetMapping("/registroAlumno")
-    public String nuevoClienteForm (Model model) {
+    public String nuevoAlumnoForm (Model model) {
         model.addAttribute("alumnoForm", new Alumno());
         model.addAttribute("listaCursos", servicioCurso.findAll());
         return "jefeEstudios/formularioAlumno";
@@ -174,7 +174,43 @@ public class JefeEstudiosController {
 
 
 
+    // EDITAR
 
+    // TITULO
+
+    @GetMapping("/editTitulo/{id}")
+    public String editTituloForm (@PathVariable long id, Model model) {
+
+        if (servicioTitulo.findById(id) != null){
+            model.addAttribute("tituloForm", servicioTitulo.findById(id));
+            return "jefeEstudios/formularioTitulo";
+        }
+
+        return "redirect:/jefeEstudios/";
+    }
+
+    @PostMapping("/editTitulo/submit")
+    public String editTituloSubmit (@ModelAttribute("tituloForm") Titulo editTitulo){
+        servicioTitulo.edit(editTitulo);
+        return "redirect:/jefeEstudios/titulos";
+    }
+
+    // Cursos
+
+    @GetMapping("/editCurso/{id}")
+    public String editCursoForm (@PathVariable long id, Model model) {
+        if (servicioCurso.findById(id) != null){
+            model.addAttribute("cursoForm", servicioCurso.findById(id));
+            return "/jefeEstudios/formularioCurso";
+        }
+        return "redirect:/jefeEstudios/";
+    }
+
+    @PostMapping("/editCurso/submit")
+    public String editCursoSubmit (@ModelAttribute("cursoForm")  Curso editCurso) {
+        servicioCurso.edit(editCurso);
+        return "redirect:/jefeEstudios/cursos";
+    }
 
 
 }
