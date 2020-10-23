@@ -170,6 +170,26 @@ public class JefeEstudiosController {
 
     }
 
+    // CALENDARIO CURSO
+
+    @GetMapping("calendarioCurso/{id}")
+    public String calendarioCurso (@PathVariable("id") long id, Model model) {
+        if (servicioCurso.findById(id)!=null)
+            return "/jefeEstudios/calendarioCursoDetalles";
+
+        return "/jefeEstudios/cursos";
+    }
+
+    @GetMapping("calendarioCursoDetalles")
+    public String calendarioCursoDetalles (@ModelAttribute("listaAsignaturas") Curso curso, Model model) {
+
+        //model.addAttribute("listaAsignaturas", servicioCurso.findAll());
+        curso.getAsignaturas();
+
+        return "/jefeEstudios/calendarioCursoDetalles";
+    }
+
+
 
 
 
@@ -210,6 +230,22 @@ public class JefeEstudiosController {
     public String editCursoSubmit (@ModelAttribute("cursoForm")  Curso editCurso) {
         servicioCurso.edit(editCurso);
         return "redirect:/jefeEstudios/cursos";
+    }
+
+    // alumnos
+    @GetMapping("/editAlumno/{id}")
+    public String editAlumno (@PathVariable long id, Model model) {
+        if (servicioAlumno.findById(id) != null) {
+            model.addAttribute("alumnoForm", servicioAlumno.findById(id));
+            return "/jefeEstudios/formularioAlumno";
+        }
+        return "redirect:/jefeEstudios/";
+    }
+
+    @PostMapping("/editAlumno/submit")
+    public String editAlumnoSubmit (@ModelAttribute("alumnoForm") Alumno editAlumno) {
+        servicioAlumno.edit(editAlumno);
+        return "redirect:/jefeEstudios";
     }
 
 
