@@ -3,11 +3,13 @@ package dam.PlataformaEscolar.controladores;
 import dam.PlataformaEscolar.modelo.*;
 import dam.PlataformaEscolar.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -181,10 +183,36 @@ public class JefeEstudiosController {
     }
 
     @GetMapping("calendarioCursoDetalles")
-    public String calendarioCursoDetalles (@ModelAttribute("listaAsignaturas") Curso curso, Model model) {
+    public String calendarioCursoDetalles (@ModelAttribute("listaAsignaturas") Curso curso, Model model
+
+            /*, Pair<String, String> horario*/ ) {
 
         //model.addAttribute("listaAsignaturas", servicioCurso.findAll());
         curso.getAsignaturas();
+
+        for (int i=0; i<0; i++) {
+            Asignatura asignatura = curso.getAsignaturas().get(i);
+            for (int j=0; j<0; j++) {
+                asignatura.getHorarios().get(j);
+                for (int k=0; k<0; k++){
+                    if (asignatura.getHorarios() == null /*qué pongo aquí*/){}
+                }
+            }
+        }
+
+        //List<Asignatura> asignaturas = new ArrayList<>();
+
+        //curso.getAsignaturas().get(i);
+        //horarioDetalle.get(0);
+
+        // List<Asignatura> horarioDetalle = curso.getAsignaturas().get;
+        //for (int i=0; i<horarioDetalle.size(); i++) {
+        //    List <String> par = (List<String>) horarioDetalle.get(i);
+        //    for (int j=0; j<par.size();j++){
+        //        String dia = par.get(j);
+        //        String hora = par.get(j);
+        //    }
+        //}
 
         return "/jefeEstudios/calendarioCursoDetalles";
     }
