@@ -265,6 +265,7 @@ public class JefeEstudiosController {
     public String editAlumno (@PathVariable long id, Model model) {
         if (servicioAlumno.findById(id) != null) {
             model.addAttribute("alumnoForm", servicioAlumno.findById(id));
+            model.addAttribute("listaCursos", servicioCurso.findAll());
             return "/jefeEstudios/formularioAlumno";
         }
         return "redirect:/jefeEstudios/";

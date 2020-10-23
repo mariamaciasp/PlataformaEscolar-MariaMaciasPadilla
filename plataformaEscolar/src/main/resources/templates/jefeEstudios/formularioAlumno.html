@@ -114,23 +114,23 @@
                 </div>
                 
                 <div class="input-group w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mt-3">
+                    <div class="input-group-prepend ml-2 mt-3 ">
                       <label for="email" class="input-group-text">Correo electrónico*</label>
                     </div>
                     <input type="mail" id="email" name="email" class="form-control mt-3" placeholder="email@mail.com" required th:field="*{email}" >
                 </div>
 
-
-                <div class="input-group mb-5 w-50 ml-5">
+                <div class="input-group mb-5 w-75 ml-5 mt-4 pt-2">
                     <div class="input-group-prepend ml-2">
                         <label for="curso" class="input-group-text">Curso</label>
                     </div>
-
+                    
                     <select th:field="*{curso}" id="curso" class="form-control">
-                        <option value="-1">---</option>
+                        <option value="-1" >---</option>
                         <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
                     </select>
                 </div>
+         
 
 
                 <button type="reset" class="btn botonCancelar mb-4 mt-3">Limpiar</button>

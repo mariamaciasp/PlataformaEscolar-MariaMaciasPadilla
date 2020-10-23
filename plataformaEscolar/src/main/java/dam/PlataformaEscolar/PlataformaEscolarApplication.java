@@ -29,14 +29,7 @@ public class PlataformaEscolarApplication {
 		return args -> {
 
 
-			// instancia un usuario de cada
-			Profesor jefeEstudios = new Profesor ("Ángel", "Naranjo","admin",passwordEncoder.encode("1234"),null,true ,true);
-			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), null,true,false);
-			Alumno alumno = new Alumno ("María", "García", "m@gmail.com",passwordEncoder.encode("1234"),null,true);
 
-			servicioProfesor.save(jefeEstudios);
-			servicioProfesor.save(profesor);
-			servicioAlumno.save(alumno);
 
 
 			// instancia de titulos
@@ -76,6 +69,17 @@ public class PlataformaEscolarApplication {
 			sge.getHorarios().add(Pair.of("Jueves","1"));
 			//envioEmail.sendEmail(alumno, "Hola caracola", "Esto es una prueba chata");
 			servicioAsignatura.save(sge);
+
+
+			// instancia un usuario de cada
+			Profesor jefeEstudios = new Profesor ("Ángel", "Naranjo","admin",passwordEncoder.encode("1234"),null,true ,true);
+			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), null,true,false);
+			Alumno alumno = new Alumno ("María", "García", "m@gmail.com",passwordEncoder.encode("1234"),null,true);
+
+			alumno.setCurso(c1);
+			servicioProfesor.save(jefeEstudios);
+			servicioProfesor.save(profesor);
+			servicioAlumno.save(alumno);
 
 
 		};
