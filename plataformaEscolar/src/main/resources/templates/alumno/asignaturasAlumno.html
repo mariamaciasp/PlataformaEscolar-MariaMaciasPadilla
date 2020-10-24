@@ -47,6 +47,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Ampliación de matrícula</a>
                         <a class="dropdown-item" href="#">Convalidar asignatura</a>
+                        <a class="dropdown-item" href="#">Execión asignatura</a>
                     </div>
                 </li>
             </ul>
@@ -95,29 +96,22 @@
                 <tr>
                     <th class="pl-5" >ID</th>
                     <th class="" >Nombre</th>
-                    <th class="pr-5">Curso</th>
-                    <th class="pr-5" >Operaciones</th>
+                    <th class="">Curso</th>
+                    <th class="" >Operaciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="asignatura : ${listaAsignaturas}">
                     <td th:text="${asignatura.id}"  class="pl-5" >1</td>
                     <td th:text="${asignatura.nombre}" >Base de datos</td>
-                    <td th:text="${asignatura.curso.abreviatura}" class="pr-5">1 DAM</td>
-                    <td class="pr-5">
-                        <a class="btn">Convalidacion</a>
-                        <a class="btn">Exención</a>
+                    <td th:text="${asignatura.curso.abreviatura}" class="">1 DAM</td>
+                    <td class="">
+
+                        <a class="btn botonEnvio mr-3" role="button"
+                           th:href="@{/alumno/convalidacion/{id}(id=${asignatura.id})}">Convalidación</a>
+                        <a class="btn botonEnvio ml-2" role="button">Exención</a>
                     </td>
-                    <td>
                 </td>
-
-
-
-                <!--<td th:text="${#lists.toList(asignatura.horarios)}" class="pr-5">L,1</td>-->
-                <!--<div th:each="asignatura.horarios : ${listaHorario}">
-                    <div th:each="par : ${listaPares}">
-                        <span th:text="${horarios.first}"></span> =
-                        <span th:text="${horarios.second}"></span>-->
 
 
 

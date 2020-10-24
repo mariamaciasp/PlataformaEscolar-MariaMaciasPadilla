@@ -80,45 +80,24 @@
 <main class="container-fluid">
     <div class="row mt-5">
         <div class="col-3"></div>
-        <form method="POST" action="#"
-              th:action="@{alumno/ampliacionMatricula/submit}" th:object="${ampliacionMatriculaForm}"
+        <form enctype="multipart/form-data" method="POST" action="#"
+              th:action="@{/alumno/convalidacion/submit}" th:object="${convalidacionForm}"
               id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla"
               onsubmit="return revisarFormulario();">
 
             <fieldset class="mt-2 ml-1">
-                <legend class="mb-5 text-center pt-2">Ampliar matrícula</legend>
-                <input type="hidden" th:field="*{id}" id="id" name="id">
-                <div class="input-group mb-3 w-75 ml-5">
-                    <div class="input-group-prepend ml-2">
-                        <label for="fechaSolicitud" class="input-group-text">Fecha solicitud*</label>
-                    </div>
-                    <input type="text" id="fechaSolicitud" name="fechaSolicitud" class="form-control" placeholder="fechaSolicitud"
-                           required th:field="*{fechaSolicitud}" >
-                </div>
+                <legend class="mb-5 text-center pt-2">Convalidar NOMBRE ASIGNATURA</legend>
+
+
                 <div class="input-group mb-3 w-75 ml-5">
                     <div class="input-group-prepend ml-2 mt-3">
-                        <label for="apellidos" class="input-group-text">Apellidos*</label>
+                        <label for="file" class="input-group-text">Adjuntar archivo</label>
                     </div>
-                    <input type="text" id="apellidos" name="apellidos" class="form-control mt-3" placeholder="Apellidos" required th:field="*{apellidos}">
+                    <input type="file" id="file" name="file" class="form-control mt-3"
+                           placeholder="Adjuntar archivo">
                 </div>
 
-                <div class="input-group w-75 ml-5">
-                    <div class="input-group-prepend ml-2 mt-3 ">
-                        <label for="email" class="input-group-text">Correo electrónico*</label>
-                    </div>
-                    <input type="mail" id="email" name="email" class="form-control mt-3" placeholder="email@mail.com" required th:field="*{email}" >
-                </div>
 
-                <div class="input-group mb-5 w-75 ml-5 mt-4 pt-2">
-                    <div class="input-group-prepend ml-2">
-                        <label for="curso" class="input-group-text">Curso</label>
-                    </div>
-
-                    <select th:field="*{curso}" id="curso" class="form-control">
-                        <option value="-1" >---</option>
-                        <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
-                    </select>
-                </div>
 
 
 

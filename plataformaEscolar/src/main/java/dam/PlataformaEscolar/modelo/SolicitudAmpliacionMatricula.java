@@ -56,6 +56,16 @@ public class SolicitudAmpliacionMatricula {
         this.estado = estado;
         this.asignatura = asignatura;
     }
+
+    public SolicitudAmpliacionMatricula(LocalDate fechaSolicitud, LocalDate fechaResolucion, String estado,
+                                        Alumno alumno, Asignatura asignatura) {
+        this.fechaSolicitud = fechaSolicitud;
+        this.fechaResolucion = fechaResolucion;
+        this.estado = estado;
+        this.alumno = alumno;
+        this.asignatura = asignatura;
+    }
+
     public SolicitudAmpliacionMatricula(LocalDate fechaSolicitud, String estado, Asignatura asignatura) {
         this.fechaSolicitud = fechaSolicitud;
         this.estado = estado;
