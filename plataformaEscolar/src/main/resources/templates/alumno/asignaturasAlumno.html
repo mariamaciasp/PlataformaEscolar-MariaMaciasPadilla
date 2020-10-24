@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <meta charset="utf-8">
-<title>Inicio Alumno</title>
+<title>Asignaturas alumno</title>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -15,6 +15,8 @@
 
 <link rel="stylesheet" type="text/css" href="/css/CSS.css">
 <link rel="stylesheet" type="text/css" href="../../static/css/CSS.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 
 
@@ -39,8 +41,8 @@
                     <a class="nav-link text-white " href="#">Horario</a>
                 </li>
                 <li class="nav-item dropdown mr-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" 
-                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown"
+                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Solicitudes</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Ampliación de matrícula</a>
@@ -77,17 +79,61 @@
 </header>
 
 
-<main class="InicioSesion container-fluid">
-    <div class="row mt-5 ">
-        <div class="col-sm-12"></div>
-        <!--<img src="../static/img/logoColegio.png">-->
-        <img src="../img/logoColegio.png">
+<main class="container-fluid mt-2">
+
+
+    <div class="tab-pane" role="tabpanel">
+
+        <div class="bg-light p-4 rounded">
+            <table id="tablaTitulos table" class="table table-hover text-center" summary="Titulos">
+                <caption class="mb-3 titulo">Asignaturas <a><span></span></a>
+                    <a class="btn float-right">
+                        <span class="fas fa-plus fa-2x pr-5"></span>
+                    </a>
+                </caption>
+                <thead class="thead-light">
+                <tr>
+                    <th class="pl-5" >ID</th>
+                    <th class="" >Nombre</th>
+                    <th class="pr-5">Curso</th>
+                    <th class="pr-5" >Operaciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="asignatura : ${listaAsignaturas}">
+                    <td th:text="${asignatura.id}"  class="pl-5" >1</td>
+                    <td th:text="${asignatura.nombre}" >Base de datos</td>
+                    <td th:text="${asignatura.curso.abreviatura}" class="pr-5">1 DAM</td>
+                    <td class="pr-5">
+                        <a class="btn">Convalidacion</a>
+                        <a class="btn">Exención</a>
+                    </td>
+                    <td>
+                </td>
+
+
+
+                <!--<td th:text="${#lists.toList(asignatura.horarios)}" class="pr-5">L,1</td>-->
+                <!--<div th:each="asignatura.horarios : ${listaHorario}">
+                    <div th:each="par : ${listaPares}">
+                        <span th:text="${horarios.first}"></span> =
+                        <span th:text="${horarios.second}"></span>-->
+
+
+
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
 
     </div>
+
+
 
 </main>
 
 
 </body>
-
 </html>

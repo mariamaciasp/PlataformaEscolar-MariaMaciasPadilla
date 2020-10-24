@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <meta charset="utf-8">
-<title>Inicio Alumno</title>
+<title>Solicitar convalidación</title>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -39,8 +39,8 @@
                     <a class="nav-link text-white " href="#">Horario</a>
                 </li>
                 <li class="nav-item dropdown mr-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" 
-                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown"
+                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Solicitudes</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Ampliación de matrícula</a>
@@ -77,14 +77,57 @@
 </header>
 
 
-<main class="InicioSesion container-fluid">
-    <div class="row mt-5 ">
-        <div class="col-sm-12"></div>
-        <!--<img src="../static/img/logoColegio.png">-->
-        <img src="../img/logoColegio.png">
+<main class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <form method="POST" action="#"
+              th:action="@{alumno/ampliacionMatricula/submit}" th:object="${ampliacionMatriculaForm}"
+              id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla"
+              onsubmit="return revisarFormulario();">
 
+            <fieldset class="mt-2 ml-1">
+                <legend class="mb-5 text-center pt-2">Ampliar matrícula</legend>
+                <input type="hidden" th:field="*{id}" id="id" name="id">
+                <div class="input-group mb-3 w-75 ml-5">
+                    <div class="input-group-prepend ml-2">
+                        <label for="fechaSolicitud" class="input-group-text">Fecha solicitud*</label>
+                    </div>
+                    <input type="text" id="fechaSolicitud" name="fechaSolicitud" class="form-control" placeholder="fechaSolicitud"
+                           required th:field="*{fechaSolicitud}" >
+                </div>
+                <div class="input-group mb-3 w-75 ml-5">
+                    <div class="input-group-prepend ml-2 mt-3">
+                        <label for="apellidos" class="input-group-text">Apellidos*</label>
+                    </div>
+                    <input type="text" id="apellidos" name="apellidos" class="form-control mt-3" placeholder="Apellidos" required th:field="*{apellidos}">
+                </div>
+
+                <div class="input-group w-75 ml-5">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="email" class="input-group-text">Correo electrónico*</label>
+                    </div>
+                    <input type="mail" id="email" name="email" class="form-control mt-3" placeholder="email@mail.com" required th:field="*{email}" >
+                </div>
+
+                <div class="input-group mb-5 w-75 ml-5 mt-4 pt-2">
+                    <div class="input-group-prepend ml-2">
+                        <label for="curso" class="input-group-text">Curso</label>
+                    </div>
+
+                    <select th:field="*{curso}" id="curso" class="form-control">
+                        <option value="-1" >---</option>
+                        <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
+                    </select>
+                </div>
+
+
+
+                <button type="reset" class="btn botonCancelar mb-4 mt-3">Limpiar</button>
+                <button type="submit" id="enviar" class="btn mb-4 float-right botonEnvio  mt-3">Enviar</button>
+            </fieldset>
+        </form>
+        <div class="col-3"></div>
     </div>
-
 </main>
 
 
