@@ -46,7 +46,7 @@ public class Curso {
     // Asociación con Asignatura
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "curso")
+    @OneToMany(mappedBy = "curso", fetch = FetchType.EAGER)
     private List<Asignatura> asignaturas = new ArrayList<>();
 
     // helpers

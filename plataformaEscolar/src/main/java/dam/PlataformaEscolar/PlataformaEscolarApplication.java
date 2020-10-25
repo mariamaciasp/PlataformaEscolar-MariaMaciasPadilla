@@ -63,12 +63,16 @@ public class PlataformaEscolarApplication {
 			// Asignaturas
 
 			Asignatura sge = new Asignatura("Sistemas de gestión empresarial",c1);
+			Asignatura di = new Asignatura("Diseño de interfaces", c2);
+			di.getHorarios().add(Pair.of("Lunes","1"));
+			di.getHorarios().add(Pair.of("Martes","5"));
 
 			sge.getHorarios().add(Pair.of("Lunes","1"));
 			sge.getHorarios().add(Pair.of("Martes","2"));
 			sge.getHorarios().add(Pair.of("Jueves","1"));
 			//envioEmail.sendEmail(alumno, "Hola caracola", "Esto es una prueba chata");
 			servicioAsignatura.save(sge);
+			servicioAsignatura.save(di);
 
 
 			// instancia un usuario de cada
