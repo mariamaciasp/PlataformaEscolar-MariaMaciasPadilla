@@ -4,6 +4,7 @@ import dam.PlataformaEscolar.modelo.*;
 import dam.PlataformaEscolar.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -284,6 +285,18 @@ public class JefeEstudiosController {
         }
         return "redirect:/jefeEstudios/alumnos";
     }
+
+    @GetMapping("/eliminarProfesor/{id}")
+    public String deleteProfesor (@PathVariable long id, @AuthenticationPrincipal Profesor profesor, Model model) {
+
+        if (servicioProfesor.findById(id)!= null /*&& y por qué cuando doy a borrar elimina el de abajo!!!!?
+                servicioProfesor.findById(id) != servicioProfesor.findById(profesor.getId())*/) {
+            servicioProfesor.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/profesor";
+    }
+
+
 
 
 }
