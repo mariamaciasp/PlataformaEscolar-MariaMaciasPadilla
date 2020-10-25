@@ -121,14 +121,16 @@
                                     <span class="far fa-edit fa-lg"></span>
                                 </a>
                                 <a class="btn" data-toggle="modal" data-target="#delete-modal"
-                                   th:data-id="${asignatura.id}">
+                                   th:attr="data-target='#delete-modal'+${asignatura.id}">
+                                    <!--th:data-id="${asignatura.id}"-->
                                     <span class="fas fa-trash-alt fa-lg"></span>
                                 </a>
                                 <a class="btn" th:href="@{/jefeEstudios/calendarioAsignatura/?(idAsignatura=${asignatura.id})}">
                                     <span class="fas fa-sign-in-alt fa-lg"></span>
                                 </a>
                             </td>
-                              <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
+                              <div class="modal delete-modal fade" id="delete-modal" tabindex="-1" role="dialog"
+                                   th:id="delete-modal+${asignatura.id}">
                                   <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                           <div class="modal-header">

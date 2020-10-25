@@ -123,7 +123,8 @@
                                         <span class="far fa-edit fa-lg"></span>
                                     </a>
                                     <a class="btn" data-toggle="modal" data-target="#delete-modal"
-                                       th:data-id="${alumno.id}">
+                                       th:attr="data-target='#delete-modal'+${alumno.id}">
+                                        <!-- th:data-id="${alumno.id}" CON ESTO NO PILLA AL SELECCIONADO!!!!-->
 
                                         <span class="fas fa-trash-alt fa-lg"></span>
                                     </a>
@@ -131,7 +132,8 @@
                                         <span class="fas fa-sign-in-alt fa-lg"></span>
                                     </a>
                                 </td>
-                              <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
+                              <div class="modal delete-modal fade" id="delete-modal" tabindex="-1" role="dialog"
+                                   th:id="delete-modal+${alumno.id}">
                                   <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                           <div class="modal-header">

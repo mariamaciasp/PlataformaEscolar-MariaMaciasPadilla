@@ -16,6 +16,7 @@ public class Asignatura {
     private long id;
 
     private String nombre;
+    private String abreviatura;
 
     //@CollectionTable(name="asignatura_horario")
     //@MapKeyJoinColumn(name="asignatura_id")
@@ -49,4 +50,18 @@ public class Asignatura {
         this.nombre = nombre;
         this.curso = curso;
     }
+
+    public Asignatura(String nombre, String abreviatura, Curso curso) {
+        this.nombre = nombre;
+        this.abreviatura = abreviatura;
+        this.curso = curso;
+    }
+
+    public Asignatura(String nombre, String abreviatura, List<Pair<String, String>> horarios, Curso curso) {
+        this.nombre = nombre;
+        this.abreviatura = abreviatura;
+        this.horarios = horarios;
+        this.curso = curso;
+    }
+
 }

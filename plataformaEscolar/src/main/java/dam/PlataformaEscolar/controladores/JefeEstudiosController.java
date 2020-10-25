@@ -130,6 +130,23 @@ public class JefeEstudiosController {
 
     }
 
+
+    // registro asignaturas
+    @GetMapping("/registroAsignatura")
+    public String nuevaAsignaturaForm (Model model) {
+        model.addAttribute("asignaturaForm", new Asignatura());
+        model.addAttribute("listaCursos", servicioCurso.findAll());
+        return "jefeEstudios/formularioAsignatura";
+    }
+
+    @PostMapping("/nuevaAsignatura/submit")
+    public String registroAsignatura (@ModelAttribute("asignaturaForm") Asignatura nuevaAsignatura) {
+        servicioAsignatura.save(nuevaAsignatura);
+        return "redirect:/jefeEstudios/";
+
+    }
+
+
     // registro profesores
 
     @GetMapping("/registroProfesor")
