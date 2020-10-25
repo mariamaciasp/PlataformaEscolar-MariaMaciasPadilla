@@ -277,5 +277,13 @@ public class JefeEstudiosController {
         return "redirect:/jefeEstudios";
     }
 
+    @GetMapping("/eliminarAlumno/{id}")
+    public String deleteAlumno (@PathVariable long id, Model model) {
+        if (servicioAlumno.findById(id)!=null) {
+            servicioAlumno.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/alumnos";
+    }
+
 
 }
