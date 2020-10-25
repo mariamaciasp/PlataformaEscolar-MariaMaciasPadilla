@@ -91,7 +91,7 @@
     <div class="row mt-5">
         <div class="col-3"></div>
         <form method="POST" action="#"
-              th:action="${alumnoForm.id != 0} ? @{jefeEstudios/editAlumno/submit} :
+              th:action="${alumnoForm.id != 0} ? @{/jefeEstudios/editAlumno/submit} :
               @{/jefeEstudios/nuevoAlumno/submit}" th:object="${alumnoForm}"
               id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla"
               onsubmit="return revisarFormulario();">

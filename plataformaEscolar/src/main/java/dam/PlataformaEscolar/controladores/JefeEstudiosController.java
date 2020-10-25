@@ -4,6 +4,7 @@ import dam.PlataformaEscolar.modelo.*;
 import dam.PlataformaEscolar.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -128,6 +129,23 @@ public class JefeEstudiosController {
         return "redirect:/jefeEstudios/";
 
     }
+
+
+    // registro asignaturas
+    @GetMapping("/registroAsignatura")
+    public String nuevaAsignaturaForm (Model model) {
+        model.addAttribute("asignaturaForm", new Asignatura());
+        model.addAttribute("listaCursos", servicioCurso.findAll());
+        return "jefeEstudios/formularioAsignatura";
+    }
+
+    @PostMapping("/nuevaAsignatura/submit")
+    public String registroAsignatura (@ModelAttribute("asignaturaForm") Asignatura nuevaAsignatura) {
+        servicioAsignatura.save(nuevaAsignatura);
+        return "redirect:/jefeEstudios/";
+
+    }
+
 
     // registro profesores
 
@@ -276,6 +294,51 @@ public class JefeEstudiosController {
         servicioAlumno.edit(editAlumno);
         return "redirect:/jefeEstudios";
     }
+
+    @GetMapping("/eliminarAlumno/{id}")
+    public String deleteAlumno (@PathVariable long id, Model model) {
+        if (servicioAlumno.findById(id)!=null) {
+            servicioAlumno.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/alumnos";
+    }
+
+    @GetMapping("/eliminarProfesor/{id}")
+    public String deleteProfesor (@PathVariable long id, @AuthenticationPrincipal Profesor profesor, Model model) {
+
+        if (servicioProfesor.findById(id)!= null /*&& y por qué cuando doy a borrar elimina el de abajo!!!!?
+                servicioProfesor.findById(id) != servicioProfesor.findById(profesor.getId())*/) {
+            servicioProfesor.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/profesor";
+    }
+
+    @GetMapping("/eliminarTitulo/{id}")
+    public String deleteTitulo (@PathVariable long id, Model model) {
+        if (servicioTitulo.findById(id)!=null) {
+            servicioTitulo.deleteById(id);
+        }
+
+        return "redirect:/jefeEstudios/titulos";
+    }
+
+    @GetMapping("/eliminarCurso/{id}")
+    public String deleteCurso (@PathVariable long id, Model model) {
+        if (servicioCurso.findById(id)!=null) {
+            servicioCurso.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/cursos";
+    }
+
+    @GetMapping("/eliminarAsignatura/{id}")
+    public String deleteAsignatura (@PathVariable long id, Model model) {
+        if (servicioAsignatura.findById(id)!=null) {
+            servicioAsignatura.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/asignaturas";
+    }
+
+
 
 
 }
