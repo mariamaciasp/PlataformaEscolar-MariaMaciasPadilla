@@ -34,12 +34,14 @@ public class Asignatura {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy="asignatura", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="asignatura", fetch = FetchType.EAGER/*, cascade = CascadeType.ALL*/, orphanRemoval = true
+            , cascade={CascadeType.REMOVE})
     private List<SituacionExcepcional> situcionesExcepcionales = new ArrayList<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy="asignatura", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="asignatura", fetch = FetchType.EAGER/*, cascade = CascadeType.ALL*/, orphanRemoval = true
+            , cascade={CascadeType.REMOVE})
     private List<SolicitudAmpliacionMatricula> solicitudAmpliacionMatriculas = new ArrayList<>();
 
 

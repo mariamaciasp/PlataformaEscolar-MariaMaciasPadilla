@@ -28,8 +28,9 @@ public class Curso {
     }
 
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @OneToMany(mappedBy = "curso")
+    @ToString.Exclude // si pongo este cascade aquí no se me borran luego los alumnos!
+    @OneToMany(mappedBy = "curso", /*cascade = CascadeType.ALL, */orphanRemoval = true, fetch = FetchType.EAGER
+            , cascade={CascadeType.REMOVE})
     private List <Alumno> alumnos = new ArrayList<>();
 
     // helpers
@@ -46,7 +47,8 @@ public class Curso {
     // Asociación con Asignatura
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "curso", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "curso",/* cascade = CascadeType.ALL, */orphanRemoval = true ,
+            cascade={CascadeType.REMOVE}, fetch = FetchType.EAGER) // con DETACH me borra también lo que hereda digamos, pero no el curso
     private List<Asignatura> asignaturas = new ArrayList<>();
 
     // helpers

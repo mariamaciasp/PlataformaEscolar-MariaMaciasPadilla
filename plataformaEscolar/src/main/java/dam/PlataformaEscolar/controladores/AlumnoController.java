@@ -50,7 +50,7 @@ public class AlumnoController {
         return "alumno/formularioConvalidacion";
     }
 
-    @PostMapping("/convalidacion/submit")
+    @PostMapping("/convalidacion/submit") /*    @PostMapping("/convalidacion/{id}/submit")  */
     public String convalidarAsignaturaSubmit (@ModelAttribute("convalidacionForm") SituacionExcepcional excepcional,
                                               @AuthenticationPrincipal Alumno alumno,
                                               @PathVariable Asignatura asignatura,
@@ -58,6 +58,8 @@ public class AlumnoController {
         String adjunto = storageService.store(file, alumno.getId());
         excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
                 "serveFile", adjunto).build().toUriString());
+        //servicioAsignatura.findById(id);
+        //excepcional.setAsignatura(servicioAsignatura.findById(id));
         excepcional.setAsignatura(asignatura);
         //excepcional.getAsignatura().setId(asignatura.getId());
         excepcional.setAlumno(alumno);

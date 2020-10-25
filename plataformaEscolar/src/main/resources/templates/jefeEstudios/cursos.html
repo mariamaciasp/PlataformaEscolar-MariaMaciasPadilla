@@ -118,13 +118,33 @@
                                     <a class="btn" th:href="@{/jefeEstudios/editCurso/{id}(id=${curso.id})}">
                                         <span class="far fa-edit fa-lg"></span>
                                     </a>
-                                    <a class="btn">
+                                    <a class="btn" data-toggle="modal" data-target="#delete-modal"
+                                       th:data-id="${curso.id}">
                                         <span class="fas fa-trash-alt fa-lg"></span>
                                     </a>
                                     <a class="btn" th:href="@{/jefeEstudios/calendarioCurso/{id}(id=${curso.id})}">
                                         <span class="fas fa-sign-in-alt fa-lg"></span>
                                     </a>
                                 </td>
+                              <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
+                                  <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h4 class="modal-title">Eliminar curso</h4>
+                                              <button type="button" class="close" data-dismiss="modal"
+                                                      aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                              </button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <p>¿Está usted seguro de eliminar este curso?</p>
+                                              <button type="button" class="btn botonCancelar" data-dismiss="modal">No</button>
+                                              <a th:href="@{/jefeEstudios/eliminarCurso/{id}(id=${curso.id})}" class="btn botonEnvio ml-4">Sí</a>
+                                          </div>
+                                      </div>
+
+                                  </div>
+                              </div>
                           </tr>
                       </tbody>
                   </table>

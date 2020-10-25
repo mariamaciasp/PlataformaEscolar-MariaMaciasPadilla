@@ -296,6 +296,31 @@ public class JefeEstudiosController {
         return "redirect:/jefeEstudios/profesor";
     }
 
+    @GetMapping("/eliminarTitulo/{id}")
+    public String deleteTitulo (@PathVariable long id, Model model) {
+        if (servicioTitulo.findById(id)!=null) {
+            servicioTitulo.deleteById(id);
+        }
+
+        return "redirect:/jefeEstudios/titulos";
+    }
+
+    @GetMapping("/eliminarCurso/{id}")
+    public String deleteCurso (@PathVariable long id, Model model) {
+        if (servicioCurso.findById(id)!=null) {
+            servicioCurso.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/cursos";
+    }
+
+    @GetMapping("/eliminarAsignatura/{id}")
+    public String deleteAsignatura (@PathVariable long id, Model model) {
+        if (servicioAsignatura.findById(id)!=null) {
+            servicioAsignatura.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/asignaturas";
+    }
+
 
 
 
