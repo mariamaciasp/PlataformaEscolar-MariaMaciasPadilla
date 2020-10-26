@@ -106,7 +106,8 @@
                           <tr>
                               <th class="pl-5" >ID</th>
                               <th class="" >Nombre</th>
-                              <th>Horarios</th>
+                              <!--<th>Día</th>
+                              <th>Hora</th>-->
                               <th class="pr-5">Curso</th>
                               <th class="pr-5" >Operaciones</th>
                           </tr>
@@ -115,6 +116,13 @@
                           <tr th:each="asignatura : ${listaAsignaturas}">
                               <td th:text="${asignatura.id}"  class="pl-5" >1</td>
                               <td th:text="${asignatura.nombre}" >Base de datos</td>
+                              <!--<tr th:each="asignatura : ${listaAsignaturas}">
+                                  <th-block th:each="diahora : ${asignatura.horarios}">
+                                      <td><span th:text="${diahora.dia}"></span></td>
+                                      <td><span th:text="${diahora.hora}"></span></td>
+                                  </th-block>-->
+                              <!--<td th:text="${asignatura.horarios.dia}"></td>
+                              <td th:text="${asignatura.horarios.hora}"></td>-->
                               <td th:text="${asignatura.curso.abreviatura}" class="pr-5">1 DAM</td>
                               <td class="pr-5">
                                 <a class="btn">
@@ -149,14 +157,14 @@
 
                                   </div>
                               </div>
-                              <td>
+                              <!--<td>
                                     <tr th:each="asignatura : ${listaAsignaturas}">
                                         <th-block th:each="diahora : ${asignatura.horarios}">
                                             <td><span th:text="${diahora.first}"></span></td>
                                             <td><span th:text="${diahora.second}"></span></td>
                                         </th-block>
                                     </tr>
-                                </td>
+                                </td>-->
 
                               
 

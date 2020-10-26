@@ -121,6 +121,42 @@
                         <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
                     </select>
                 </div>
+
+<!--
+                <div class="input-group mb-5">
+                    <div class="input-group-prepend ml-2">
+                        <label for="horarioDia" class="input-group-text">Dia</label>
+                    </div>
+                    <select id="horarioDia" th:field="*{horarios.dia}"  class="form-control">
+                            <option value="-1">---</option> -->
+                        <!--  <option th:each="horario : ${listaHorarios}" th:value="${horario.dia}" th:text="${horario.dia}">
+-->
+                <!--  <option th:value="0" th:text="Lunes">Lunes</option>
+                  <option th:value="1" th:text="Martes">Martes</option>
+                  <option th:value="2" th:text="Miércoles">Miércoles</option>
+                  <option th:value="3" th:text="Jueves">Jueves</option>
+                  <option th:value="4" th:text="Viernes">Viernes</option>
+                </option>-->
+                <!--<option th:each="horario : ${listaHorarios}" th:value="${horario.id}" th:text="${horario.dia}">Día</option>
+            --><!--</select>
+
+                    <div class="input-group-prepend ml-2">
+                        <label for="horarioHora" class="input-group-text">Hora</label>
+                    </div>
+                    <select id="horarioHora" th:field="*{horarios}"  class="form-control">
+                        <div th:each="horario : ${listaHorarios}" th:value="${horario.hora}">
+                            <option value="-1">---</option>
+                            <option th:value="0" th:text="1">1</option>
+                            <option th:value="1" th:text="2">2</option>
+                            <option th:value="2" th:text="3">3</option>
+                            <option th:value="3" th:text="4">4</option>
+                            <option th:value="4" th:text="5">5</option>
+                        </div>
+                    </select>
+
+
+                </div>-->
+
                 <!--<div class="input-group mb-5">  FALLO HORARIOS (lo raro sería que funcionara)
 
                 https://www.baeldung.com/thymeleaf-select-option Mirar para th:value etc

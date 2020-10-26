@@ -31,6 +31,8 @@ public class JefeEstudiosController {
     private UsuarioServicio servicioUsuario;
     @Autowired
     private AsignaturaServicio servicioAsignatura;
+    @Autowired
+    private HorarioService servicioHorario;
 
 
     @ModelAttribute("listaTitulos")
@@ -136,6 +138,7 @@ public class JefeEstudiosController {
     public String nuevaAsignaturaForm (Model model) {
         model.addAttribute("asignaturaForm", new Asignatura());
         model.addAttribute("listaCursos", servicioCurso.findAll());
+        model.addAttribute("listaHorarios", servicioHorario.findAll());
         return "jefeEstudios/formularioAsignatura";
     }
 
@@ -143,7 +146,6 @@ public class JefeEstudiosController {
     public String registroAsignatura (@ModelAttribute("asignaturaForm") Asignatura nuevaAsignatura) {
         servicioAsignatura.save(nuevaAsignatura);
         return "redirect:/jefeEstudios/";
-
     }
 
 
