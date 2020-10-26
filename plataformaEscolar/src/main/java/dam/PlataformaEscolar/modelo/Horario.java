@@ -18,22 +18,14 @@ public class Horario {
     @Id @GeneratedValue
     private long id;
 
-    private String dia;
+    private int dia;
     private int hora;
 
     @ManyToOne
     private Asignatura asignatura;
 
-    public Horario(String dia, int hora) {
+    public Horario(int dia, int hora) {
         this.dia = dia;
-        this.hora = hora;
-    }
-
-    public Horario(String dia) {
-        this.dia = dia;
-    }
-
-    public Horario(int hora) {
         this.hora = hora;
     }
 

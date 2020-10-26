@@ -138,13 +138,26 @@ public class JefeEstudiosController {
     public String nuevaAsignaturaForm (Model model) {
         model.addAttribute("asignaturaForm", new Asignatura());
         model.addAttribute("listaCursos", servicioCurso.findAll());
-        model.addAttribute("listaHorarios", servicioHorario.findAll());
         return "jefeEstudios/formularioAsignatura";
     }
 
     @PostMapping("/nuevaAsignatura/submit")
     public String registroAsignatura (@ModelAttribute("asignaturaForm") Asignatura nuevaAsignatura) {
         servicioAsignatura.save(nuevaAsignatura);
+        return "redirect:/jefeEstudios/";
+    }
+
+    // registro horario
+    @GetMapping("/registroHorario")
+    public String nuevoHorarioForm (Model model) {
+        model.addAttribute("horarioForm", new Horario());
+        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+        return "jefeEstudios/formularioHorario";
+    }
+
+    @PostMapping("/nuevoHorario/submit")
+    public String registroAsignatura (@ModelAttribute("horarioForm") Horario nuevoHorario) {
+        servicioHorario.save(nuevoHorario);
         return "redirect:/jefeEstudios/";
     }
 

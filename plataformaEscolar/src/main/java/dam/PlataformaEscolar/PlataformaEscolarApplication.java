@@ -80,12 +80,12 @@ public class PlataformaEscolarApplication {
 			servicioAsignatura.save(bbdd);
 
 			// Horarios
-			Horario horario1 = new Horario("Lunes",1);
-			Horario horario2 = new Horario("Martes",2);
-			Horario horario3 = new Horario("Lunes",2);
-			Horario horario4 = new Horario("Jueves",1);
-			Horario horario5 = new Horario("Viernes",5);
-			Horario horario6 = new Horario("Miércoles",6);
+			Horario horario1 = new Horario(1,1);
+			Horario horario2 = new Horario(2,2);
+			Horario horario3 = new Horario(1,2);
+			Horario horario4 = new Horario(4,1);
+			Horario horario5 = new Horario(5,5);
+			Horario horario6 = new Horario(5,6);
 
 			horario1.setAsignatura(sge);
 			horario2.setAsignatura(sge);
@@ -94,36 +94,7 @@ public class PlataformaEscolarApplication {
 			horario5.setAsignatura(bbdd);
 			horario6.setAsignatura(bbdd);
 
-			List<Horario> listaHorarios = Arrays.asList(horario1,horario2,horario3,horario4,horario5,horario6);
 
-			for (Horario h: listaHorarios){
-				servicioHorario.save(h);
-			}
-
-			Horario lunes = new Horario ("Lunes");
-			Horario martes = new Horario ("Martes");
-			Horario miercoles = new Horario ("Miércoles");
-			Horario jueves = new Horario ("Jueves");
-			Horario viernes = new Horario ("Viernes");
-
-			List<Horario> listaDias = Arrays.asList(lunes,martes,miercoles,jueves,viernes);
-
-			for (Horario dia : listaDias){
-				servicioHorario.save(dia);
-			}
-
-			Horario primera = new Horario (1);
-			Horario segunda = new Horario (2);
-			Horario tercera = new Horario (3);
-			Horario cuarta = new Horario (4);
-			Horario quinta = new Horario (5);
-			Horario sexta = new Horario (6);
-
-			List<Horario> listaHoras = Arrays.asList(primera,segunda,tercera,cuarta,quinta,sexta);
-
-			for (Horario hora : listaHoras) {
-				servicioHorario.save(hora);
-			}
 
 			// instancia un usuario de cada
 			Profesor jefeEstudios = new Profesor ("Ángel", "Naranjo","admin",passwordEncoder.encode("1234"),null,true ,true);

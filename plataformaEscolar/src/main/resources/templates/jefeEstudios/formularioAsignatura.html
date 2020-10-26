@@ -121,6 +121,14 @@
                         <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
                     </select>
                 </div>
+               <!-- <div class="input-group mt-3 mb-4" th:each="horario : ${listaHorarios}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" th:field="*{horarios.dia}" id="lunes" name="lunes"
+                               class="custom-control-input" th:value="1" >
+                        <label class="custom-control-label" for="lunes">Lunes</label>
+                    </div>
+                </div>-->
+
 
 <!--
                 <div class="input-group mb-5">
