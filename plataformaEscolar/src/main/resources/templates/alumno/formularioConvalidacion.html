@@ -86,8 +86,17 @@
               onsubmit="return revisarFormulario();">
 
             <fieldset class="mt-2 ml-1">
-                <legend class="mb-5 text-center pt-2">Convalidar NOMBRE ASIGNATURA</legend>
-
+                <legend class="mb-5 text-center pt-2">Convalidar asignatura</legend>
+                <div class="input-group mb-5">
+                    <div class="input-group-prepend ml-2">
+                        <label for="asignatura" class="input-group-text">Asignatura</label>
+                    </div>
+                    <select id="asignatura" th:field="*{asignatura}" class="form-control">
+                        <option value="-1">---</option>
+                        <option th:each="asignatura : ${listaAsignaturas}" th:value="${asignatura.id}"
+                                th:text="${asignatura.nombre}">Curso</option>
+                    </select>
+                </div>
 
                 <div class="input-group mb-3 w-75 ml-5">
                     <div class="input-group-prepend ml-2 mt-3">

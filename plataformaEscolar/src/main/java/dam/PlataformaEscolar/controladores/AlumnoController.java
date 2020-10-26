@@ -42,25 +42,26 @@ public class AlumnoController {
         return "alumno/asignaturasAlumno";
     }
 
-    @GetMapping("/convalidacion/{id}")
-    public String convalidadAsignatura (@PathVariable long id, Model model) {
-        if (servicioAsignatura.findById(id) != null){
-            model.addAttribute("convalidacionForm", new SituacionExcepcional());
-        }
+    @GetMapping("/convalidacion")
+    public String convalidadAsignatura (Model model) {
+
+        model.addAttribute("convalidacionForm", new SituacionExcepcional());
+        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+
         return "alumno/formularioConvalidacion";
     }
 
     @PostMapping("/convalidacion/submit") /*    @PostMapping("/convalidacion/{id}/submit")  */
     public String convalidarAsignaturaSubmit (@ModelAttribute("convalidacionForm") SituacionExcepcional excepcional,
                                               @AuthenticationPrincipal Alumno alumno,
-                                              @PathVariable Asignatura asignatura,
+                                              @PathVariable("asignatura") long id,
                                               @RequestParam("file") MultipartFile file) {
         String adjunto = storageService.store(file, alumno.getId());
         excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
                 "serveFile", adjunto).build().toUriString());
         //servicioAsignatura.findById(id);
-        //excepcional.setAsignatura(servicioAsignatura.findById(id));
-        excepcional.setAsignatura(asignatura);
+        excepcional.setAsignatura(servicioAsignatura.findById(id));
+        //excepcional.setAsignatura(asignatura);
         //excepcional.getAsignatura().setId(asignatura.getId());
         excepcional.setAlumno(alumno);
         excepcional.setFechaSolicitud(LocalDate.now());
