@@ -2,6 +2,7 @@ package dam.PlataformaEscolar.controladores;
 
 import dam.PlataformaEscolar.modelo.Alumno;
 import dam.PlataformaEscolar.modelo.Asignatura;
+import dam.PlataformaEscolar.modelo.FormularioSituacionExcepcional;
 import dam.PlataformaEscolar.modelo.SituacionExcepcional;
 import dam.PlataformaEscolar.service.AsignaturaServicio;
 import dam.PlataformaEscolar.service.SituacionExcepcionalService;
@@ -44,25 +45,24 @@ public class AlumnoController {
 
     @GetMapping("/convalidacion")
     public String convalidadAsignatura (Model model) {
-
-        model.addAttribute("convalidacionForm", new SituacionExcepcional());
+        model.addAttribute("convalidacionForm", new FormularioSituacionExcepcional());
+        //model.addAttribute("convalidacionForm", new SituacionExcepcional());
         model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
 
         return "alumno/formularioConvalidacion";
     }
 
-    @PostMapping("/convalidacion/submit") /*    @PostMapping("/convalidacion/{id}/submit")  */
-    public String convalidarAsignaturaSubmit (@ModelAttribute("convalidacionForm") SituacionExcepcional excepcional,
+    @PostMapping("/convalidacion/submit")
+    public String convalidarAsignaturaSubmit (@ModelAttribute("convalidacionForm") FormularioSituacionExcepcional formularioExcepcional,
                                               @AuthenticationPrincipal Alumno alumno,
-                                              @PathVariable("asignatura") long id,
                                               @RequestParam("file") MultipartFile file) {
+
         String adjunto = storageService.store(file, alumno.getId());
+        Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
+        SituacionExcepcional excepcional = new SituacionExcepcional();
         excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
                 "serveFile", adjunto).build().toUriString());
-        //servicioAsignatura.findById(id);
-        excepcional.setAsignatura(servicioAsignatura.findById(id));
-        //excepcional.setAsignatura(asignatura);
-        //excepcional.getAsignatura().setId(asignatura.getId());
+        excepcional.setAsignatura(asignatura);
         excepcional.setAlumno(alumno);
         excepcional.setFechaSolicitud(LocalDate.now());
         excepcional.setTipo("Convalidación");

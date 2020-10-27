@@ -62,6 +62,8 @@ public class Asignatura {
         this.abreviatura = abreviatura;
         this.curso = curso;
     }
+
+
     // helpers de horario
     public void addHorario(Horario h) {
         this.horarios.add(h);

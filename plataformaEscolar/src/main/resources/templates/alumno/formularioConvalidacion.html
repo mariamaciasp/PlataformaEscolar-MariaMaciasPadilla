@@ -89,9 +89,9 @@
                 <legend class="mb-5 text-center pt-2">Convalidar asignatura</legend>
                 <div class="input-group mb-5">
                     <div class="input-group-prepend ml-2">
-                        <label for="asignatura" class="input-group-text">Asignatura</label>
+                        <label for="idAsignatura" class="input-group-text">Asignatura</label>
                     </div>
-                    <select id="asignatura" th:field="*{asignatura}" class="form-control">
+                    <select id="idAsignatura" th:field="*{idAsignatura}" class="form-control">
                         <option value="-1">---</option>
                         <option th:each="asignatura : ${listaAsignaturas}" th:value="${asignatura.id}"
                                 th:text="${asignatura.nombre}">Curso</option>
