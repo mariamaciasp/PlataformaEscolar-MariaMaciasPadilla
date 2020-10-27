@@ -62,8 +62,6 @@ public class PlataformaEscolarApplication {
 			}
 
 
-
-
 			// Asignaturas
 			Asignatura sge = new Asignatura("Sistemas de gestión empresarial", "SGE",c2);
 			Asignatura di = new Asignatura("Diseño de interfaces", "DI", c2);
@@ -101,7 +99,7 @@ public class PlataformaEscolarApplication {
 			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), null,true,false);
 			Alumno alumno = new Alumno ("María", "García", "m@gmail.com",passwordEncoder.encode("1234"),null,true);
 
-			alumno.setCurso(c1);
+			alumno.setCurso(c2);
 			servicioProfesor.save(jefeEstudios);
 			servicioProfesor.save(profesor);
 			servicioAlumno.save(alumno);

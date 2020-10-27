@@ -4,6 +4,7 @@ import dam.PlataformaEscolar.modelo.Alumno;
 import dam.PlataformaEscolar.modelo.Asignatura;
 import dam.PlataformaEscolar.modelo.FormularioSituacionExcepcional;
 import dam.PlataformaEscolar.modelo.SituacionExcepcional;
+import dam.PlataformaEscolar.service.AlumnoServicio;
 import dam.PlataformaEscolar.service.AsignaturaServicio;
 import dam.PlataformaEscolar.service.SituacionExcepcionalService;
 import dam.PlataformaEscolar.upload.*;
@@ -25,11 +26,14 @@ public class AlumnoController {
 
 
     @Autowired
-    AsignaturaServicio servicioAsignatura;
+    private AsignaturaServicio servicioAsignatura;
     @Autowired
-    SituacionExcepcionalService servicioExcepcional;
+    private SituacionExcepcionalService servicioExcepcional;
     @Autowired
     private StorageService storageService;
+    @Autowired
+    private AlumnoServicio servicioAlumno;
+
 
     @GetMapping({"/", "/inicio"})
     public String inicioAlumno (){
@@ -43,11 +47,12 @@ public class AlumnoController {
         return "alumno/asignaturasAlumno";
     }
 
+    // convalidar
+
     @GetMapping("/convalidacion")
-    public String convalidadAsignatura (Model model) {
+    public String convalidadAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
         model.addAttribute("convalidacionForm", new FormularioSituacionExcepcional());
-        //model.addAttribute("convalidacionForm", new SituacionExcepcional());
-        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+        model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
 
         return "alumno/formularioConvalidacion";
     }
@@ -71,6 +76,38 @@ public class AlumnoController {
 
         return "redirect:/alumno/";
     }
+
+
+    // exencion
+
+    @GetMapping("/exencion")
+    public String exencionAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
+        model.addAttribute("exencionForm", new FormularioSituacionExcepcional());
+        model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
+
+        return "alumno/formularioExencion";
+    }
+
+    @PostMapping("/exencion/submit")
+    public String exencionAsignaturaSubmit (@ModelAttribute("exencionForm") FormularioSituacionExcepcional formularioExcepcional,
+                                              @AuthenticationPrincipal Alumno alumno,
+                                              @RequestParam("file") MultipartFile file) {
+
+        String adjunto = storageService.store(file, alumno.getId());
+        Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
+        SituacionExcepcional excepcional = new SituacionExcepcional();
+        excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
+                "serveFile", adjunto).build().toUriString());
+        excepcional.setAsignatura(asignatura);
+        excepcional.setAlumno(alumno);
+        excepcional.setFechaSolicitud(LocalDate.now());
+        excepcional.setTipo("Exención");
+        excepcional.setEstado("Pendiente");
+        servicioExcepcional.save(excepcional);
+
+        return "redirect:/alumno/";
+    }
+
 
 
     // subida de archivos

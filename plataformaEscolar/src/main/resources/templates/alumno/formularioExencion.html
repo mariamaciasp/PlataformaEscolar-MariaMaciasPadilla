@@ -81,12 +81,12 @@
     <div class="row mt-5">
         <div class="col-3"></div>
         <form enctype="multipart/form-data" method="POST" action="#"
-              th:action="@{/alumno/convalidacion/submit}" th:object="${convalidacionForm}"
+              th:action="@{/alumno/exencion/submit}" th:object="${exencionForm}"
               id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla"
               onsubmit="return revisarFormulario();">
 
             <fieldset class="mt-2 ml-1">
-                <legend class="mb-5 text-center pt-2">Solicitud de convalidación</legend>
+                <legend class="mb-5 text-center pt-2">Solicitud de exención</legend>
                 <div class="input-group mb-5">
                     <div class="input-group-prepend ml-2">
                         <label for="idAsignatura" class="input-group-text">Asignatura</label>
