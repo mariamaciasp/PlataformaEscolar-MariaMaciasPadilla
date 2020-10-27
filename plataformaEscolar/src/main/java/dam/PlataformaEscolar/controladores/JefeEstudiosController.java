@@ -33,6 +33,8 @@ public class JefeEstudiosController {
     private AsignaturaServicio servicioAsignatura;
     @Autowired
     private HorarioService servicioHorario;
+    @Autowired
+    private SituacionExcepcionalService servicioEscepcional;
 
 
     @ModelAttribute("listaTitulos")
@@ -352,6 +354,15 @@ public class JefeEstudiosController {
         }
         return "redirect:/jefeEstudios/asignaturas";
     }
+
+
+    // Situaciones escepcionales alumnos:
+    @GetMapping("/situacionesEscepcionales")
+    public String mostrarSituacionesEscepcionales (Model model) {
+            model.addAttribute("listaSituacionesEscepcionales", servicioEscepcional.findAll());
+        return "jefeEstudios/situacionEscepcional";
+    }
+
 
 
 
