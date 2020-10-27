@@ -63,17 +63,24 @@ public class AlumnoController {
                                               @RequestParam("file") MultipartFile file) {
 
         Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
-        String adjunto = storageService.store(file, alumno.getNombre(), alumno.getApellidos(), asignatura.getId());
 
-        SituacionExcepcional excepcional = new SituacionExcepcional();
-        excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
-                "serveFile", adjunto).build().toUriString());
-        excepcional.setAsignatura(asignatura);
-        excepcional.setAlumno(alumno);
-        excepcional.setFechaSolicitud(LocalDate.now());
-        excepcional.setTipo("Convalidación");
-        excepcional.setEstado("Pendiente");
-        servicioExcepcional.save(excepcional);
+        if (!file.isEmpty()) {
+
+            String adjunto = storageService.store(file, alumno.getApellidos() +
+                    alumno.getNombre() + "-" + asignatura.getNombre());
+
+            SituacionExcepcional excepcional = new SituacionExcepcional();
+            excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
+                    "serveFile", adjunto).build().toUriString());
+            excepcional.setAdjunto(adjunto);
+
+            excepcional.setAsignatura(asignatura);
+            excepcional.setAlumno(alumno);
+            excepcional.setFechaSolicitud(LocalDate.now());
+            excepcional.setTipo("Convalidación");
+            excepcional.setEstado("Pendiente");
+            servicioExcepcional.save(excepcional);
+        }
 
         return "redirect:/alumno/";
     }
@@ -94,19 +101,26 @@ public class AlumnoController {
                                               @AuthenticationPrincipal Alumno alumno,
                                               @RequestParam("file") MultipartFile file) {
 
-        //String adjunto = storageService.store(file, alumno.getId());
-        Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
-        String adjunto = storageService.store(file, alumno.getNombre(), alumno.getApellidos(), asignatura.getId());
 
-        SituacionExcepcional excepcional = new SituacionExcepcional();
-        excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
-                "serveFile", adjunto).build().toUriString());
-        excepcional.setAsignatura(asignatura);
-        excepcional.setAlumno(alumno);
-        excepcional.setFechaSolicitud(LocalDate.now());
-        excepcional.setTipo("Exención");
-        excepcional.setEstado("Pendiente");
-        servicioExcepcional.save(excepcional);
+        Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
+
+        if (!file.isEmpty()) {
+            String adjunto = storageService.store(file, alumno.getApellidos() +
+                    alumno.getNombre() + "-" + asignatura.getNombre());
+            
+            SituacionExcepcional excepcional = new SituacionExcepcional();
+            excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
+                    "serveFile", adjunto).build().toUriString());
+
+            excepcional.setAdjunto(adjunto);
+
+            excepcional.setAsignatura(asignatura);
+            excepcional.setAlumno(alumno);
+            excepcional.setFechaSolicitud(LocalDate.now());
+            excepcional.setTipo("Exención");
+            excepcional.setEstado("Pendiente");
+            servicioExcepcional.save(excepcional);
+        }
 
         return "redirect:/alumno/";
     }

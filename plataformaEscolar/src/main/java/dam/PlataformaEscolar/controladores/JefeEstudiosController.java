@@ -2,8 +2,12 @@ package dam.PlataformaEscolar.controladores;
 
 import dam.PlataformaEscolar.modelo.*;
 import dam.PlataformaEscolar.service.*;
+import dam.PlataformaEscolar.upload.FileSystemStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.util.Pair;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -35,6 +39,8 @@ public class JefeEstudiosController {
     private HorarioService servicioHorario;
     @Autowired
     private SituacionExcepcionalService servicioEscepcional;
+    @Autowired
+    private FileSystemStorageService fileSystemStorageService;
 
 
     @ModelAttribute("listaTitulos")
@@ -357,10 +363,17 @@ public class JefeEstudiosController {
 
 
     // Situaciones escepcionales alumnos:
-    @GetMapping("/situacionesEscepcionales")
+    @GetMapping("/situacionEscepcional")
     public String mostrarSituacionesEscepcionales (Model model) {
             model.addAttribute("listaSituacionesEscepcionales", servicioEscepcional.findAll());
         return "jefeEstudios/situacionEscepcional";
+    }
+
+    @GetMapping("/situacionEscepcional/download/{nombre}")
+    public ResponseEntity<Resource> descargarFicheros (@PathVariable("nombre") String name){
+        Resource resource = fileSystemStorageService.loadAsResource(name);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+                resource.getFilename() + "\"").body(resource);
     }
 
 

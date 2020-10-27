@@ -117,7 +117,11 @@
                     <td th:text="${situacionEscepcional.asignatura.nombre}" class="pr-5">BBDD</td>
                     <td th:text="${situacionEscepcional.fechaSolicitud}" class="">10/10/10</td>
                     <td th:text="${situacionEscepcional.tipo}" class="pr-5">Convalidación</td>
-                    <td th:text="${situacionEscepcional.adjunto}" class="pr-5"><a th:href="${situacionEscepcional.adjunto}" class="fas fa-download"></a></td>
+                    <td class="pr-5">
+                        <a th:href="@{/jefeEstudios/situacionEscepcional/download/{name}(name=${situacionEscepcional.adjunto})}">
+                            <span class="fas fa-download"></span>
+                        </a>
+                    </td>
                     <!--th:href se redirige a la descarga -->
                     <td th:text="${situacionEscepcional.estado}" class="pr-5">Pendiente</td>
 
