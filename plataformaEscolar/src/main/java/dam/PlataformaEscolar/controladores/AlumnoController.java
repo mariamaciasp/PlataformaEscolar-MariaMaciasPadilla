@@ -62,8 +62,9 @@ public class AlumnoController {
                                               @AuthenticationPrincipal Alumno alumno,
                                               @RequestParam("file") MultipartFile file) {
 
-        String adjunto = storageService.store(file, alumno.getId());
         Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
+        String adjunto = storageService.store(file, alumno.getNombre(), alumno.getApellidos(), asignatura.getId());
+
         SituacionExcepcional excepcional = new SituacionExcepcional();
         excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
                 "serveFile", adjunto).build().toUriString());
@@ -93,8 +94,10 @@ public class AlumnoController {
                                               @AuthenticationPrincipal Alumno alumno,
                                               @RequestParam("file") MultipartFile file) {
 
-        String adjunto = storageService.store(file, alumno.getId());
+        //String adjunto = storageService.store(file, alumno.getId());
         Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
+        String adjunto = storageService.store(file, alumno.getNombre(), alumno.getApellidos(), asignatura.getId());
+
         SituacionExcepcional excepcional = new SituacionExcepcional();
         excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
                 "serveFile", adjunto).build().toUriString());
