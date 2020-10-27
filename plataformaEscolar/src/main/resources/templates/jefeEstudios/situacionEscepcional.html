@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<meta charset="utf-8">
+<title>Alumnos</title>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/css/CSS.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/CSS.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+
+
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand logo text-white" th:href="@{/index}">TrianaSchool</a>
+
+        <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ml-2">
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " href="#">Títulos</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " href="#">Cursos</a>
+                </li>
+                <li class="nav-item dropdown mr-2">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Usuarios</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Alumnos</a>
+                        <a class="dropdown-item" href="#">Profesores</a>
+                        <a class="dropdown-item" href="#">Jefe de estudios</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown mr-2">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Altas</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Alumnos</a>
+                        <a class="dropdown-item" href="#">Profesores</a>
+                        <a class="dropdown-item" href="#">Jefe de estudios</a>
+                    </div>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " href="#">Solicitudes</a>
+                </li>
+
+            </ul>
+
+
+
+
+            <form class="form-inline my-2 my-lg-0">
+
+                <input class="buscar form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button type="submit" id="buscar" class="btn">
+                    <span class="fas fa-search fa-lg"></span>
+                </button>
+
+                <a th:href="@{/registroSesion}" class="btn">
+                    <span class="far fa-user fa-lg"></span>
+                </a>
+
+                <a th:href="@{/carrito}" class="btn">
+                    <span class="fas fa-shopping-bag mr-3 fa-lg"></span>
+                </a>
+
+            </form>
+
+
+
+        </div>
+    </nav>
+
+</header>
+
+
+<main class="container-fluid mt-2">
+
+
+    <div class="tab-pane" role="tabpanel">
+
+        <div class="bg-light p-4 rounded">
+            <table id="tablaTitulos table" class="table table-hover text-center" summary="Alumnos">
+                <caption class="mb-3 titulo">Alumnos <a><span></span></a>
+                    <a class="btn float-right">
+                        <span class="fas fa-plus fa-2x pr-5"></span>
+                    </a>
+                </caption>
+                <thead class="thead-light">
+                <tr>
+                    <th class="pl-5" >ID</th>
+                    <th class="" >Alumno</th>
+                    <th class="pr-5">Asignatura</th>
+                    <th class="">Fecha de solicitud</th>
+                    <th class="">Tipo</th>
+                    <th class="pr-5" >Archivo</th>
+                    <th class="pr-5" >Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="situacionEscepcional : ${listaSituacionesEscepcionales}">
+                    <td th:text="${situacionEscepcional.id}"  class="pl-5" >1</td>
+                    <td th:text="${situacionEscepcional.alumno}">Pepe</td>
+                    <td th:text="${situacionEscepcional.asignatura}" class="pr-5">BBDD</td>
+                    <td th:text="${situacionEscepcional.fechaSolicitud}" class="">10/10/10</td>
+                    <td th:text="${situacionEscepcional.tipo}" class="pr-5">Convalidación</td>
+                    <td th:text="${situacionEscepcional.adjunto}" class="pr-5">archivo</td>
+                    <td th:text="${situacionEscepcional.estado}" class="pr-5">Pendiente</td>
+                    <td class="pr-5">
+                        <a class="btn" th:href="@{/jefeEstudios/editAlumno/{id}(id=${alumno.id})}">
+                            <span class="far fa-edit fa-lg"></span>
+                        </a>
+                        <a class="btn" data-toggle="modal" data-target="#delete-modal"
+                           th:attr="data-target='#delete-modal'+${alumno.id}">
+                            <!-- th:data-id="${alumno.id}" CON ESTO NO PILLA AL SELECCIONADO!!!!-->
+
+                            <span class="fas fa-trash-alt fa-lg"></span>
+                        </a>
+                        <a class="btn">
+                            <span class="fas fa-sign-in-alt fa-lg"></span>
+                        </a>
+                    </td>
+                    <div class="modal delete-modal fade" id="delete-modal" tabindex="-1" role="dialog"
+                         th:id="delete-modal+${alumno.id}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Eliminar alumno</h4>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Está usted seguro de eliminar este alumno?</p>
+                                    <button type="button" class="btn botonCancelar" data-dismiss="modal">No</button>
+                                    <a th:href="@{/jefeEstudios/eliminarAlumno/{id}(id=${alumno.id})}" class="btn botonEnvio ml-4">Sí</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+</main>
+
+
+</body>
+
+</html>
