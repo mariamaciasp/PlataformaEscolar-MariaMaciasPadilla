@@ -29,5 +29,19 @@ public class Horario {
         this.hora = hora;
     }
 
+    public Horario(int dia, int hora, Asignatura asignatura) {
+        this.dia = dia;
+        this.hora = hora;
+        this.asignatura = asignatura;
+    }
+
+    public int compareTo (Horario horario) {
+        if (this.getHora()<horario.getHora()){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
 
 }

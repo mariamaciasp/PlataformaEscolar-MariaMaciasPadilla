@@ -92,6 +92,19 @@ public class PlataformaEscolarApplication {
 			horario5.setAsignatura(bbdd);
 			horario6.setAsignatura(bbdd);
 
+			/*sge.addHorario(horario1);
+			sge.addHorario(horario2);
+			di.addHorario(horario3);
+			di.addHorario(horario4);
+			bbdd.addHorario(horario5);
+*/
+			servicioHorario.save(horario1);
+			servicioHorario.save(horario2);
+			servicioHorario.save(horario3);
+			servicioHorario.save(horario4);
+			servicioHorario.save(horario5);
+			servicioHorario.save(horario6);
+
 
 
 			// instancia un usuario de cada

@@ -81,6 +81,14 @@ public class JefeEstudiosController {
         return "jefeEstudios/cursos";
     }
 
+    @GetMapping("/cursos/horario/{id}")
+    public String cursoHorario (@PathVariable("id") long id, Model model){
+        model.addAttribute("horarios",
+                servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(servicioCurso.findById(id))));
+        return "jefeEstudios/horario";
+    }
+
+
     @GetMapping("/asignaturas")
     public String asignaturas (Model model) {
         model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
@@ -394,5 +402,7 @@ public class JefeEstudiosController {
         servicioExcepcional.edit(excepcional);
         return "redirect:/jefeEstudios/situacionExcepcional";
     }
+
+
 
 }
