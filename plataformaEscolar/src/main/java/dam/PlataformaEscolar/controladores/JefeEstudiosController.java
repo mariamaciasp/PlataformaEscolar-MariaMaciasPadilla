@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class JefeEstudiosController {
     @Autowired
     private HorarioService servicioHorario;
     @Autowired
-    private SituacionExcepcionalService servicioEscepcional;
+    private SituacionExcepcionalService servicioExcepcional;
     @Autowired
     private FileSystemStorageService fileSystemStorageService;
 
@@ -362,22 +363,36 @@ public class JefeEstudiosController {
     }
 
 
-    // Situaciones escepcionales alumnos:
-    @GetMapping("/situacionEscepcional")
-    public String mostrarSituacionesEscepcionales (Model model) {
-            model.addAttribute("listaSituacionesEscepcionales", servicioEscepcional.findAll());
-        return "jefeEstudios/situacionEscepcional";
+    // Situaciones excepcionales alumnos:
+    @GetMapping("/situacionExcepcional")
+    public String mostrarSituacionesExcepcionales (Model model) {
+            model.addAttribute("listaSituacionesExcepcionales", servicioExcepcional.findAll());
+        return "jefeEstudios/situacionExcepcional";
     }
 
-    @GetMapping("/situacionEscepcional/download/{nombre}")
+    @GetMapping("/situacionExcepcional/download/{nombre}")
     public ResponseEntity<Resource> descargarFicheros (@PathVariable("nombre") String name){
         Resource resource = fileSystemStorageService.loadAsResource(name);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
                 resource.getFilename() + "\"").body(resource);
     }
 
+    @GetMapping("/editSituacionExcepcional/{idAlumno}/{idAsignatura}")
+    public String editSituacionExcepcional (@PathVariable long idAlumno, @PathVariable long idAsignatura,
+                                             Model model){
+        SituacionExcepcionalPK pk = new SituacionExcepcionalPK (idAlumno,idAsignatura);
+        if (servicioExcepcional.findById(pk)!=null){
+            model.addAttribute("excepcionalForm", servicioExcepcional.findById(pk));
+            return "jefeEstudios/formularioSituacionExcepcional";
+        }
+        return "redirect:/jefeEstudios/";
+    }
 
-
-
+    @PostMapping("/editSituacionExcepcional/submit")
+    public String editSituacionEscepcionalSubmit (@ModelAttribute("excepcionalForm") SituacionExcepcional excepcional){
+        excepcional.setFechaResolucion(LocalDate.now());
+        servicioExcepcional.edit(excepcional);
+        return "redirect:/jefeEstudios/situacionExcepcional";
+    }
 
 }

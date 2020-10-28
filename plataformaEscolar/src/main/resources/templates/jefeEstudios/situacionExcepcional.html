@@ -94,37 +94,41 @@
 
     <div class="tab-pane" role="tabpanel">
 
-        <div class="bg-light p-4 rounded">
+        <div class="bg-light p-4 rounded mt-5">
             <table id="tablaTitulos table" class="table table-hover text-center" summary="Alumnos">
-                <caption class="mb-3 titulo">Situaciones escepcionales <a><span></span></a>
-                    <a class="btn float-right">
-                        <span class="fas fa-plus fa-2x pr-5"></span>
-                    </a>
-                </caption>
+                <caption class="mb-3 titulo">Situaciones excepcionales <a><span></span></a>                </caption>
                 <thead class="thead-light">
                 <tr>
                     <th class="" >Alumno</th>
-                    <th class="pr-5">Asignatura</th>
-                    <th class="">Fecha de solicitud</th>
+                    <th class="">Asignatura</th>
                     <th class="">Tipo</th>
-                    <th class="pr-5" >Archivo</th>
-                    <th class="pr-5" >Estado</th>
+                    <th class="">Fecha de solicitud</th>
+                    <th class="">Fecha de resolución</th>
+                    <th class="" >Archivo</th>
+                    <th class="" >Estado</th>
+                    <th class="">Operaciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="situacionEscepcional : ${listaSituacionesEscepcionales}">
-                    <td th:text="${situacionEscepcional.alumno.nombre + ' ' + situacionEscepcional.alumno.apellidos} ">Pepe</td>
-                    <td th:text="${situacionEscepcional.asignatura.nombre}" class="pr-5">BBDD</td>
-                    <td th:text="${situacionEscepcional.fechaSolicitud}" class="">10/10/10</td>
-                    <td th:text="${situacionEscepcional.tipo}" class="pr-5">Convalidación</td>
-                    <td class="pr-5">
-                        <a th:href="@{/jefeEstudios/situacionEscepcional/download/{name}(name=${situacionEscepcional.adjunto})}">
+                <tr th:each="situacionExcepcional : ${listaSituacionesExcepcionales}">
+                    <td th:text="${situacionExcepcional.alumno.nombre + ' ' + situacionExcepcional.alumno.apellidos} ">Pepe</td>
+                    <td th:text="${situacionExcepcional.asignatura.nombre}" class="">BBDD</td>
+                    <td th:text="${situacionExcepcional.tipo}" class="">Convalidación</td>
+                    <td th:text="${situacionExcepcional.fechaSolicitud}" class="">10/10/10</td>
+                    <td th:text="${situacionExcepcional.fechaResolucion}" class="">12/10/10</td>
+                    <td class="">
+                        <a th:href="@{/jefeEstudios/situacionExcepcional/download/{name}(name=${situacionExcepcional.adjunto})}">
                             <span class="fas fa-download"></span>
                         </a>
                     </td>
-                    <!--th:href se redirige a la descarga -->
-                    <td th:text="${situacionEscepcional.estado}" class="pr-5">Pendiente</td>
-
+                    <td th:text="${situacionExcepcional.estado}" class="">Pendiente</td>
+                    <td class="pt-1">
+                        <a class="btn"
+                           th:href="@{/jefeEstudios/editSituacionExcepcional/{idAlumno}/{idAsignatura}
+                                    (idAlumno=${situacionExcepcional.alumno.id}, idAsignatura=${situacionExcepcional.asignatura.id})}">
+                            <span class="far fa-edit fa-lg"></span>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

@@ -40,9 +40,17 @@ public class AlumnoController {
         return "alumno/inicioAlumno";
 
     }
-
+    //SituacionExcepcional situacion;
     @GetMapping("/asignaturas")
     public String listaAsignaturasAlumno (@AuthenticationPrincipal Alumno alumno, Model model) {
+           // alumno.getSituacionesExcepcionales();
+
+        /*   MAL
+        if (situacion.getEstado()== "Denegada"){
+            Asignatura asignatura = situacion.getAsignatura();
+            alumno.getCurso().setAsignaturas(null);
+        }*/
+
         model.addAttribute("listaAsignaturas", alumno.getCurso().getAsignaturas());
         return "alumno/asignaturasAlumno";
     }
@@ -107,7 +115,7 @@ public class AlumnoController {
         if (!file.isEmpty()) {
             String adjunto = storageService.store(file, alumno.getApellidos() +
                     alumno.getNombre() + "-" + asignatura.getNombre());
-            
+
             SituacionExcepcional excepcional = new SituacionExcepcional();
             excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
                     "serveFile", adjunto).build().toUriString());

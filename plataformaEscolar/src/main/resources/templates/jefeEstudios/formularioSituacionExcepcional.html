@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<meta charset="utf-8">
+<title>Inicio Jefe de Estudios</title>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/css/CSS.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/CSS.css">
+
+<script type="text/javascript" src="/js/formularioUsuario.js"></script>
+<script type="text/javascript" src="../../static/js/formularioUsuario.js"></script>
+
+
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg" >
+        <a class="navbar-brand logo text-white" th:href="@{/jefeEstudios/inicioJE}">TrianaSchool</a>
+
+        <div class="collapse navbar-collapse text-white " id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ml-2">
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " href="#">Títulos</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " href="#">Cursos</a>
+                </li>
+                <li class="nav-item dropdown mr-2">
+                    <a class="error nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Usuarios</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Alumnos</a>
+                        <a class="dropdown-item" href="#">Profesores</a>
+                        <a class="dropdown-item" href="#">Jefe de estudios</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown mr-2">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Altas</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Alumnos</a>
+                        <a class="dropdown-item" href="#">Profesores</a>
+                        <a class="dropdown-item" href="#">Jefe de estudios</a>
+                    </div>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " href="#">Solicitudes</a>
+                </li>
+
+            </ul>
+
+
+
+
+            <form class="form-inline my-2 my-lg-0">
+
+                <input class="buscar form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button type="submit" id="buscar" class="btn">
+                    <span class="fas fa-search fa-lg"></span>
+                </button>
+
+                <a th:href="@{/registroSesion}" class="btn">
+                    <span class="far fa-user fa-lg"></span>
+                </a>
+
+                <a th:href="@{/carrito}" class="btn">
+                    <span class="fas fa-shopping-bag mr-3 fa-lg"></span>
+                </a>
+
+            </form>
+
+
+
+        </div>
+    </nav>
+
+</header>
+
+<main class="container-fluid">
+
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <form method="POST" action="#" th:action="@{/jefeEstudios/editSituacionExcepcional/submit}"
+              th:object="${excepcionalForm}" id="formulario" class="col-6 bg-light mb-5 rounded">
+
+            <fieldset class="mt-2 ml-1">
+                <legend class="mb-3 text-center pt-2">Situación excepcional</legend>
+                <input type="hidden" th:field="*{id.alumno_id}" id="idAlumno" name="idAlumno">
+                <input type="hidden" th:field="*{id.asignatura_id}" id="idAsignatura" name="idAsignatura">
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="nombreAlumno" class="input-group-text">Alumno</label>
+                    </div>
+                    <input type="text" readonly id="nombreAlumno" name="nombreAlumno" class="form-control mt-3" placeholder="Nombre alumno" th:field="*{alumno.nombre}" >
+                    <input type="text" readonly id="apellidoAlumno" name="apellidoAlumno" class="form-control mt-3" placeholder="Nombre alumno" th:field="*{alumno.apellidos}" >
+
+                </div>
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="nombreAsignatura" class="input-group-text">Asignatura</label>
+                    </div>
+                    <input type="text" readonly id="nombreAsignatura" name="nombreAsignatura" class="form-control mt-3" placeholder="Nombre asignatura" th:field="*{asignatura.nombre}" >
+                </div>
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="fechaSolicitud" class="input-group-text">Fecha solicitud</label>
+                    </div>
+                    <input type="text" readonly id="fechaSolicitud" name="fechaSolicitud" class="form-control mt-3"
+                           placeholder="Fecha solicitud" th:field="*{fechaSolicitud}" >
+                </div>
+
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="tipo" class="input-group-text">Tipo de Solicitud</label>
+                    </div>
+                    <input type="text" id="tipo" name="tipo" class="form-control mt-3"
+                           placeholder="Tipo de solicitud" th:field="*{tipo}" readonly>
+                </div>
+
+
+                <div class="form-group pl-5 pt-3 pb-2">
+                    <p class="mb-3 font-weight-bold">Estado: </p>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pendiente" name="estado" class="custom-control-input" th:value="${'Pendiente'}"
+                               th:field="*{estado}">
+                        <label class="custom-control-label" for="pendiente">Pendiente</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="confirmada" name="estado" class="custom-control-input" th:value="${'Confirmada'}"
+                               th:field="*{estado}">
+                        <label class="custom-control-label" for="confirmada">Confirmada</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="denegada" name="estado" class="custom-control-input" th:value="${'Denegada'}"
+                               th:field="*{estado}">
+                        <label class="custom-control-label" for="denegada">Denegada</label>
+                    </div>
+                </div>
+
+
+                <button type="reset" class="btn botonCancelar mb-4 mt-3">Limpiar</button>
+                <button type="submit" id="enviar" class="btn mb-4 float-right botonEnvio  mt-3">Enviar</button>
+            </fieldset>
+
+        </form>
+
+        <div class="col-3"></div>
+    </div>
+
+</main>
+
+
+</body>
+</html>
