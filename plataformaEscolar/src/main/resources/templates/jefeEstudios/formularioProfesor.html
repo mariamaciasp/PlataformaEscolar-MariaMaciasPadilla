@@ -1,91 +1,13 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
 
-	<meta charset="utf-8">
-    <title>Inicio Jefe de Estudios</title>
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="/css/CSS.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/CSS.css">
-
-   <!-- <script type="text/javascript" src="/js/formularioUsuario.js"></script>
-    <script type="text/javascript" src="../../static/js/formularioUsuario.js"></script>-->
-
-   
+    <title>Formulario Profesor</title>
 
 </head>
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg" >
-        <a class="navbar-brand logo text-white" th:href="@{/jefeEstudios/inicioJE}">TrianaSchool</a>
-
-        <div class="collapse navbar-collapse text-white " id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ml-2">
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Títulos</a>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Cursos</a>
-                </li>
-                <li class="nav-item dropdown mr-2">
-                    <a class="error nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuarios</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alumnos</a>
-                        <a class="dropdown-item" href="#">Profesores</a>
-                        <a class="dropdown-item" href="#">Jefe de estudios</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown mr-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Altas</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alumnos</a>
-                        <a class="dropdown-item" href="#">Profesores</a>
-                        <a class="dropdown-item" href="#">Jefe de estudios</a>
-                    </div>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Solicitudes</a>
-                </li>
-
-            </ul>
-
-
-
-
-            <form class="form-inline my-2 my-lg-0">
-                
-                <input class="buscar form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button type="submit" id="buscar" class="btn">
-                    <span class="fas fa-search fa-lg"></span>
-                </button>
-
-                <a th:href="@{/registroSesion}" class="btn">
-                    <span class="far fa-user fa-lg"></span>
-                </a>
-
-                <a th:href="@{/carrito}" class="btn">
-                    <span class="fas fa-shopping-bag mr-3 fa-lg"></span>
-                </a>
-
-            </form>
-            
-
-
-        </div>
-    </nav>
-
-</header>
+<header th:replace="~{fragmentos/headerJefeEstudios::headerJefeEstudios}"></header>
 
 <main class="container-fluid">
     <div class="row mt-5">

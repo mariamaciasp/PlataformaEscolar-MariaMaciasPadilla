@@ -44,7 +44,9 @@ public class AlumnoController {
     @GetMapping("/asignaturas")
     public String listaAsignaturasAlumno (@AuthenticationPrincipal Alumno alumno, Model model) {
            // alumno.getSituacionesExcepcionales();
-
+       /* if (alumno.getSituacionesExcepcionales().get()
+        ) alumno.getCurso().getAsignaturas().;
+        alumno.getSituacionesExcepcionales().get()*/
         /*   MAL
         if (situacion.getEstado()== "Denegada"){
             Asignatura asignatura = situacion.getAsignatura();

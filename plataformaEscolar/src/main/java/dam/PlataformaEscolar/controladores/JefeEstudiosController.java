@@ -51,7 +51,8 @@ public class JefeEstudiosController {
 
 
     @GetMapping("/")
-    public String inicioJefeEstudios () {
+    public String inicioJefeEstudios (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "jefeEstudios/inicioJE";
     }
 
