@@ -15,7 +15,7 @@
         <div class="col-3"></div>
         <form method="POST" action="#" th:action="${asignaturaForm.id != 0} ? @{/jefeEstudios/editAsignatura/submit}:
               @{/jefeEstudios/nuevaAsignatura/submit}" th:object="${asignaturaForm}" id="formulario"
-              class="col-6 bg-light mb-5 rounded">
+              class="col-6 bg-light mb-5 rounded posicionTabla">
 
             <fieldset class="mt-2 ml-1">
                 <legend class="mb-3 text-center pt-2" th:href="${asignaturaForm.id != 0} ? 'Editar Asignatura' :

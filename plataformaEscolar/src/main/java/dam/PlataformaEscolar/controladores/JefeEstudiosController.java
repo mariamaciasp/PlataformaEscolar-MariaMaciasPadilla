@@ -5,11 +5,9 @@ import dam.PlataformaEscolar.service.*;
 import dam.PlataformaEscolar.upload.FileSystemStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.data.util.Pair;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,102 +42,141 @@ public class JefeEstudiosController {
     private FileSystemStorageService fileSystemStorageService;
 
 
-    @ModelAttribute("listaTitulos")
-    public List<Titulo> listaCategorias () {
-        return servicioTitulo.findAll();
-    }
-
-
     @GetMapping("/")
     public String inicioJefeEstudios (@AuthenticationPrincipal Profesor profesor, Model model) {
         model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "jefeEstudios/inicioJE";
     }
 
+    // ALUMNOS
 
     @GetMapping("/alumnos")
-    public String alumnos(Model model){
+    public String alumnos(@AuthenticationPrincipal Profesor profesor, Model model){
         model.addAttribute("listaAlumnos",servicioAlumno.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "jefeEstudios/alumnos";
     }
 
-    @GetMapping("/profesor")
-    public String profesores(Model model){
-        model.addAttribute("listaProfesores",servicioProfesor.findAll());
-        return "jefeEstudios/profesor";
-    }
-
-    @GetMapping("/titulos")
-    public String titulos (Model model) {
-        //listaCategorias(); // este método sería para hacerlo sin el model.addAttribute
-        model.addAttribute("listaTitulos", servicioTitulo.findAll());
-        return "jefeEstudios/titulos";
-    }
-
-    @GetMapping("/cursos")
-    public String cursos (Model model) {
-        model.addAttribute("listaCursos", servicioCurso.findAll());
-        return "jefeEstudios/cursos";
-    }
-
-    @GetMapping("/cursos/horario/{id}")
-    public String cursoHorario (@PathVariable("id") long id, Model model){
-        model.addAttribute("horarios",
-                servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(servicioCurso.findById(id))));
-        return "jefeEstudios/horario";
-    }
-
-
-    @GetMapping("/asignaturas")
-    public String asignaturas (Model model) {
-        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
-       // model.addAttribute("listaHorario", servicioAsignatura.findAll());
-        return "jefeEstudios/asignatura";
-    }
-
-
-    // registro alumno
     @GetMapping("/registroAlumno")
-    public String nuevoAlumnoForm (Model model) {
+    public String nuevoAlumnoForm (@AuthenticationPrincipal Profesor profesor, Model model) {
         model.addAttribute("alumnoForm", new Alumno());
         model.addAttribute("listaCursos", servicioCurso.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "jefeEstudios/formularioAlumno";
     }
 
     @PostMapping("/nuevoAlumno/submit")
     public String registroAlumno (@ModelAttribute("alumnoForm") Alumno nuevoAlumno) {
         String codigo = servicioUsuario.codigoAleatorio();
-        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        //nuevoAlumno.setPassword(encoder.encode(nuevoAlumno.getPassword()));
         nuevoAlumno.setActivado(false);
         nuevoAlumno.setCodigoActivacion(codigo);
         servicioAlumno.save(nuevoAlumno);
         envioEmail.sendEmail(nuevoAlumno, "Alta cuenta","Su código de alta en " +
                 "Triana eschool es " + codigo);
-
         return "redirect:/jefeEstudios/";
 
     }
 
-    // registro cursos
-    @GetMapping("/registroCurso")
-    public String nuevoCursoForm (Model model) {
-        model.addAttribute("cursoForm", new Curso());
+    @GetMapping("/editAlumno/{id}")
+    public String editAlumno (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        if (servicioAlumno.findById(id) != null) {
+            model.addAttribute("alumnoForm", servicioAlumno.findById(id));
+            model.addAttribute("listaCursos", servicioCurso.findAll());
+            model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+            return "/jefeEstudios/formularioAlumno";
+        }
+        return "redirect:/jefeEstudios/";
+    }
+
+    @PostMapping("/editAlumno/submit")
+    public String editAlumnoSubmit (@ModelAttribute("alumnoForm") Alumno editAlumno) {
+        servicioAlumno.edit(editAlumno);
+        return "redirect:/jefeEstudios";
+    }
+
+    @GetMapping("/eliminarAlumno/{id}")
+    public String deleteAlumno (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        if (servicioAlumno.findById(id)!=null) {
+            servicioAlumno.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/alumnos";
+    }
+
+    /*@GetMapping("/alumnos/mostrarCurso/{id}")
+    public String mostrarCursoAlumno (@PathVariable long id, Model model) {
+        model.addAttribute("listaAlumnos", servicioAlumno.findById(id).getCurso());
+        return "jefeEstudios/cursos";
+    }*/
+
+
+    @GetMapping("/profesor")
+    public String profesores(@AuthenticationPrincipal Profesor profesor, Model model){
+        model.addAttribute("listaProfesores",servicioProfesor.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "jefeEstudios/profesor";
+    }
+
+    @GetMapping("/registroProfesor")
+    public String nuevoProfesorForm (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("profesorForm", new Profesor());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "jefeEstudios/formularioProfesor";
+    }
+
+    @PostMapping("/nuevoProfesor/submit")
+    public String registroProfesor (@ModelAttribute("profesorForm") Profesor nuevoProfesor) {
+        String codigo = servicioUsuario.codigoAleatorio();
+        nuevoProfesor.setActivado(false); // la cuenta sin activar
+        nuevoProfesor.setCodigoActivacion(codigo);
+        servicioProfesor.save(nuevoProfesor);
+        envioEmail.sendEmail(nuevoProfesor, "Alta cuenta","Su código de alta en " +
+                "Triana eschool es " + codigo);
+
+        return "redirect:/jefeEstudios/profesor";
+
+    }
+
+    @GetMapping("/editProfesor/{id}")
+    public String editProfesor (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        if (servicioProfesor.findById(id) != null) {
+            model.addAttribute("profesorForm", servicioProfesor.findById(id));
+            return "/jefeEstudios/formularioProfesor";
+        }
+        return "redirect:/jefeEstudios/profesor";
+    }
+
+    @PostMapping("/editProfesor/submit")
+    public String editProfesorSubmit (@ModelAttribute("profesorForm") Profesor editProfesor) {
+        servicioProfesor.edit(editProfesor);
+        return "redirect:/jefeEstudios/profesor";
+    }
+
+    @GetMapping("/eliminarProfesor/{id}")
+    public String deleteProfesor (@PathVariable long id, @AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        if (servicioProfesor.findById(id)!= null /*&& y por qué cuando doy a borrar elimina el de abajo!!!!?
+                servicioProfesor.findById(id) != servicioProfesor.findById(profesor.getId())*/) {
+            servicioProfesor.deleteById(id);
+        }
+        return "redirect:/jefeEstudios/profesor";
+    }
+
+    // TITULOS
+
+    @GetMapping("/titulos")
+    public String titulos (@AuthenticationPrincipal Profesor profesor, Model model) {
+        //listaCategorias(); // este método sería para hacerlo sin el model.addAttribute
         model.addAttribute("listaTitulos", servicioTitulo.findAll());
-        return "jefeEstudios/formularioCurso";
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "jefeEstudios/titulos";
     }
 
-    @PostMapping("/nuevoCurso/submit")
-    public String registroCurso (@ModelAttribute("alumnoForm") Curso nuevoCurso) {
-        servicioCurso.save(nuevoCurso);
-        return "redirect:/jefeEstudios/";
-
-    }
-
-    // registro títulos
     @GetMapping("/registroTitulo")
-    public String nuevoTituloForm (Model model) {
+    public String nuevoTituloForm (@AuthenticationPrincipal Profesor profesor, Model model) {
         model.addAttribute("tituloForm", new Titulo());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "jefeEstudios/formularioTitulo";
     }
 
@@ -150,136 +187,9 @@ public class JefeEstudiosController {
 
     }
 
-
-    // registro asignaturas
-    @GetMapping("/registroAsignatura")
-    public String nuevaAsignaturaForm (Model model) {
-        model.addAttribute("asignaturaForm", new Asignatura());
-        model.addAttribute("listaCursos", servicioCurso.findAll());
-        return "jefeEstudios/formularioAsignatura";
-    }
-
-    @PostMapping("/nuevaAsignatura/submit")
-    public String registroAsignatura (@ModelAttribute("asignaturaForm") Asignatura nuevaAsignatura) {
-        servicioAsignatura.save(nuevaAsignatura);
-        return "redirect:/jefeEstudios/";
-    }
-
-    // registro horario
-    @GetMapping("/registroHorario")
-    public String nuevoHorarioForm (Model model) {
-        model.addAttribute("horarioForm", new Horario());
-        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
-        return "jefeEstudios/formularioHorario";
-    }
-
-    @PostMapping("/nuevoHorario/submit")
-    public String registroAsignatura (@ModelAttribute("horarioForm") Horario nuevoHorario) {
-        servicioHorario.save(nuevoHorario);
-        return "redirect:/jefeEstudios/";
-    }
-
-
-    // registro profesores
-
-    @GetMapping("/registroProfesor")
-    public String nuevoProfesorForm (Model model) {
-        model.addAttribute("profesorForm", new Profesor());
-        return "jefeEstudios/formularioProfesor";
-    }
-
-    @PostMapping("/nuevoProfesor/submit")
-    public String registroProfesor (@ModelAttribute("profesorForm") Profesor nuevoProfesor) {
-        String codigo = servicioUsuario.codigoAleatorio();
-        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        //nuevoProfesor.setPassword(encoder.encode(codigo));
-        nuevoProfesor.setActivado(false); // la cuenta sin activar
-        nuevoProfesor.setCodigoActivacion(codigo);
-        servicioProfesor.save(nuevoProfesor);
-        envioEmail.sendEmail(nuevoProfesor, "Alta cuenta","Su código de alta en " +
-                "Triana eschool es " + codigo);
-
-        return "redirect:/jefeEstudios/";
-
-    }
-
-    // calendario asignatura
-
-
-    @GetMapping("/calendarioAsignatura/{id}")
-    public String detallesCalendarioAsignatura (@PathVariable("id") Long id, Model model){
-        if (servicioAsignatura.findById(id)!=null){
-            model.addAttribute("asignatura",servicioAsignatura.findById(id));
-        }
-        return "/jefeEstudios/calendarioAsignatura";
-    }
-
-
-    @GetMapping("/calendarioAsignatura")
-    public String calendarioAsignatura(@RequestParam(name="idAsignatura", required = false) Long idAsignatura,
-                                       Model model){
-        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
-        return "/jefeEstudios/calendarioAsignatura";
-
-    }
-
-    // CALENDARIO CURSO
-
-    @GetMapping("calendarioCurso/{id}")
-    public String calendarioCurso (@PathVariable("id") long id, Model model) {
-        if (servicioCurso.findById(id)!=null)
-            return "/jefeEstudios/calendarioCursoDetalles";
-
-        return "/jefeEstudios/cursos";
-    }
-
-    @GetMapping("calendarioCursoDetalles")
-    public String calendarioCursoDetalles (@ModelAttribute("listaAsignaturas") Curso curso, Model model
-
-            /*, Pair<String, String> horario*/ ) {
-
-        //model.addAttribute("listaAsignaturas", servicioCurso.findAll());
-        curso.getAsignaturas();
-
-        for (int i=0; i<0; i++) {
-            Asignatura asignatura = curso.getAsignaturas().get(i);
-            for (int j=0; j<0; j++) {
-                asignatura.getHorarios().get(j);
-                for (int k=0; k<0; k++){
-                    if (asignatura.getHorarios() == null /*qué pongo aquí*/){}
-                }
-            }
-        }
-
-        //List<Asignatura> asignaturas = new ArrayList<>();
-
-        //curso.getAsignaturas().get(i);
-        //horarioDetalle.get(0);
-
-        // List<Asignatura> horarioDetalle = curso.getAsignaturas().get;
-        //for (int i=0; i<horarioDetalle.size(); i++) {
-        //    List <String> par = (List<String>) horarioDetalle.get(i);
-        //    for (int j=0; j<par.size();j++){
-        //        String dia = par.get(j);
-        //        String hora = par.get(j);
-        //    }
-        //}
-
-        return "/jefeEstudios/calendarioCursoDetalles";
-    }
-
-
-
-
-
-
-    // EDITAR
-
-    // TITULO
-
     @GetMapping("/editTitulo/{id}")
-    public String editTituloForm (@PathVariable long id, Model model) {
-
+    public String editTituloForm (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         if (servicioTitulo.findById(id) != null){
             model.addAttribute("tituloForm", servicioTitulo.findById(id));
             return "jefeEstudios/formularioTitulo";
@@ -294,12 +204,55 @@ public class JefeEstudiosController {
         return "redirect:/jefeEstudios/titulos";
     }
 
-    // Cursos
+    @GetMapping("/eliminarTitulo/{id}")
+    public String deleteTitulo (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        if (servicioTitulo.findById(id)!=null) {
+            servicioTitulo.deleteById(id);
+        }
+
+        return "redirect:/jefeEstudios/titulos";
+    }
+
+    @GetMapping("/titulos/mostrarCursos/{id}")
+    public String mostrarCursosTitulos (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("listaCursos", servicioTitulo.findById(id).getCursos());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "/jefeEstudios/cursos";
+    }
+
+
+    // CURSOS
+
+
+    @GetMapping("/cursos")
+    public String cursos (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("listaCursos", servicioCurso.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "jefeEstudios/cursos";
+    }
+
+    @GetMapping("/registroCurso")
+    public String nuevoCursoForm (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("cursoForm", new Curso());
+        model.addAttribute("listaTitulos", servicioTitulo.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "jefeEstudios/formularioCurso";
+    }
+
+    @PostMapping("/nuevoCurso/submit")
+    public String registroCurso (@ModelAttribute("alumnoForm") Curso nuevoCurso) {
+        servicioCurso.save(nuevoCurso);
+        return "redirect:/jefeEstudios/cursos";
+
+    }
 
     @GetMapping("/editCurso/{id}")
-    public String editCursoForm (@PathVariable long id, Model model) {
+    public String editCursoForm (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         if (servicioCurso.findById(id) != null){
             model.addAttribute("cursoForm", servicioCurso.findById(id));
+            model.addAttribute("listaTitulos", servicioTitulo.findAll());
             return "/jefeEstudios/formularioCurso";
         }
         return "redirect:/jefeEstudios/";
@@ -311,84 +264,119 @@ public class JefeEstudiosController {
         return "redirect:/jefeEstudios/cursos";
     }
 
-    // alumnos
-    @GetMapping("/editAlumno/{id}")
-    public String editAlumno (@PathVariable long id, Model model) {
-        if (servicioAlumno.findById(id) != null) {
-            model.addAttribute("alumnoForm", servicioAlumno.findById(id));
-            model.addAttribute("listaCursos", servicioCurso.findAll());
-            return "/jefeEstudios/formularioAlumno";
-        }
-        return "redirect:/jefeEstudios/";
-    }
-
-    @PostMapping("/editAlumno/submit")
-    public String editAlumnoSubmit (@ModelAttribute("alumnoForm") Alumno editAlumno) {
-        servicioAlumno.edit(editAlumno);
-        return "redirect:/jefeEstudios";
-    }
-
-    @GetMapping("/eliminarAlumno/{id}")
-    public String deleteAlumno (@PathVariable long id, Model model) {
-        if (servicioAlumno.findById(id)!=null) {
-            servicioAlumno.deleteById(id);
-        }
-        return "redirect:/jefeEstudios/alumnos";
-    }
-
-    @GetMapping("/eliminarProfesor/{id}")
-    public String deleteProfesor (@PathVariable long id, @AuthenticationPrincipal Profesor profesor, Model model) {
-
-        if (servicioProfesor.findById(id)!= null /*&& y por qué cuando doy a borrar elimina el de abajo!!!!?
-                servicioProfesor.findById(id) != servicioProfesor.findById(profesor.getId())*/) {
-            servicioProfesor.deleteById(id);
-        }
-        return "redirect:/jefeEstudios/profesor";
-    }
-
-    @GetMapping("/eliminarTitulo/{id}")
-    public String deleteTitulo (@PathVariable long id, Model model) {
-        if (servicioTitulo.findById(id)!=null) {
-            servicioTitulo.deleteById(id);
-        }
-
-        return "redirect:/jefeEstudios/titulos";
-    }
-
     @GetMapping("/eliminarCurso/{id}")
-    public String deleteCurso (@PathVariable long id, Model model) {
+    public String deleteCurso (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         if (servicioCurso.findById(id)!=null) {
             servicioCurso.deleteById(id);
         }
         return "redirect:/jefeEstudios/cursos";
     }
 
+    @GetMapping("/cursos/horario/{id}")
+    public String cursoHorario (@AuthenticationPrincipal Profesor profesor, @PathVariable("id") long id, Model model){
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        model.addAttribute("horarios",
+                servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(servicioCurso.findById(id))));
+        return "jefeEstudios/horario";
+    }
+
+    @GetMapping("/cursos/mostrarAsignaturas/{id}")
+    public String mostrarAsignaturasCurso (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("listaAsignaturas", servicioCurso.findById(id).getAsignaturas());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "/jefeEstudios/asignatura";
+    }
+
+    // ASIGNATURAS
+
+    @GetMapping("/asignaturas")
+    public String asignaturas (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        // model.addAttribute("listaHorario", servicioAsignatura.findAll());
+        return "jefeEstudios/asignatura";
+    }
+
+    @GetMapping("/registroAsignatura")
+    public String nuevaAsignaturaForm (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("asignaturaForm", new Asignatura());
+        model.addAttribute("listaCursos", servicioCurso.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "jefeEstudios/formularioAsignatura";
+    }
+
+    @PostMapping("/nuevaAsignatura/submit")
+    public String registroAsignatura (@ModelAttribute("asignaturaForm") Asignatura nuevaAsignatura) {
+        servicioAsignatura.save(nuevaAsignatura);
+        return "redirect:/jefeEstudios/asignaturas";
+    }
+
+    @GetMapping("/editAsignatura/{id}")
+    public String editAsignaturaForm (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        if (servicioAsignatura.findById(id) != null) {
+            model.addAttribute("asignaturaForm", servicioAsignatura.findById(id));
+            model.addAttribute("listaCursos", servicioCurso.findAll());
+            return "/jefeEstudios/formularioAsignatura";
+        }
+        return "/jefeEstudios/cursos";
+    }
+
+    @PostMapping("/editAsignatura/submit")
+    public String editAsignaturaSubmit (@ModelAttribute("asignaturaForm") Asignatura editAsignatura) {
+        servicioAsignatura.edit(editAsignatura);
+        return "redirect:/jefeEstudios/asignaturas";
+    }
+
     @GetMapping("/eliminarAsignatura/{id}")
-    public String deleteAsignatura (@PathVariable long id, Model model) {
+    public String deleteAsignatura (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         if (servicioAsignatura.findById(id)!=null) {
             servicioAsignatura.deleteById(id);
         }
         return "redirect:/jefeEstudios/asignaturas";
     }
 
+    // HORARIO
 
-    // Situaciones excepcionales alumnos:
+    @GetMapping("/registroHorario")
+    public String nuevoHorarioForm (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("horarioForm", new Horario());
+        model.addAttribute("listaAsignaturas", servicioAsignatura.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        return "jefeEstudios/formularioHorario";
+    }
+
+    @PostMapping("/nuevoHorario/submit")
+    public String registroAsignatura (@ModelAttribute("horarioForm") Horario nuevoHorario) {
+        servicioHorario.save(nuevoHorario);
+        return "redirect:/jefeEstudios/cursos";
+    }
+
+    // Situaciones excepcionales
+
     @GetMapping("/situacionExcepcional")
-    public String mostrarSituacionesExcepcionales (Model model) {
-            model.addAttribute("listaSituacionesExcepcionales", servicioExcepcional.findAll());
+    public String mostrarSituacionesExcepcionales (@AuthenticationPrincipal Profesor profesor, Model model) {
+        model.addAttribute("listaSituacionesExcepcionales", servicioExcepcional.findAll());
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "jefeEstudios/situacionExcepcional";
     }
 
     @GetMapping("/situacionExcepcional/download/{nombre}")
-    public ResponseEntity<Resource> descargarFicheros (@PathVariable("nombre") String name){
+    public ResponseEntity<Resource> descargarFicheros (@AuthenticationPrincipal Profesor profesor,
+                                                       @PathVariable("nombre") String name, Model model){
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         Resource resource = fileSystemStorageService.loadAsResource(name);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
                 resource.getFilename() + "\"").body(resource);
     }
 
     @GetMapping("/editSituacionExcepcional/{idAlumno}/{idAsignatura}")
-    public String editSituacionExcepcional (@PathVariable long idAlumno, @PathVariable long idAsignatura,
+    public String editSituacionExcepcional (@AuthenticationPrincipal Profesor profesor,
+                                            @PathVariable long idAlumno, @PathVariable long idAsignatura,
                                              Model model){
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         SituacionExcepcionalPK pk = new SituacionExcepcionalPK (idAlumno,idAsignatura);
         if (servicioExcepcional.findById(pk)!=null){
             model.addAttribute("excepcionalForm", servicioExcepcional.findById(pk));
@@ -403,7 +391,6 @@ public class JefeEstudiosController {
         servicioExcepcional.edit(excepcional);
         return "redirect:/jefeEstudios/situacionExcepcional";
     }
-
 
 
 }

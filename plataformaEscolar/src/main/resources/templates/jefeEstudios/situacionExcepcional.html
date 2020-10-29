@@ -16,7 +16,7 @@
 
         <div class="bg-light p-4 rounded mt-5">
             <table id="tablaTitulos table" class="table table-hover text-center" summary="Alumnos">
-                <caption class="mb-3 titulo">Situaciones excepcionales <a><span></span></a>                </caption>
+                <caption class="mb-3 titulo">Situaciones excepcionales <a><span></span></a> </caption>
                 <thead class="thead-light">
                 <tr>
                     <th class="" >Alumno</th>
@@ -38,7 +38,7 @@
                     <td th:text="${situacionExcepcional.fechaResolucion}" class="">12/10/10</td>
                     <td class="">
                         <a th:href="@{/jefeEstudios/situacionExcepcional/download/{name}(name=${situacionExcepcional.adjunto})}">
-                            <span class="fas fa-download"></span>
+                            <span class="fas fa-download iconos"></span>
                         </a>
                     </td>
                     <td th:text="${situacionExcepcional.estado}" class="">Pendiente</td>
@@ -46,7 +46,7 @@
                         <a class="btn"
                            th:href="@{/jefeEstudios/editSituacionExcepcional/{idAlumno}/{idAsignatura}
                                     (idAlumno=${situacionExcepcional.alumno.id}, idAsignatura=${situacionExcepcional.asignatura.id})}">
-                            <span class="far fa-edit fa-lg"></span>
+                            <span class="far fa-edit fa-lg iconos"></span>
                         </a>
                     </td>
                 </tr>
@@ -56,8 +56,6 @@
         </div>
 
     </div>
-
-
 
 
 </main>

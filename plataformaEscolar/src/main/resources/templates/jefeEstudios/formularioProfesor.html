@@ -12,10 +12,13 @@
 <main class="container-fluid">
     <div class="row mt-5">
         <div class="col-3"></div>
-        <form method="POST" action="#" th:action="@{/jefeEstudios/nuevoProfesor/submit}" th:object="${profesorForm}"
-         id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla" onsubmit="return revisarFormulario();">
+        <form method="POST" action="#" th:action="${profesorForm.id != 0} ? @{/jefeEstudios/editProfesor/submit} :
+        @{/jefeEstudios/nuevoProfesor/submit}" th:object="${profesorForm}"
+         id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla">
             <fieldset class="mt-2 ml-1">
-                <legend class="mb-5 text-center pt-2">Registrar profesor</legend>
+                <legend class="mb-5 text-center pt-2"
+                        th:text="${profesorForm.id != 0} ? 'Editar profesor' : 'Registrar profesor'"> Profesor
+                </legend>
                 <input type="hidden" th:field="*{id}" id="id" name="id">
                 <div class="input-group mb-3 w-75 ml-5">
                     <div class="input-group-prepend ml-2">

@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Data @Builder
 @Entity
@@ -21,7 +18,7 @@ public class Horario {
     private int dia;
     private int hora;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Asignatura asignatura;
 
     public Horario(int dia, int hora) {

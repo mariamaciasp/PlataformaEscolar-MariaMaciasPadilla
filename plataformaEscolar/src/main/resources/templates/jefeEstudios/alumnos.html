@@ -18,8 +18,8 @@
                 <div class="bg-light p-4 rounded">
                     <table id="tablaTitulos table" class="table table-hover text-center" summary="Alumnos">
                       <caption class="mb-3 titulo">Alumnos <a><span></span></a>
-                            <a class="btn float-right">
-                               <span class="fas fa-plus fa-2x pr-5"></span>
+                            <a class="btn float-right iconos" th:href="@{/jefeEstudios/registroAlumno}">
+                               <span class="fas fa-plus fa-2x pr-5 iconos"></span>
                             </a>
                         </caption>
                       <thead class="thead-light">
@@ -28,6 +28,7 @@
                               <th class="" >Nombre</th>
                               <th class="pr-5">Apellidos</th>
                               <th class="">Email</th>
+                              <th class="">Curso</th>
                               <th class="">Activado</th>
                               <th class="pr-5" >Operaciones</th>
                           </tr>
@@ -38,20 +39,21 @@
                               <td th:text="${alumno.nombre}">Pepe</td>
                               <td th:text="${alumno.apellidos}" class="pr-5">Rodríguez</td>
                               <td th:text="${alumno.email}" class="">@gmail.com</td>
+                              <td th:text="${alumno.curso.abreviatura}" class="">Curso</td>
                               <td th:text="${alumno.activado}" class="pr-5">True</td>
                               <td class="pr-5">
                                     <a class="btn" th:href="@{/jefeEstudios/editAlumno/{id}(id=${alumno.id})}">
-                                        <span class="far fa-edit fa-lg"></span>
+                                        <span class="far fa-edit fa-lg iconos"></span>
                                     </a>
                                     <a class="btn" data-toggle="modal" data-target="#delete-modal"
                                        th:attr="data-target='#delete-modal'+${alumno.id}">
                                         <!-- th:data-id="${alumno.id}" CON ESTO NO PILLA AL SELECCIONADO!!!!-->
-
-                                        <span class="fas fa-trash-alt fa-lg"></span>
+                                        <span class="fas fa-trash-alt fa-lg iconos"></span>
                                     </a>
-                                    <a class="btn">
-                                        <span class="fas fa-sign-in-alt fa-lg"></span>
-                                    </a>
+<!--
+                                    <a class="btn" th:href="@{/jefeEstudios/alumnos/mostrarCurso/{id}(id=${alumno.curso.id})}">
+                                        <span class="fas fa-sign-in-alt fa-lg iconos"></span>
+                                    </a>-->
                                 </td>
                               <div class="modal delete-modal fade" id="delete-modal" tabindex="-1" role="dialog"
                                    th:id="delete-modal+${alumno.id}">

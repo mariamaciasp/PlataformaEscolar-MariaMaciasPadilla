@@ -18,8 +18,8 @@
                 <div class="bg-light p-4 rounded">
                     <table id="tablaTitulos table" class="table table-hover text-center" summary="Titulos">
                       <caption class="mb-3 titulo">Profesores <a><span></span></a>
-                            <a class="btn float-right">
-                               <span class="fas fa-plus fa-2x pr-5"></span>
+                            <a class="btn float-right iconos" th:href="@{/jefeEstudios/registroProfesor}">
+                               <span class="fas fa-plus fa-2x pr-5 iconos"></span>
                             </a>
                         </caption>
                       <thead class="thead-light">
@@ -42,16 +42,13 @@
                               <td th:text="${profesor.activado}" class="pr-5">True</td>
                               <td th:text="${profesor.esJefeDeEstudios}" class="pr-5">True</td>
                               <td class="pr-5">
-                                    <a class="btn">
-                                        <span class="far fa-edit fa-lg"></span>
+                                    <a class="btn" th:href="@{/jefeEstudios/editProfesor/{id}(id=${profesor.id})}">
+                                        <span class="far fa-edit fa-lg iconos"></span>
                                     </a>
                                     <a class="btn"  data-toggle="modal" data-target="#delete-modal"
                                        th:attr="data-target='#delete-modal'+${profesor.id}">
                                         <!--th:data-id="${profesor.id}"-->
-                                        <span class="fas fa-trash-alt fa-lg"></span>
-                                    </a>
-                                    <a class="btn">
-                                        <span class="fas fa-sign-in-alt fa-lg"></span>
+                                        <span class="fas fa-trash-alt fa-lg iconos"></span>
                                     </a>
                               </td>
                               <div class="modal delete-modal fade" id="delete-modal" tabindex="-1" role="dialog"

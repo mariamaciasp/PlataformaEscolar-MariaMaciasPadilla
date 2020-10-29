@@ -16,10 +16,11 @@
 
         <div class="bg-light p-4 rounded">
             <table id="calendarioAsignatura" class="table table-hover text-center" summary="Caledario asignatura">
-                <caption class="mb-3 titulo">Calendario</caption>
+                <caption class="mb-3 titulo">Calendario
+
+                </caption>
                 <thead class="thead-light">
                 <tr>
-                    <!--<th class="" >Hora</th>-->
                     <th class="lunes" >Lunes</th>
                     <th class="martes" >Martes</th>
                     <th class="miercoles">Miércoles</th>
@@ -28,9 +29,10 @@
                 </tr>
                 </thead>
                 <tbody th:each="horario : ${horarios}">
+
                     <tr>
                         <th:block th:each="curso : ${horario}">
-                            <td th:text="${curso.asignatura.nombre}"  class="pl-5" >1</td>
+                            <td th:text="${curso.asignatura.nombre}" class="pl-5" >1</td>
                         </th:block>
                     </tr>
 

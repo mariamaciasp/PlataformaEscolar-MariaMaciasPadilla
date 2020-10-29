@@ -14,19 +14,23 @@
     <div class="row mt-5">
         <div class="col-3"></div>
         <form method="POST" action="#" th:action="@{/jefeEstudios/editSituacionExcepcional/submit}"
-              th:object="${excepcionalForm}" id="formulario" class="col-6 bg-light mb-5 rounded">
+              th:object="${excepcionalForm}" id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla">
 
             <fieldset class="mt-2 ml-1">
                 <legend class="mb-3 text-center pt-2">Situación excepcional</legend>
                 <input type="hidden" th:field="*{id.alumno_id}" id="idAlumno" name="idAlumno">
                 <input type="hidden" th:field="*{id.asignatura_id}" id="idAsignatura" name="idAsignatura">
 
+                <!--<input type="text" th:field="*{alumno.ar}" id="adjunto" name="adjunto">-->
+
                 <div class="input-group w-75 ml-5 mb-2">
                     <div class="input-group-prepend ml-2 mt-3 ">
                         <label for="nombreAlumno" class="input-group-text">Alumno</label>
                     </div>
-                    <input type="text" readonly id="nombreAlumno" name="nombreAlumno" class="form-control mt-3" placeholder="Nombre alumno" th:field="*{alumno.nombre}" >
-                    <input type="text" readonly id="apellidoAlumno" name="apellidoAlumno" class="form-control mt-3" placeholder="Nombre alumno" th:field="*{alumno.apellidos}" >
+                    <input type="text" readonly id="nombreAlumno" name="nombreAlumno" class="form-control mt-3"
+                           placeholder="Nombre alumno" th:field="*{alumno.nombre}" >
+                    <input type="text" readonly id="apellidoAlumno" name="apellidoAlumno" class="form-control mt-3"
+                           placeholder="Apellidos alumno" th:field="*{alumno.apellidos}" >
 
                 </div>
 
@@ -43,6 +47,8 @@
                     </div>
                     <input type="text" readonly id="fechaSolicitud" name="fechaSolicitud" class="form-control mt-3"
                            placeholder="Fecha solicitud" th:field="*{fechaSolicitud}" >
+                    <input type="hidden" id="file" name="file" class="form-control mt-3"
+                           placeholder="Adjuntar archivo" th:field="*{adjunto}">
                 </div>
 
 

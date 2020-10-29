@@ -15,8 +15,7 @@
         <form method="POST" action="#"
               th:action="${alumnoForm.id != 0} ? @{/jefeEstudios/editAlumno/submit} :
               @{/jefeEstudios/nuevoAlumno/submit}" th:object="${alumnoForm}"
-              id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla"
-              onsubmit="return revisarFormulario();">
+              id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla">
 
             <fieldset class="mt-2 ml-1">
                 <legend class="mb-5 text-center pt-2" th:text="${alumnoForm.id != 0} ?

@@ -14,31 +14,32 @@
         <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ml-2">
                 <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Títulos</a>
+                    <a class="nav-link text-white " th:href="@{/jefeEstudios/titulos}">Títulos</a>
                 </li>
                 <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Cursos</a>
+                    <a class="nav-link text-white " th:href="@{/jefeEstudios/cursos}">Cursos</a>
                 </li>
                 <li class="nav-item dropdown mr-2">
                     <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Usuarios</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alumnos</a>
-                        <a class="dropdown-item" href="#">Profesores</a>
-                        <a class="dropdown-item" href="#">Jefe de estudios</a>
+                        <a class="dropdown-item" th:href="@{/jefeEstudios/alumnos}">Alumnos</a>
+                        <a class="dropdown-item" th:href="@{/jefeEstudios/profesor}">Profesores</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown mr-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Altas</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alumnos</a>
-                        <a class="dropdown-item" href="#">Profesores</a>
-                        <a class="dropdown-item" href="#">Jefe de estudios</a>
+                        <a class="dropdown-item" th:href="@{/jefeEstudios/registroAlumno}">Alumnos</a>
+                        <a class="dropdown-item" th:href="@{/jefeEstudios/registroProfesor}">Profesores</a>
                     </div>
                 </li>
                 <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Solicitudes</a>
+                    <a class="nav-link text-white " th:href="@{/jefeEstudios/registroHorario}">Horario</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " th:href="@{/jefeEstudios/situacionExcepcional}">Solicitudes</a>
                 </li>
 
             </ul>

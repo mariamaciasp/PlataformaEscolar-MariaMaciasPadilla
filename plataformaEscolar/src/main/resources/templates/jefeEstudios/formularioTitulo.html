@@ -15,7 +15,7 @@
         <div class="col-3"></div>
         <form method="POST" action="#" th:action="${tituloForm.id != 0} ? @{/jefeEstudios/editTitulo/submit} :
         @{/jefeEstudios/nuevoTitulo/submit}" th:object="${tituloForm}"
-         id="formulario" class="col-6 bg-light mb-5 rounded">
+         id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla">
 
             <fieldset class="mt-2 ml-1"> <!--  th:text="${categoriaForm.id != 0} ? 'Editar categoría' : 'Agregar categoría'"-->
                 <legend class="mb-2 text-center pt-2"

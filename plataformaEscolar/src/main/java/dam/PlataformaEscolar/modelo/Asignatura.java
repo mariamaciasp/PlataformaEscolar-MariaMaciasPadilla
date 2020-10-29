@@ -20,9 +20,8 @@ public class Asignatura {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "asignatura", orphanRemoval = true, fetch = FetchType.EAGER
-            , cascade={CascadeType.REMOVE})
-    private List<Horario> horarios;
+    @OneToMany(mappedBy = "asignatura", fetch = FetchType.EAGER, orphanRemoval = true, cascade={CascadeType.REMOVE})
+    private List<Horario> horarios = new ArrayList<>();
 
     //@CollectionTable(name="asignatura_horario")
     //@MapKeyJoinColumn(name="asignatura_id")
