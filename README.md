@@ -3,17 +3,17 @@ PROYECTO DE REPASO Y AMPLIACIÓN DE SPRING BOOT - TIPO AVANZADO
 
 Usuarios para acceder a la aplicación: 
 
-- Jefe de estudios: 
+Jefe de estudios: 
 
-Usuario: admin
-Password: 1234
+- Usuario: admin
+- Password: 1234
 
-- Profesor:
+Profesor:
 
-Usuario: lopez@gmail.com
-Password: 1234
+- Usuario: lopez@gmail.com
+- Password: 1234
 
-- Alumno:
+Alumno:
 
-Usuario: maria@gmail.com
-Password: 1234
+- Usuario: maria@gmail.com
+- Password: 1234
