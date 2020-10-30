@@ -9,20 +9,19 @@
 
 <header>
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand logo text-white" th:href="@{/index}">TrianaSchool</a>
+        <a class="navbar-brand logo text-white" th:href="@{/login}">TrianaSchool</a>
     </nav>
 
 </header>
 
 
-<main class="InicioSesion container-fluid">
-    <div class="row mt-5 ">
+<main class="InicioSesion contenedor container-fluid">
+    <div class="row mt-4 ">
         <div class="col-sm-12"></div>
         <form id="formularioInicioSesion" class="col-sm-12 text-center  rounded "
                 method="POST" action="#" th:action="@{/login}">
             <fieldset class="mt-2">
-                <legend class="mb-3"><img src="img/logoColegio.png">
-                    <!--<img src="img/logoColegio.png" src="../static/img/logoColegio.png">--></legend>
+                <legend class="mb-3"><img src="img/logoColegio.png" alt="Logo colegio"></legend>
                 <div class="input-group mb-3  mx-auto">
 
                     <input id="username" name="username" type="text" placeholder="E-mail" class="form-control">
@@ -45,7 +44,7 @@
                       <label for="remember_me"  class="form-check-label">Recuérdame</label>
                 </div>-->
 
-                <button type="submit" id="IniciarSesion" class="btn btn-lg btn-dark mt-2">Iniciar Sesión</button>
+                <button type="submit" id="IniciarSesion" class="btn btn-lg btn-dark mt-2 mb-3">Iniciar Sesión</button>
 
                 <!--<div class="olvidar mt-2 mb-3"><a class="text-body" href="#">¿Has olvidado tu contraseña?</a></div>-->
 
@@ -57,10 +56,9 @@
 
 
 
-
-    
 </main>
 
+<footer th:replace="~{fragmentos/footer::footer}"></footer>
 
 </body>
 </html>

@@ -10,7 +10,7 @@
 <header th:replace="~{fragmentos/headerJefeEstudios::headerJefeEstudios}"></header>
 
 
-<main class="container-fluid mt-2">
+<main class="container-fluid mt-2 contenedor">
 
 
         <div class="tab-pane" role="tabpanel">
@@ -35,7 +35,7 @@
                       </thead>
                       <tbody>
                           <tr th:each="alumno : ${listaAlumnos}">
-                              <th:block th:if="${alumno.email} ? !null : null">
+
                                   <td th:text="${alumno.id}" class="pl-5" >1</td>
                                   <td th:text="${alumno.nombre}">Pepe</td>
                                   <td th:text="${alumno.apellidos}" class="pr-5">Rodríguez</td>
@@ -76,7 +76,6 @@
 
                                       </div>
                                   </div>
-                              </th:block>
                           </tr>
                       </tbody>
                   </table>
@@ -90,6 +89,7 @@
     
 </main>
 
+<footer th:replace="~{fragmentos/footer::footer}"></footer>
 
 </body>
 

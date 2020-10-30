@@ -399,8 +399,11 @@ public class JefeEstudiosController {
 
     @PostMapping("/editSituacionExcepcional/submit")
     public String editSituacionEscepcionalSubmit (@ModelAttribute("excepcionalForm") SituacionExcepcional excepcional){
-        excepcional.setFechaResolucion(LocalDate.now());
-        servicioExcepcional.edit(excepcional);
+        SituacionExcepcionalPK pk = new SituacionExcepcionalPK(excepcional.getId().getAlumno_id(), excepcional.getId().getAsignatura_id());
+        System.out.println(pk);
+        SituacionExcepcional situacion = servicioExcepcional.findById(pk);
+        situacion.setFechaResolucion(LocalDate.now());
+        servicioExcepcional.edit(situacion);
         return "redirect:/jefeEstudios/situacionExcepcional";
     }
 

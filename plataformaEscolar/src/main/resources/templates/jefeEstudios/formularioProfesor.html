@@ -9,7 +9,7 @@
 
 <header th:replace="~{fragmentos/headerJefeEstudios::headerJefeEstudios}"></header>
 
-<main class="container-fluid">
+<main class="container-fluid contenedor">
     <div class="row mt-5">
         <div class="col-3"></div>
         <form method="POST" action="#" th:action="${profesorForm.id != 0} ? @{/jefeEstudios/editProfesor/submit} :
@@ -72,6 +72,7 @@
     </div>
 </main>
 
+<footer th:replace="~{fragmentos/footer::footer}"></footer>
 
 </body>
 </html>

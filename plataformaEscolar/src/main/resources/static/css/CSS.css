@@ -5,6 +5,11 @@ header {
     
 }
 
+.contenedor {
+    min-height: calc(100vh - 56px - 112px); /* esto dice que del 100% de mi main le quite lo que mide el
+    footer y el nav y esa sea mi medida para que el footer se quede abajo SIEMPRE*/
+}
+
 nav img{
     margin-left: 4px;
     margin-top: -9px;
@@ -49,3 +54,20 @@ nav img{
     color:#01233F;
 }
 
+.imagenFooter {
+    width: 100px;
+}
+
+.fondoFooter {
+    background-color: rgba(130,247,255,0.15);
+    width: 100%;
+    /*#82F7FF;*/
+}
+
+a:hover{
+  color: #01233F;
+}
+
+.pngColegio {
+    width: 450px;
+}
