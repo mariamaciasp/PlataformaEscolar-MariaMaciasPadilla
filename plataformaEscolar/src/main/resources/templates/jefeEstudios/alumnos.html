@@ -35,7 +35,8 @@
                       </thead>
                       <tbody>
                           <tr th:each="alumno : ${listaAlumnos}">
-                              <td th:text="${alumno.id}"  class="pl-5" >1</td>
+                              <th:block th:if="${alumno.email} ? !null : null">
+                              <td th:text="${alumno.id}" class="pl-5" >1</td>
                               <td th:text="${alumno.nombre}">Pepe</td>
                               <td th:text="${alumno.apellidos}" class="pr-5">Rodríguez</td>
                               <td th:text="${alumno.email}" class="">@gmail.com</td>
@@ -74,7 +75,7 @@
                                       </div>
 
                                   </div>
-                              </div>
+                              </div></th:block>
                           </tr>
                       </tbody>
                   </table>

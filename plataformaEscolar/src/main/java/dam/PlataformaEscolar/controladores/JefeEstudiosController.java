@@ -274,7 +274,8 @@ public class JefeEstudiosController {
     }
 
     @GetMapping("/cursos/horario/{id}")
-    public String cursoHorario (@AuthenticationPrincipal Profesor profesor, @PathVariable("id") long id, Model model){
+    public String cursoHorario (@AuthenticationPrincipal Profesor profesor, @PathVariable("id") long id,
+                                Model model){
         model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         model.addAttribute("horarios",
                 servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(servicioCurso.findById(id))));
@@ -282,10 +283,21 @@ public class JefeEstudiosController {
     }
 
     @GetMapping("/cursos/mostrarAsignaturas/{id}")
-    public String mostrarAsignaturasCurso (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
+    public String mostrarAsignaturasCurso (@AuthenticationPrincipal Profesor profesor, @PathVariable long id,
+                                           Model model) {
         model.addAttribute("listaAsignaturas", servicioCurso.findById(id).getAsignaturas());
         model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "/jefeEstudios/asignatura";
+    }
+
+    @GetMapping("/cursos/mostrarAlumnos/{id}")
+    public String mostrarAlumnosCurso (@AuthenticationPrincipal Profesor profesor, @PathVariable long id,
+                                       Model model) {
+        model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
+        model.addAttribute("listaAlumnos", servicioCurso.findById(id).getAlumnos());
+
+        return "/jefeEstudios/alumnos";
+
     }
 
     // ASIGNATURAS
