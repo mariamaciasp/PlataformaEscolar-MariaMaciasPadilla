@@ -1,9 +1,9 @@
 package dam.PlataformaEscolar.controladores;
 
-import dam.PlataformaEscolar.modelo.Alumno;
-import dam.PlataformaEscolar.modelo.Asignatura;
-import dam.PlataformaEscolar.modelo.SituacionExcepcional;
+import dam.PlataformaEscolar.modelo.*;
+import dam.PlataformaEscolar.service.AlumnoServicio;
 import dam.PlataformaEscolar.service.AsignaturaServicio;
+import dam.PlataformaEscolar.service.HorarioService;
 import dam.PlataformaEscolar.service.SituacionExcepcionalService;
 import dam.PlataformaEscolar.upload.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,52 +24,136 @@ public class AlumnoController {
 
 
     @Autowired
-    AsignaturaServicio servicioAsignatura;
+    private AsignaturaServicio servicioAsignatura;
     @Autowired
-    SituacionExcepcionalService servicioExcepcional;
+    private SituacionExcepcionalService servicioExcepcional;
     @Autowired
     private StorageService storageService;
+    @Autowired
+    private AlumnoServicio servicioAlumno;
+    @Autowired
+    private HorarioService servicioHorario;
+
 
     @GetMapping({"/", "/inicio"})
-    public String inicioAlumno (){
+    public String inicioAlumno (@AuthenticationPrincipal Alumno alumno, Model model){
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
         return "alumno/inicioAlumno";
-
     }
 
+    @GetMapping("/curso")
+    public String cursosAlumno (@AuthenticationPrincipal Alumno alumno, Model model) {
+        model.addAttribute("listaCursos", servicioAlumno.findById(alumno.getId()).getCurso());
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
+        return "alumno/cursoAlumno";
+    }
+
+    @GetMapping("/horario")
+    public String cursoHorario (@AuthenticationPrincipal Alumno alumno, Model model){
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
+        model.addAttribute("horarios", servicioHorario.ordenarHorario(
+                servicioHorario.obtenerHorario(
+                        servicioAlumno.findById(alumno.getId()).getCurso())));
+               // servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(servicioCurso.findById(id))));
+        return "alumno/horarioAlumno";
+    }
+
+    //SituacionExcepcional situacion;
     @GetMapping("/asignaturas")
     public String listaAsignaturasAlumno (@AuthenticationPrincipal Alumno alumno, Model model) {
+           // alumno.getSituacionesExcepcionales();
+       /* if (alumno.getSituacionesExcepcionales().get()
+        ) alumno.getCurso().getAsignaturas().;
+        alumno.getSituacionesExcepcionales().get()*/
+        /*   MAL
+        if (situacion.getEstado()== "Denegada"){
+            Asignatura asignatura = situacion.getAsignatura();
+            alumno.getCurso().setAsignaturas(null);
+        }*/
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
         model.addAttribute("listaAsignaturas", alumno.getCurso().getAsignaturas());
         return "alumno/asignaturasAlumno";
     }
 
-    @GetMapping("/convalidacion/{id}")
-    public String convalidadAsignatura (@PathVariable long id, Model model) {
-        if (servicioAsignatura.findById(id) != null){
-            model.addAttribute("convalidacionForm", new SituacionExcepcional());
-        }
+    // convalidar
+
+    @GetMapping("/convalidacion")
+    public String convalidadAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
+        model.addAttribute("convalidacionForm", new FormularioSituacionExcepcional());
+        model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
         return "alumno/formularioConvalidacion";
     }
 
-    @PostMapping("/convalidacion/submit") /*    @PostMapping("/convalidacion/{id}/submit")  */
-    public String convalidarAsignaturaSubmit (@ModelAttribute("convalidacionForm") SituacionExcepcional excepcional,
+    @PostMapping("/convalidacion/submit")
+    public String convalidarAsignaturaSubmit (@ModelAttribute("convalidacionForm") FormularioSituacionExcepcional formularioExcepcional,
                                               @AuthenticationPrincipal Alumno alumno,
-                                              @PathVariable Asignatura asignatura,
                                               @RequestParam("file") MultipartFile file) {
-        String adjunto = storageService.store(file, alumno.getId());
-        excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
-                "serveFile", adjunto).build().toUriString());
-        //servicioAsignatura.findById(id);
-        //excepcional.setAsignatura(servicioAsignatura.findById(id));
-        excepcional.setAsignatura(asignatura);
-        //excepcional.getAsignatura().setId(asignatura.getId());
-        excepcional.setAlumno(alumno);
-        excepcional.setFechaSolicitud(LocalDate.now());
-        excepcional.setTipo("Convalidación");
-        excepcional.setEstado("Pendiente");
-        servicioExcepcional.save(excepcional);
+
+        Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
+
+        if (!file.isEmpty()) {
+
+            String adjunto = storageService.store(file, alumno.getApellidos() +
+                    alumno.getNombre() + "-" + asignatura.getNombre());
+
+            SituacionExcepcional excepcional = new SituacionExcepcional();
+            excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
+                    "serveFile", adjunto).build().toUriString());
+            excepcional.setAdjunto(adjunto);
+
+            excepcional.setAsignatura(asignatura);
+            excepcional.setAlumno(alumno);
+            excepcional.setFechaSolicitud(LocalDate.now());
+            excepcional.setTipo("Convalidación");
+            excepcional.setEstado("Pendiente");
+            servicioExcepcional.save(excepcional);
+        }
 
         return "redirect:/alumno/";
     }
+
+
+    // exencion
+
+    @GetMapping("/exencion")
+    public String exencionAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
+        model.addAttribute("exencionForm", new FormularioSituacionExcepcional());
+        model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
+
+        return "alumno/formularioExencion";
+    }
+
+    @PostMapping("/exencion/submit")
+    public String exencionAsignaturaSubmit (@ModelAttribute("exencionForm") FormularioSituacionExcepcional formularioExcepcional,
+                                              @AuthenticationPrincipal Alumno alumno,
+                                              @RequestParam("file") MultipartFile file) {
+
+
+        Asignatura asignatura = servicioAsignatura.findById(formularioExcepcional.getIdAsignatura());
+
+        if (!file.isEmpty()) {
+            String adjunto = storageService.store(file, alumno.getApellidos() +
+                    alumno.getNombre() + "-" + asignatura.getNombre());
+
+            SituacionExcepcional excepcional = new SituacionExcepcional();
+            excepcional.setAdjunto(MvcUriComponentsBuilder.fromMethodName(AlumnoController.class,
+                    "serveFile", adjunto).build().toUriString());
+
+            excepcional.setAdjunto(adjunto);
+
+            excepcional.setAsignatura(asignatura);
+            excepcional.setAlumno(alumno);
+            excepcional.setFechaSolicitud(LocalDate.now());
+            excepcional.setTipo("Exención");
+            excepcional.setEstado("Pendiente");
+            servicioExcepcional.save(excepcional);
+        }
+
+        return "redirect:/alumno/";
+    }
+
 
 
     // subida de archivos

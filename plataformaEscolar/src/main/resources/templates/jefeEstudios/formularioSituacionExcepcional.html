@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
+
+    <title>Formulario situaciones excepcionales</title>
+
+</head>
+<body>
+
+<header th:replace="~{fragmentos/headerJefeEstudios::headerJefeEstudios}"></header>
+
+<main class="container-fluid">
+
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <form method="POST" action="#" th:action="@{/jefeEstudios/editSituacionExcepcional/submit}"
+              th:object="${excepcionalForm}" id="formulario" class="col-6 bg-light mb-5 rounded posicionTabla">
+
+            <fieldset class="mt-2 ml-1">
+                <legend class="mb-3 text-center pt-2">Situación excepcional</legend>
+                <input type="hidden" th:field="*{id.alumno_id}" id="idAlumno" name="idAlumno">
+                <input type="hidden" th:field="*{id.asignatura_id}" id="idAsignatura" name="idAsignatura">
+
+                <!--<input type="text" th:field="*{alumno.ar}" id="adjunto" name="adjunto">-->
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="nombreAlumno" class="input-group-text">Alumno</label>
+                    </div>
+                    <input type="text" readonly id="nombreAlumno" name="nombreAlumno" class="form-control mt-3"
+                           placeholder="Nombre alumno" th:field="*{alumno.nombre}" >
+                    <input type="text" readonly id="apellidoAlumno" name="apellidoAlumno" class="form-control mt-3"
+                           placeholder="Apellidos alumno" th:field="*{alumno.apellidos}" >
+
+                </div>
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="nombreAsignatura" class="input-group-text">Asignatura</label>
+                    </div>
+                    <input type="text" readonly id="nombreAsignatura" name="nombreAsignatura" class="form-control mt-3" placeholder="Nombre asignatura" th:field="*{asignatura.nombre}" >
+                </div>
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="fechaSolicitud" class="input-group-text">Fecha solicitud</label>
+                    </div>
+                    <input type="text" readonly id="fechaSolicitud" name="fechaSolicitud" class="form-control mt-3"
+                           placeholder="Fecha solicitud" th:field="*{fechaSolicitud}" >
+                    <input type="hidden" id="file" name="file" class="form-control mt-3"
+                           placeholder="Adjuntar archivo" th:field="*{adjunto}">
+                </div>
+
+
+                <div class="input-group w-75 ml-5 mb-2">
+                    <div class="input-group-prepend ml-2 mt-3 ">
+                        <label for="tipo" class="input-group-text">Tipo de Solicitud</label>
+                    </div>
+                    <input type="text" id="tipo" name="tipo" class="form-control mt-3"
+                           placeholder="Tipo de solicitud" th:field="*{tipo}" readonly>
+                </div>
+
+
+                <div class="form-group pl-5 pt-3 pb-2">
+                    <p class="mb-3 font-weight-bold">Estado: </p>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pendiente" name="estado" class="custom-control-input" th:value="${'Pendiente'}"
+                               th:field="*{estado}">
+                        <label class="custom-control-label" for="pendiente">Pendiente</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="confirmada" name="estado" class="custom-control-input" th:value="${'Confirmada'}"
+                               th:field="*{estado}">
+                        <label class="custom-control-label" for="confirmada">Confirmada</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="denegada" name="estado" class="custom-control-input" th:value="${'Denegada'}"
+                               th:field="*{estado}">
+                        <label class="custom-control-label" for="denegada">Denegada</label>
+                    </div>
+                </div>
+
+
+                <button type="reset" class="btn botonCancelar mb-4 mt-3">Limpiar</button>
+                <button type="submit" id="enviar" class="btn mb-4 float-right botonEnvio  mt-3">Enviar</button>
+            </fieldset>
+
+        </form>
+
+        <div class="col-3"></div>
+    </div>
+
+</main>
+
+
+</body>
+</html>

@@ -25,6 +25,7 @@ public class PlataformaEscolarApplication {
 	public CommandLineRunner init(UsuarioServicio servicioUsuario, ProfesorServicio servicioProfesor,
 								  AlumnoServicio servicioAlumno, TituloService servicioTitulo,
 								  CursoServicio servicioCurso, AsignaturaServicio servicioAsignatura,
+								  HorarioService servicioHorario,
 								  EnvioEmail envioEmail, PasswordEncoder passwordEncoder) {
 		return args -> {
 
@@ -60,19 +61,50 @@ public class PlataformaEscolarApplication {
 				servicioCurso.save(c);
 			}
 
+
 			// Asignaturas
-
-			Asignatura sge = new Asignatura("Sistemas de gestión empresarial", "SGE",c1);
+			Asignatura sge = new Asignatura("Sistemas de gestión empresarial", "SGE",c2);
 			Asignatura di = new Asignatura("Diseño de interfaces", "DI", c2);
-			di.getHorarios().add(Pair.of("Lunes","1"));
+			Asignatura bbdd =  new Asignatura("Base de datos","BBDD",c1);
+			/*di.getHorarios().add(Pair.of("Lunes","1"));
 			di.getHorarios().add(Pair.of("Martes","5"));
-
 			sge.getHorarios().add(Pair.of("Lunes","1"));
 			sge.getHorarios().add(Pair.of("Martes","2"));
-			sge.getHorarios().add(Pair.of("Jueves","1"));
+			sge.getHorarios().add(Pair.of("Jueves","1"));*/
+
 			//envioEmail.sendEmail(alumno, "Hola caracola", "Esto es una prueba chata");
 			servicioAsignatura.save(sge);
 			servicioAsignatura.save(di);
+			servicioAsignatura.save(bbdd);
+
+			// Horarios
+			Horario horario1 = new Horario(1,1);
+			Horario horario2 = new Horario(2,2);
+			Horario horario3 = new Horario(1,2);
+			Horario horario4 = new Horario(4,1);
+			Horario horario5 = new Horario(5,5);
+			Horario horario6 = new Horario(5,6);
+
+			horario1.setAsignatura(sge);
+			horario2.setAsignatura(sge);
+			horario3.setAsignatura(di);
+			horario4.setAsignatura(di);
+			horario5.setAsignatura(bbdd);
+			horario6.setAsignatura(bbdd);
+
+			/*sge.addHorario(horario1);
+			sge.addHorario(horario2);
+			di.addHorario(horario3);
+			di.addHorario(horario4);
+			bbdd.addHorario(horario5);
+*/
+			servicioHorario.save(horario1);
+			servicioHorario.save(horario2);
+			servicioHorario.save(horario3);
+			servicioHorario.save(horario4);
+			servicioHorario.save(horario5);
+			servicioHorario.save(horario6);
+
 
 
 			// instancia un usuario de cada
@@ -80,7 +112,7 @@ public class PlataformaEscolarApplication {
 			Profesor profesor = new Profesor("Luismi", "Lopez","lmlopez",passwordEncoder.encode("1234"), null,true,false);
 			Alumno alumno = new Alumno ("María", "García", "m@gmail.com",passwordEncoder.encode("1234"),null,true);
 
-			alumno.setCurso(c1);
+			alumno.setCurso(c2);
 			servicioProfesor.save(jefeEstudios);
 			servicioProfesor.save(profesor);
 			servicioAlumno.save(alumno);

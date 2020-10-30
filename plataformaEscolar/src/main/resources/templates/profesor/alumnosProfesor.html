@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
+
+    <title>Alumnos</title>
+
+</head>
+<body>
+
+<header th:replace="~{fragmentos/headerProfesor::headerProfesor}"></header>
+
+<main class="container-fluid mt-2">
+
+        <div class="tab-pane" role="tabpanel">
+
+                <div class="bg-light p-4 rounded">
+                    <table id="tablaTitulos table" class="table table-hover text-center" summary="Alumnos">
+                      <caption class="mb-3 titulo">Alumnos</caption>
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="pl-5" >ID</th>
+                              <th class="" >Nombre</th>
+                              <th class="pr-5">Apellidos</th>
+                              <th class="">Email</th>
+                              <th class="">Curso</th>
+                              <th class="">Activado</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr th:each="alumno : ${listaAlumnos}">
+                              <th:block th:if="${alumno.email} ? !null : null">
+                                  <td th:text="${alumno.id}" class="pl-5" >1</td>
+                                  <td th:text="${alumno.nombre}">Pepe</td>
+                                  <td th:text="${alumno.apellidos}" class="pr-5">Rodríguez</td>
+                                  <td th:text="${alumno.email}" class="">@gmail.com</td>
+                                  <td th:text="${alumno.curso.abreviatura}" class="">Curso</td>
+                                  <td th:text="${alumno.activado}" class="pr-5">True</td>
+                              </th:block>
+                          </tr>
+                      </tbody>
+                  </table>
+                    
+                </div>
+
+        </div>
+
+
+
+    
+</main>
+
+
+</body>
+
+</html>

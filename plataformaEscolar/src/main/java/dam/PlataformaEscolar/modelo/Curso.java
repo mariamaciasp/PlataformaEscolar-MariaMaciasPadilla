@@ -15,7 +15,6 @@ public class Curso {
     private long id;
 
     private String nombre;
-    // ya si eso ampliar la asociación para poner profesor con el curso
     private String abreviatura;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -28,7 +27,7 @@ public class Curso {
     }
 
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude // si pongo este cascade aquí no se me borran luego los alumnos!
+    @ToString.Exclude
     @OneToMany(mappedBy = "curso", /*cascade = CascadeType.ALL, */orphanRemoval = true, fetch = FetchType.EAGER
             , cascade={CascadeType.REMOVE})
     private List <Alumno> alumnos = new ArrayList<>();

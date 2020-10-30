@@ -1,7 +1,7 @@
 package dam.PlataformaEscolar.modelo;
 
 import lombok.*;
-import org.springframework.data.util.Pair;
+//import org.springframework.data.util.Pair;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,12 +18,17 @@ public class Asignatura {
     private String nombre;
     private String abreviatura;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy = "asignatura", fetch = FetchType.EAGER, orphanRemoval = true, cascade={CascadeType.REMOVE})
+    private List<Horario> horarios = new ArrayList<>();
+
     //@CollectionTable(name="asignatura_horario")
     //@MapKeyJoinColumn(name="asignatura_id")
     //@Column(name="horario")
     //private List <Pair<String,Integer>> horarios = new ArrayList<Pair<String,Integer>>();
-    @ElementCollection // elemento de una colección, el par día hora
-    private List <Pair<String,String>> horarios  = new ArrayList<>();
+    /*@ElementCollection // elemento de una colección, el par día hora
+    private List <Pair<String,String>> horarios  = new ArrayList<>();*/
 
 
     // sería un par día, hora y convertirlo con JPA CONVERTER
@@ -57,11 +62,25 @@ public class Asignatura {
         this.curso = curso;
     }
 
+
+    // helpers de horario
+    public void addHorario(Horario h) {
+        this.horarios.add(h);
+        h.setAsignatura(this);
+    }
+
+    public void removeHorario(Horario h) {
+        this.horarios.remove(h);
+        h.setAsignatura(null);
+    }
+
+
+    /*
     public Asignatura(String nombre, String abreviatura, List<Pair<String, String>> horarios, Curso curso) {
         this.nombre = nombre;
         this.abreviatura = abreviatura;
         this.horarios = horarios;
         this.curso = curso;
-    }
+    }*/
 
 }

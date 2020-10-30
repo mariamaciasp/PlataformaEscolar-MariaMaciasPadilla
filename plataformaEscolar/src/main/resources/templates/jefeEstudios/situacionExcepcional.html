@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
+
+<title>Situacion excepcional</title>
+
+</head>
+<body>
+
+<header th:replace="~{fragmentos/headerJefeEstudios::headerJefeEstudios}"></header>
+
+<main class="container-fluid mt-2">
+
+
+    <div class="tab-pane" role="tabpanel">
+
+        <div class="bg-light p-4 rounded mt-5">
+            <table id="tablaTitulos table" class="table table-hover text-center" summary="Alumnos">
+                <caption class="mb-3 titulo">Situaciones excepcionales <a><span></span></a> </caption>
+                <thead class="thead-light">
+                <tr>
+                    <th class="" >Alumno</th>
+                    <th class="">Asignatura</th>
+                    <th class="">Tipo</th>
+                    <th class="">Fecha de solicitud</th>
+                    <th class="">Fecha de resolución</th>
+                    <th class="" >Archivo</th>
+                    <th class="" >Estado</th>
+                    <th class="">Operaciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="situacionExcepcional : ${listaSituacionesExcepcionales}">
+                    <td th:text="${situacionExcepcional.alumno.nombre + ' ' + situacionExcepcional.alumno.apellidos} ">Pepe</td>
+                    <td th:text="${situacionExcepcional.asignatura.nombre}" class="">BBDD</td>
+                    <td th:text="${situacionExcepcional.tipo}" class="">Convalidación</td>
+                    <td th:text="${situacionExcepcional.fechaSolicitud}" class="">10/10/10</td>
+                    <td th:text="${situacionExcepcional.fechaResolucion}" class="">12/10/10</td>
+                    <td class="">
+                        <a th:href="@{/jefeEstudios/situacionExcepcional/download/{name}(name=${situacionExcepcional.adjunto})}">
+                            <span class="fas fa-download iconos"></span>
+                        </a>
+                    </td>
+                    <td th:text="${situacionExcepcional.estado}" class="">Pendiente</td>
+                    <td class="pt-1">
+                        <a class="btn"
+                           th:href="@{/jefeEstudios/editSituacionExcepcional/{idAlumno}/{idAsignatura}
+                                    (idAlumno=${situacionExcepcional.alumno.id}, idAsignatura=${situacionExcepcional.asignatura.id})}">
+                            <span class="far fa-edit fa-lg iconos"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

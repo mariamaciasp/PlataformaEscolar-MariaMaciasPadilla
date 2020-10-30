@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
+
+    <title>Asignaturas</title>
+
+</head>
+<body>
+
+<header th:replace="~{fragmentos/headerProfesor::headerProfesor}"></header>
+
+<main class="container-fluid mt-2">
+        <div class="tab-pane" role="tabpanel">
+                <div class="bg-light p-4 rounded">
+                    <table id="tablaTitulos table" class="table table-hover text-center" summary="Asignaturas">
+                      <caption class="mb-3 titulo">Asignaturas</caption>
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="pl-5" >ID</th>
+                              <th class="" >Nombre</th>
+                              <th class="">Abreviatura</th>
+                              <th class="pr-5">Curso</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr th:each="asignatura : ${listaAsignaturas}">
+                              <td th:text="${asignatura.id}"  class="pl-5" >1</td>
+                              <td th:text="${asignatura.nombre}" >Base de datos</td>
+                              <td th:text="${asignatura.abreviatura}" class="pr-5">1 DAM</td>
+                              <td th:text="${asignatura.curso.abreviatura}" class="pr-5">1 DAM</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                    
+                </div>
+  
+          </div>
+    
+
+
+
+    
+</main>
+
+
+</body>
+</html>

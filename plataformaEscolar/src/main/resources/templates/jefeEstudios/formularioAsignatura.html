@@ -1,91 +1,13 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
 
-<meta charset="utf-8">
-<title>Formulario Asignatura</title>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="/css/CSS.css">
-<link rel="stylesheet" type="text/css" href="../../static/css/CSS.css">
-
-<script type="text/javascript" src="/js/formularioUsuario.js"></script>
-<script type="text/javascript" src="../../static/js/formularioUsuario.js"></script>
-
-
+    <title>Formulario Asignatura</title>
 
 </head>
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg" >
-        <a class="navbar-brand logo text-white" th:href="@{/jefeEstudios/inicioJE}">TrianaSchool</a>
-
-        <div class="collapse navbar-collapse text-white " id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ml-2">
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Títulos</a>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Cursos</a>
-                </li>
-                <li class="nav-item dropdown mr-2">
-                    <a class="error nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuarios</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alumnos</a>
-                        <a class="dropdown-item" href="#">Profesores</a>
-                        <a class="dropdown-item" href="#">Jefe de estudios</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown mr-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Altas</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alumnos</a>
-                        <a class="dropdown-item" href="#">Profesores</a>
-                        <a class="dropdown-item" href="#">Jefe de estudios</a>
-                    </div>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Solicitudes</a>
-                </li>
-
-            </ul>
-
-
-
-
-            <form class="form-inline my-2 my-lg-0">
-
-                <input class="buscar form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button type="submit" id="buscar" class="btn">
-                    <span class="fas fa-search fa-lg"></span>
-                </button>
-
-                <a th:href="@{/registroSesion}" class="btn">
-                    <span class="far fa-user fa-lg"></span>
-                </a>
-
-                <a th:href="@{/carrito}" class="btn">
-                    <span class="fas fa-shopping-bag mr-3 fa-lg"></span>
-                </a>
-
-            </form>
-
-
-
-        </div>
-    </nav>
-
-</header>
+<header th:replace="~{fragmentos/headerJefeEstudios::headerJefeEstudios}"></header>
 
 <main class="container-fluid">
 
@@ -93,7 +15,7 @@
         <div class="col-3"></div>
         <form method="POST" action="#" th:action="${asignaturaForm.id != 0} ? @{/jefeEstudios/editAsignatura/submit}:
               @{/jefeEstudios/nuevaAsignatura/submit}" th:object="${asignaturaForm}" id="formulario"
-              class="col-6 bg-light mb-5 rounded">
+              class="col-6 bg-light mb-5 rounded posicionTabla">
 
             <fieldset class="mt-2 ml-1">
                 <legend class="mb-3 text-center pt-2" th:href="${asignaturaForm.id != 0} ? 'Editar Asignatura' :
@@ -121,6 +43,50 @@
                         <option th:each="curso : ${listaCursos}" th:value="${curso.id}" th:text="${curso.nombre}">Curso</option>
                     </select>
                 </div>
+               <!-- <div class="input-group mt-3 mb-4" th:each="horario : ${listaHorarios}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" th:field="*{horarios.dia}" id="lunes" name="lunes"
+                               class="custom-control-input" th:value="1" >
+                        <label class="custom-control-label" for="lunes">Lunes</label>
+                    </div>
+                </div>-->
+
+
+<!--
+                <div class="input-group mb-5">
+                    <div class="input-group-prepend ml-2">
+                        <label for="horarioDia" class="input-group-text">Dia</label>
+                    </div>
+                    <select id="horarioDia" th:field="*{horarios.dia}"  class="form-control">
+                            <option value="-1">---</option> -->
+                        <!--  <option th:each="horario : ${listaHorarios}" th:value="${horario.dia}" th:text="${horario.dia}">
+-->
+                <!--  <option th:value="0" th:text="Lunes">Lunes</option>
+                  <option th:value="1" th:text="Martes">Martes</option>
+                  <option th:value="2" th:text="Miércoles">Miércoles</option>
+                  <option th:value="3" th:text="Jueves">Jueves</option>
+                  <option th:value="4" th:text="Viernes">Viernes</option>
+                </option>-->
+                <!--<option th:each="horario : ${listaHorarios}" th:value="${horario.id}" th:text="${horario.dia}">Día</option>
+            --><!--</select>
+
+                    <div class="input-group-prepend ml-2">
+                        <label for="horarioHora" class="input-group-text">Hora</label>
+                    </div>
+                    <select id="horarioHora" th:field="*{horarios}"  class="form-control">
+                        <div th:each="horario : ${listaHorarios}" th:value="${horario.hora}">
+                            <option value="-1">---</option>
+                            <option th:value="0" th:text="1">1</option>
+                            <option th:value="1" th:text="2">2</option>
+                            <option th:value="2" th:text="3">3</option>
+                            <option th:value="3" th:text="4">4</option>
+                            <option th:value="4" th:text="5">5</option>
+                        </div>
+                    </select>
+
+
+                </div>-->
+
                 <!--<div class="input-group mb-5">  FALLO HORARIOS (lo raro sería que funcionara)
 
                 https://www.baeldung.com/thymeleaf-select-option Mirar para th:value etc

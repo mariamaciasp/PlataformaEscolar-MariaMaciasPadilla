@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
+
+    <title>Horario</title>
+
+</head>
+<body>
+
+<header th:replace="~{fragmentos/headerAlumno::headerAlumno}"></header>
+
+<main class="container-fluid mt-2">
+
+    <div class="tab-pane" role="tabpanel">
+
+        <div class="bg-light p-4 rounded">
+            <table id="calendarioAsignatura" class="table table-hover text-center" summary="Caledario curso">
+                <caption class="mb-3 titulo">Calendario
+
+                </caption>
+                <thead class="thead-light">
+                <tr>
+                    <th class="lunes" >Lunes</th>
+                    <th class="martes" >Martes</th>
+                    <th class="miercoles">Miércoles</th>
+                    <th class="jueves">Jueves</th>
+                    <th class="viernes">Viernes</th>
+                </tr>
+                </thead>
+                <tbody th:each="horario : ${horarios}">
+
+                    <tr>
+                        <th:block th:each="curso : ${horario}">
+                            <td th:text="${curso.asignatura.nombre}" class="pl-5" >1</td>
+                        </th:block>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>
