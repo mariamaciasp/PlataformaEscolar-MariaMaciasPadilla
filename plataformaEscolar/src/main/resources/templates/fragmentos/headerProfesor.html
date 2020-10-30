@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Fragmento header profesor</title>
+</head>
+<body>
+
+
+<header th:fragment="headerProfesor">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand logo text-white" th:href="@{/profesor/}">TrianaSchool</a>
+
+        <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ml-2">
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white" th:href="@{/profesor/titulos}">Títulos</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white" th:href="@{/profesor/cursos}">Cursos</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white" th:href="@{/profesor/asignaturas}">Asignaturas</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white" th:href="@{/profesor/alumnos}">Alumnos</a>
+                </li>
+
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <table class="pr-5">
+                    <tr th:each="profesor : ${datosProfesor}">
+                        <td th:text="${profesor.nombre}"  class="" >María</td>
+                        <td th:text="${profesor.apellidos}" >Macías</td>
+                    </tr>
+
+                </table>
+
+                <a th:href="@{/logout}" class="btn text-white pl-4">
+                    <span class="fas fa-sign-out-alt mr-3 fa-lg"></span>
+                </a>
+
+            </form>
+
+        </div>
+    </nav>
+
+</header>
+
+
+</body>
+</html>

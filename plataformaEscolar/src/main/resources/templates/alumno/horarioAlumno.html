@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<header th:replace="~{fragmentos/headerJefeEstudios::headerJefeEstudios}"></header>
+<header th:replace="~{fragmentos/headerAlumno::headerAlumno}"></header>
 
 <main class="container-fluid mt-2">
 
@@ -15,15 +15,17 @@
 
         <div class="bg-light p-4 rounded">
             <table id="calendarioAsignatura" class="table table-hover text-center" summary="Caledario curso">
-                <caption class="mb-3 titulo">Horario </caption>
+                <caption class="mb-3 titulo">Calendario
+
+                </caption>
                 <thead class="thead-light">
-                    <tr>
-                        <th class="lunes" >Lunes</th>
-                        <th class="martes" >Martes</th>
-                        <th class="miercoles">Miércoles</th>
-                        <th class="jueves">Jueves</th>
-                        <th class="viernes">Viernes</th>
-                    </tr>
+                <tr>
+                    <th class="lunes" >Lunes</th>
+                    <th class="martes" >Martes</th>
+                    <th class="miercoles">Miércoles</th>
+                    <th class="jueves">Jueves</th>
+                    <th class="viernes">Viernes</th>
+                </tr>
                 </thead>
                 <tbody th:each="horario : ${horarios}">
 
@@ -39,10 +41,6 @@
         </div>
 
     </div>
-
-
-
-
 
 </main>
 

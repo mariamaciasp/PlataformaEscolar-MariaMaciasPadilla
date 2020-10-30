@@ -7,59 +7,7 @@
 </head>
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand logo text-white" th:href="@{/index}">TrianaSchool</a>
-
-        <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ml-2">
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Curso</a>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Asignaturas</a>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Horario</a>
-                </li>
-                <li class="nav-item dropdown mr-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown"
-                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Solicitudes</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Ampliación de matrícula</a>
-                        <a class="dropdown-item" href="#">Convalidar asignatura</a>
-                    </div>
-                </li>
-            </ul>
-
-
-
-
-            <form class="form-inline my-2 my-lg-0">
-
-                <input class="buscar form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button type="submit" id="buscar" class="btn">
-                    <span class="fas fa-search fa-lg"></span>
-                </button>
-
-                <a th:href="@{/registroSesion}" class="btn">
-                    <span class="far fa-user fa-lg"></span>
-                </a>
-
-                <a th:href="@{/carrito}" class="btn">
-                    <span class="fas fa-shopping-bag mr-3 fa-lg"></span>
-                </a>
-
-            </form>
-
-
-
-        </div>
-    </nav>
-
-</header>
-
+<header th:replace="~{fragmentos/headerAlumno::headerAlumno}"></header>
 
 <main class="container-fluid">
     <div class="row mt-5">
@@ -71,7 +19,7 @@
 
             <fieldset class="mt-2 ml-1">
                 <legend class="mb-5 text-center pt-2">Solicitud de exención</legend>
-                <div class="input-group mb-5">
+                <div class="input-group mb-4">
                     <div class="input-group-prepend ml-2">
                         <label for="idAsignatura" class="input-group-text">Asignatura</label>
                     </div>
@@ -82,7 +30,7 @@
                     </select>
                 </div>
 
-                <div class="input-group mb-3 w-75 ml-5">
+                <div class="input-group mb-5">
                     <div class="input-group-prepend ml-2 mt-3">
                         <label for="file" class="input-group-text">Adjuntar archivo</label>
                     </div>
@@ -90,12 +38,9 @@
                            placeholder="Adjuntar archivo">
                 </div>
 
-
-
-
-
                 <button type="reset" class="btn botonCancelar mb-4 mt-3">Limpiar</button>
                 <button type="submit" id="enviar" class="btn mb-4 float-right botonEnvio  mt-3">Enviar</button>
+
             </fieldset>
         </form>
         <div class="col-3"></div>

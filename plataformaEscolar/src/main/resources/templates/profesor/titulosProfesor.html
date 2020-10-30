@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/head :: head(~{::title})">
+
+    <title>Títulos Profesor</title>
+
+</head>
+<body>
+
+<header th:replace="~{fragmentos/headerProfesor::headerProfesor}"></header>
+
+<main class="container-fluid mt-2">
+
+        <div class="tab-pane" role="tabpanel">
+
+                <div class="bg-light p-4 rounded">
+                    <table id="tablaTitulos table" class="table table-hover text-center" summary="Titulos">
+                      <caption class="mb-3 titulo">Títulos</caption>
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="pl-5" >ID</th>
+                              <th class="" >Nombre</th>
+                              <th class="pr-5">Abreviatura</th>
+                              <th class="pr-5" >Operaciones</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr th:each="titulo : ${listaTitulos}">
+                              <td th:text="${titulo.id}"></td>
+                              <td th:text="${titulo.nombre}" >Desarrollo de aplicaciones multiplataforma</td>
+                              <td th:text="${titulo.abreviatura}" class="pr-5">DAM</td>
+                              <td class="pr-5">
+                                    <a class="btn iconos"
+                                       th:href="@{/profesor/titulos/mostrarCursos/{id}(id=${titulo.id})}">
+                                        <span class="fas fa-sign-in-alt fa-lg"></span>
+                                    </a>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                    
+                </div>
+  
+          </div>
+
+    
+</main>
+
+
+</body>
+
+</html>

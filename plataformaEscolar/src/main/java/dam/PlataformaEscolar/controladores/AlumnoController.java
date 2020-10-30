@@ -1,11 +1,9 @@
 package dam.PlataformaEscolar.controladores;
 
-import dam.PlataformaEscolar.modelo.Alumno;
-import dam.PlataformaEscolar.modelo.Asignatura;
-import dam.PlataformaEscolar.modelo.FormularioSituacionExcepcional;
-import dam.PlataformaEscolar.modelo.SituacionExcepcional;
+import dam.PlataformaEscolar.modelo.*;
 import dam.PlataformaEscolar.service.AlumnoServicio;
 import dam.PlataformaEscolar.service.AsignaturaServicio;
+import dam.PlataformaEscolar.service.HorarioService;
 import dam.PlataformaEscolar.service.SituacionExcepcionalService;
 import dam.PlataformaEscolar.upload.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +31,33 @@ public class AlumnoController {
     private StorageService storageService;
     @Autowired
     private AlumnoServicio servicioAlumno;
+    @Autowired
+    private HorarioService servicioHorario;
 
 
     @GetMapping({"/", "/inicio"})
-    public String inicioAlumno (){
+    public String inicioAlumno (@AuthenticationPrincipal Alumno alumno, Model model){
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
         return "alumno/inicioAlumno";
-
     }
+
+    @GetMapping("/curso")
+    public String cursosAlumno (@AuthenticationPrincipal Alumno alumno, Model model) {
+        model.addAttribute("listaCursos", servicioAlumno.findById(alumno.getId()).getCurso());
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
+        return "alumno/cursoAlumno";
+    }
+
+    @GetMapping("/horario")
+    public String cursoHorario (@AuthenticationPrincipal Alumno alumno, Model model){
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
+        model.addAttribute("horarios", servicioHorario.ordenarHorario(
+                servicioHorario.obtenerHorario(
+                        servicioAlumno.findById(alumno.getId()).getCurso())));
+               // servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(servicioCurso.findById(id))));
+        return "alumno/horarioAlumno";
+    }
+
     //SituacionExcepcional situacion;
     @GetMapping("/asignaturas")
     public String listaAsignaturasAlumno (@AuthenticationPrincipal Alumno alumno, Model model) {
@@ -52,7 +70,7 @@ public class AlumnoController {
             Asignatura asignatura = situacion.getAsignatura();
             alumno.getCurso().setAsignaturas(null);
         }*/
-
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
         model.addAttribute("listaAsignaturas", alumno.getCurso().getAsignaturas());
         return "alumno/asignaturasAlumno";
     }
@@ -63,7 +81,7 @@ public class AlumnoController {
     public String convalidadAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
         model.addAttribute("convalidacionForm", new FormularioSituacionExcepcional());
         model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
-
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
         return "alumno/formularioConvalidacion";
     }
 
@@ -102,6 +120,7 @@ public class AlumnoController {
     public String exencionAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
         model.addAttribute("exencionForm", new FormularioSituacionExcepcional());
         model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
+        model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
 
         return "alumno/formularioExencion";
     }

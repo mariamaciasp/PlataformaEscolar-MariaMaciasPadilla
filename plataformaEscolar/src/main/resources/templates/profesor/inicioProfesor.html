@@ -7,63 +7,13 @@
 </head>
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand logo text-white" th:href="@{/index}">TrianaSchool</a>
-
-        <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ml-2">
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Títulos</a>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Cursos</a>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Horarios</a>
-                </li>
-                <li class="nav-item active mr-2">
-                    <a class="nav-link text-white " href="#">Alumnos</a>
-                </li>
-
-            </ul>
-
-
-
-
-            <form class="form-inline my-2 my-lg-0">
-
-                <input class="buscar form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button type="submit" id="buscar" class="btn">
-                    <span class="fas fa-search fa-lg"></span>
-                </button>
-
-                <a th:href="@{/registroSesion}" class="btn">
-                    <span class="far fa-user fa-lg"></span>
-                </a>
-
-                <a th:href="@{/carrito}" class="btn">
-                    <span class="fas fa-shopping-bag mr-3 fa-lg"></span>
-                </a>
-
-            </form>
-
-
-
-        </div>
-    </nav>
-
-</header>
-
+<header th:replace="~{fragmentos/headerProfesor::headerProfesor}"></header>
 
 <main class="InicioSesion container-fluid">
     <div class="row mt-5 ">
         <div class="col-sm-12"></div>
-        <!--<img src="../static/img/logoColegio.png">-->
         <img src="../img/logoColegio.png">
-
     </div>
-
 </main>
 
 

@@ -36,46 +36,47 @@
                       <tbody>
                           <tr th:each="alumno : ${listaAlumnos}">
                               <th:block th:if="${alumno.email} ? !null : null">
-                              <td th:text="${alumno.id}" class="pl-5" >1</td>
-                              <td th:text="${alumno.nombre}">Pepe</td>
-                              <td th:text="${alumno.apellidos}" class="pr-5">Rodríguez</td>
-                              <td th:text="${alumno.email}" class="">@gmail.com</td>
-                              <td th:text="${alumno.curso.abreviatura}" class="">Curso</td>
-                              <td th:text="${alumno.activado}" class="pr-5">True</td>
-                              <td class="pr-5">
-                                    <a class="btn" th:href="@{/jefeEstudios/editAlumno/{id}(id=${alumno.id})}">
-                                        <span class="far fa-edit fa-lg iconos"></span>
-                                    </a>
-                                    <a class="btn" data-toggle="modal" data-target="#delete-modal"
-                                       th:attr="data-target='#delete-modal'+${alumno.id}">
-                                        <!-- th:data-id="${alumno.id}" CON ESTO NO PILLA AL SELECCIONADO!!!!-->
-                                        <span class="fas fa-trash-alt fa-lg iconos"></span>
-                                    </a>
-<!--
-                                    <a class="btn" th:href="@{/jefeEstudios/alumnos/mostrarCurso/{id}(id=${alumno.curso.id})}">
-                                        <span class="fas fa-sign-in-alt fa-lg iconos"></span>
-                                    </a>-->
-                                </td>
-                              <div class="modal delete-modal fade" id="delete-modal" tabindex="-1" role="dialog"
-                                   th:id="delete-modal+${alumno.id}">
-                                  <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                          <div class="modal-header">
-                                              <h4 class="modal-title">Eliminar alumno</h4>
-                                              <button type="button" class="close" data-dismiss="modal"
-                                                      aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                              </button>
+                                  <td th:text="${alumno.id}" class="pl-5" >1</td>
+                                  <td th:text="${alumno.nombre}">Pepe</td>
+                                  <td th:text="${alumno.apellidos}" class="pr-5">Rodríguez</td>
+                                  <td th:text="${alumno.email}" class="">@gmail.com</td>
+                                  <td th:text="${alumno.curso.abreviatura}" class="">Curso</td>
+                                  <td th:text="${alumno.activado}" class="pr-5">True</td>
+                                  <td class="pr-5">
+                                        <a class="btn" th:href="@{/jefeEstudios/editAlumno/{id}(id=${alumno.id})}">
+                                            <span class="far fa-edit fa-lg iconos"></span>
+                                        </a>
+                                        <a class="btn" data-toggle="modal" data-target="#delete-modal"
+                                           th:attr="data-target='#delete-modal'+${alumno.id}">
+                                            <!-- th:data-id="${alumno.id}" CON ESTO NO PILLA AL SELECCIONADO!!!!-->
+                                            <span class="fas fa-trash-alt fa-lg iconos"></span>
+                                        </a>
+    <!--
+                                        <a class="btn" th:href="@{/jefeEstudios/alumnos/mostrarCurso/{id}(id=${alumno.curso.id})}">
+                                            <span class="fas fa-sign-in-alt fa-lg iconos"></span>
+                                        </a>-->
+                                    </td>
+                                  <div class="modal delete-modal fade" id="delete-modal" tabindex="-1" role="dialog"
+                                       th:id="delete-modal+${alumno.id}">
+                                      <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <h4 class="modal-title">Eliminar alumno</h4>
+                                                  <button type="button" class="close" data-dismiss="modal"
+                                                          aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <p>¿Está usted seguro de eliminar este alumno?</p>
+                                                  <button type="button" class="btn botonCancelar" data-dismiss="modal">No</button>
+                                                  <a th:href="@{/jefeEstudios/eliminarAlumno/{id}(id=${alumno.id})}" class="btn botonEnvio ml-4">Sí</a>
+                                              </div>
                                           </div>
-                                          <div class="modal-body">
-                                              <p>¿Está usted seguro de eliminar este alumno?</p>
-                                              <button type="button" class="btn botonCancelar" data-dismiss="modal">No</button>
-                                              <a th:href="@{/jefeEstudios/eliminarAlumno/{id}(id=${alumno.id})}" class="btn botonEnvio ml-4">Sí</a>
-                                          </div>
-                                      </div>
 
+                                      </div>
                                   </div>
-                              </div></th:block>
+                              </th:block>
                           </tr>
                       </tbody>
                   </table>

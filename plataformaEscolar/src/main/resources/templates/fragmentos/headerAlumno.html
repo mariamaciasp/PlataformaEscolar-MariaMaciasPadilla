@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Fragmento header alumno</title>
+</head>
+<body>
+
+<header th:fragment="headerAlumno">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand logo text-white" th:href="@{/alumno/}">TrianaSchool</a>
+
+        <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ml-2">
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " th:href="@{/alumno/curso}">Curso</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " th:href="@{/alumno/asignaturas}">Asignaturas</a>
+                </li>
+                <li class="nav-item active mr-2">
+                    <a class="nav-link text-white " th:href="@{/alumno/horario}">Horario</a>
+                </li>
+                <li class="nav-item dropdown mr-2">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  id="navbarDropdown"
+                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Solicitudes</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/alumno/convalidacion}">Convalidar asignatura</a>
+                        <a class="dropdown-item" th:href="@{/alumno/exencion}">Exención de asignatura</a>
+                        <a class="dropdown-item" href="#">Ampliación de matrícula</a>
+                    </div>
+                </li>
+            </ul>
+
+
+            <form class="form-inline my-2 my-lg-0">
+                <table class="pr-5">
+                    <tr th:each="alumno : ${datosAlumno}">
+                        <td th:text="${alumno.nombre}"  class="" >María</td>
+                        <td th:text="${alumno.apellidos}" >Macías</td>
+                    </tr>
+
+                </table>
+
+                <a th:href="@{/logout}" class="btn text-white pl-4">
+                    <span class="fas fa-sign-out-alt mr-3 fa-lg"></span>
+                </a>
+
+            </form>
+
+
+
+        </div>
+    </nav>
+
+</header>
+
+</body>
+</html>
