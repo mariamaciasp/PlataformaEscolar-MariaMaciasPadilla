@@ -1,5 +1,7 @@
 package dam.PlataformaEscolar.controladores;
 
+import dam.PlataformaEscolar.modelo.Alumno;
+import dam.PlataformaEscolar.modelo.Curso;
 import dam.PlataformaEscolar.modelo.Profesor;
 import dam.PlataformaEscolar.service.*;
 import org.dom4j.rule.Mode;
@@ -10,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/profesor")
@@ -46,8 +51,9 @@ public class ControllerProfesor {
     @GetMapping("titulos/mostrarCursos/{id}")
     public String titulosCursos (@AuthenticationPrincipal Profesor profesor, @PathVariable long id,
                                  Model model) {
+        Set<Curso> cursos = new HashSet<>(servicioTitulo.findById(id).getCursos());
         model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
-        model.addAttribute("listaCursos", servicioTitulo.findById(id).getCursos());
+        model.addAttribute("listaCursos", cursos);
         return "/profesor/cursosProfesor";
     }
 
@@ -80,14 +86,15 @@ public class ControllerProfesor {
     @GetMapping("/cursos/mostrarAlumnos/{id}")
     public String mostrarAlumnosCurso (@AuthenticationPrincipal Profesor profesor, @PathVariable long id,
                                        Model model) {
+
+        Set<Alumno> alumnos = new HashSet<>(servicioCurso.findById(id).getAlumnos());
+
         model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         model.addAttribute("listaAlumnos", servicioCurso.findById(id).getAlumnos());
 
         return "/profesor/alumnosProfesor";
 
     }
-
-
 
     //
 

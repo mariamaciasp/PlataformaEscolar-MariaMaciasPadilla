@@ -1,10 +1,7 @@
 package dam.PlataformaEscolar.controladores;
 
 import dam.PlataformaEscolar.modelo.*;
-import dam.PlataformaEscolar.service.AlumnoServicio;
-import dam.PlataformaEscolar.service.AsignaturaServicio;
-import dam.PlataformaEscolar.service.HorarioService;
-import dam.PlataformaEscolar.service.SituacionExcepcionalService;
+import dam.PlataformaEscolar.service.*;
 import dam.PlataformaEscolar.upload.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -17,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/alumno")
@@ -33,6 +32,8 @@ public class AlumnoController {
     private AlumnoServicio servicioAlumno;
     @Autowired
     private HorarioService servicioHorario;
+    @Autowired
+    private CursoServicio servicioCurso;
 
 
     @GetMapping({"/", "/inicio"})
@@ -48,12 +49,12 @@ public class AlumnoController {
         return "alumno/cursoAlumno";
     }
 
+
     @GetMapping("/horario")
     public String cursoHorario (@AuthenticationPrincipal Alumno alumno, Model model){
         model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
-        model.addAttribute("horarios", servicioHorario.ordenarHorario(
-                servicioHorario.obtenerHorario(
-                        servicioAlumno.findById(alumno.getId()).getCurso())));
+        model.addAttribute("horarios",
+                servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(alumno.getCurso())));
                // servicioHorario.ordenarHorario(servicioHorario.obtenerHorario(servicioCurso.findById(id))));
         return "alumno/horarioAlumno";
     }
@@ -79,8 +80,9 @@ public class AlumnoController {
 
     @GetMapping("/convalidacion")
     public String convalidadAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
+        Set<Asignatura> asignaturas = new HashSet<>(servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
         model.addAttribute("convalidacionForm", new FormularioSituacionExcepcional());
-        model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
+        model.addAttribute("listaAsignaturas", asignaturas);
         model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
         return "alumno/formularioConvalidacion";
     }
@@ -118,8 +120,9 @@ public class AlumnoController {
 
     @GetMapping("/exencion")
     public String exencionAsignatura (Model model, @AuthenticationPrincipal Alumno alumno) {
+        Set<Asignatura> asignaturas = new HashSet<>(servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
         model.addAttribute("exencionForm", new FormularioSituacionExcepcional());
-        model.addAttribute("listaAsignaturas", servicioAlumno.findById(alumno.getId()).getCurso().getAsignaturas());
+        model.addAttribute("listaAsignaturas", asignaturas);
         model.addAttribute("datosAlumno", servicioAlumno.findById(alumno.getId()));
 
         return "alumno/formularioExencion";

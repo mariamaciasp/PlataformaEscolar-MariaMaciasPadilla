@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/jefeEstudios")
@@ -216,7 +218,8 @@ public class JefeEstudiosController {
 
     @GetMapping("/titulos/mostrarCursos/{id}")
     public String mostrarCursosTitulos (@AuthenticationPrincipal Profesor profesor, @PathVariable long id, Model model) {
-        model.addAttribute("listaCursos", servicioTitulo.findById(id).getCursos());
+        Set<Curso> cursos = new HashSet<>(servicioTitulo.findById(id).getCursos());
+        model.addAttribute("listaCursos", cursos);
         model.addAttribute("datosProfesor", servicioProfesor.findById(profesor.getId()));
         return "/jefeEstudios/cursos";
     }
